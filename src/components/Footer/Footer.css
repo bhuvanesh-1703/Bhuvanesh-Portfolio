@@ -1,0 +1,18 @@
+.site-footer {
+  padding: 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.8);
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-heart {
+  color: #38bdf8;
+}
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-0 { margin-bottom: 0; }

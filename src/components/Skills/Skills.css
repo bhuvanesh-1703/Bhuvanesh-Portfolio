@@ -1,0 +1,59 @@
+.section--alt {
+  background: 
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56, 189, 248, 0.04) 0%, transparent 60%),
+    rgba(15, 23, 42, 0.5);
+}
+
+.skills__category-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+/* ── Bootstrap Grid Emulation ── */
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 16px;
+  text-align: center;
+  cursor: default;
+}
+
+.skill-card__icon {
+  font-size: 2.2rem;
+  color: #38bdf8;
+  transition: all 0.35s;
+}
+
+.skill-card:hover .skill-card__icon {
+  transform: scale(1.2) translateY(-4px);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.35));
+}
+
+.skill-card__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.me-2 {
+  margin-right: 0.5rem;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+@media (max-width: 576px) {
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

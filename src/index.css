@@ -1,0 +1,38 @@
+/* ── Global Reset & Base ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0f172a;
+  color: #ffffff;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+::selection {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 99px; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color .35s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ── Bootstrap Icon CDN loaded in index.html ── */
