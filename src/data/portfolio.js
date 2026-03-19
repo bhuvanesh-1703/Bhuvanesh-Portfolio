@@ -106,7 +106,7 @@ export const portfolioData = {
         'Farmers can add & manage products',
         'Customers view nearby products',
         'Direct farmer-to-customer supply',
-        'Location-based product viewing'
+        'When a user registers or places an order, an email notification will be sent to the user using Nodemailer.'
       ],
       tech: ['React', 'Node.js', 'Express', 'SQl'],
       github: '#',
