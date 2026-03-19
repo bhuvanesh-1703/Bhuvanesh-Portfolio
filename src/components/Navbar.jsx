@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import './Navbar.css';
+import { portfolioData } from '../data/portfolio';
+import '../css/Navbar.css';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -11,18 +12,22 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = (e, targetId) => {
-    e.preventDefault();
-    const el = document.querySelector(targetId);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const handleLinkClick = (e, href) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     setMenuOpen(false);
   };
 
   const links = [
     { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
+    { href: '#education', label: 'Education' },
     { href: '#skills', label: 'Skills' },
     { href: '#projects', label: 'Projects' },
+    { href: portfolioData.hero.resumePath, label: 'Resume', download: true },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -38,7 +43,12 @@ function Navbar() {
         <ul className={`navbar__menu ${menuOpen ? 'navbar__menu--open' : ''}`}>
           {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="navbar__link" onClick={(e) => handleLinkClick(e, link.href)}>
+              <a 
+                href={link.href} 
+                className="navbar__link" 
+                onClick={(e) => handleLinkClick(e, link.href)}
+                download={link.download}
+              >
                 {link.label}
               </a>
             </li>

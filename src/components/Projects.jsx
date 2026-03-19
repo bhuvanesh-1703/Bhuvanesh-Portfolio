@@ -1,36 +1,8 @@
-import './Projects.css';
+import { portfolioData } from '../data/portfolio';
+import '../css/Projects.css';
 
 function Projects() {
-  const projects = [
-    {
-      title: 'E-Commerce Web Application',
-      icon: 'bi-cart4',
-      desc: 'A full-featured online shopping platform with complete user authentication, product catalog, shopping cart, and order management system.',
-      features: [
-        'Product listing & search',
-        'Add to cart & checkout',
-        'User authentication & authorization',
-        'Order management dashboard'
-      ],
-      tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-      github: '#',
-      live: '#'
-    },
-    {
-      title: 'Farmer Multi-Vendor Platform',
-      icon: 'bi-shop',
-      desc: 'A platform connecting farmers directly with customers, enabling location-based product discovery and eliminating middlemen from the supply chain.',
-      features: [
-        'Farmers can add & manage products',
-        'Customers view nearby products',
-        'Direct farmer-to-customer supply',
-        'Location-based product viewing'
-      ],
-      tech: ['React', 'Node.js', 'Express', 'MongoDB'],
-      github: '#',
-      live: '#'
-    }
-  ];
+  const { projects } = portfolioData;
 
   return (
     <section id="projects" className="projects section">
@@ -39,7 +11,7 @@ function Projects() {
         <div className="title-underline"></div>
         <div className="projects__grid mt-5">
           {projects.map((project, index) => (
-            <div key={index} className="project-card glass-card">
+            <div key={index} className={`project-card glass-card`}>
               <div className="project-card__header">
                 <i className={`bi ${project.icon} project-card__icon`}></i>
                 <h3 className="project-card__title">{project.title}</h3>

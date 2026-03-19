@@ -1,5 +1,5 @@
 /* ── Global Reset & Base ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -14,25 +14,77 @@ html {
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #0f172a;
-  color: #ffffff;
+  background: #0A0A0A;
+  color: #F5F5F5;
   overflow-x: hidden;
   line-height: 1.7;
 }
 
 ::selection {
-  background: #38bdf8;
-  color: #0f172a;
+  background: #FF4D1C;
+  color: #0A0A0A;
 }
 
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 99px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #FF4D1C; border-radius: 99px; }
+
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #151515;
+  --accent: #FF4D1C;
+  --text-primary: #F5F5F5;
+  --text-secondary: #9CA3AF;
+  --accent-glow: rgba(255, 77, 28, 0.15);
+  --accent-glow-strong: rgba(255, 77, 28, 0.35);
+}
 
 a {
   text-decoration: none;
   color: inherit;
   transition: color .35s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ── Section Components ── */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-subtitle {
+  color: #FF4D1C;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background: #FF4D1C;
+  border-radius: 99px;
+  margin-bottom: 3rem;
+}
+
+.section-title--left, .title-underline--left {
+  text-align: left;
+  margin-left: 0;
+}
+
+.section-title--center, .title-underline--center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Bootstrap Icon CDN loaded in index.html ── */

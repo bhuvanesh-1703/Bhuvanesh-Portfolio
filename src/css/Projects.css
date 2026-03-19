@@ -19,7 +19,7 @@
 
 .project-card__icon {
   font-size: 2rem;
-  color: #38bdf8;
+  color: #FF4D1C;
 }
 
 .project-card__title {
@@ -29,7 +29,7 @@
 }
 
 .project-card__desc {
-  color: #94a3b8;
+  color: #9CA3AF;
   font-size: 0.95rem;
   margin-bottom: 14px;
 }
@@ -41,7 +41,7 @@
 }
 
 .project-card__features li {
-  color: #94a3b8;
+  color: #9CA3AF;
   font-size: 0.9rem;
   padding: 4px 0;
   display: flex;
@@ -50,7 +50,7 @@
 }
 
 .project-card__features li i {
-  color: #38bdf8;
+  color: #FF4D1C;
   font-size: 0.8rem;
   margin-top: 4px;
 }
@@ -63,13 +63,13 @@
 }
 
 .tech-badge {
-  background: rgba(56, 189, 248, 0.1);
-  color: #38bdf8;
+  background: rgba(255, 77, 28, 0.1);
+  color: #FF4D1C;
   font-size: 0.78rem;
   font-weight: 600;
   padding: 4px 14px;
   border-radius: 99px;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(255, 77, 28, 0.2);
 }
 
 .project-card__links {

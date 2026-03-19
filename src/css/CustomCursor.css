@@ -1,0 +1,26 @@
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 77, 28, 0.3);
+  border: 1.5px solid #FF4D1C;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s, transform 0.1s ease-out;
+}
+
+.custom-cursor--pointer {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 77, 28, 0.1);
+  border-color: #FF4D1C;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+}
