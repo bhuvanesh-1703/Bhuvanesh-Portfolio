@@ -81,6 +81,8 @@ export const portfolioData = {
   ],
 
   //Projects
+
+  
   projects: [
     {
       title: 'E-Commerce Web Application',
