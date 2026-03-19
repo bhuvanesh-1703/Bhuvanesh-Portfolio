@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { portfolioData } from '../data/portfolio';
+import { portfolioData } from '../data/portfolio.js';
 import '../css/Hero.css';
 
 function Hero() {
