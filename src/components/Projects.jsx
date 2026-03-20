@@ -33,9 +33,9 @@ function Projects() {
                 <a href={project.github} className="btn-accent btn-sm">
                   <i className="bi bi-github"></i> GitHub
                 </a>
-                <a href={project.live} className="btn-outline-accent btn-sm">
-                  <i className="bi bi-box-arrow-up-right"></i> Live Demo
-                </a>
+               {/* <a href={project.live} className="btn-outline-accent btn-sm">
+                  <i  className="bi bi-box-arrow-up-right"></i> Live Demo
+                </a> */}
               </div>
             </div>
           ))}

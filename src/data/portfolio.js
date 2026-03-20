@@ -84,6 +84,20 @@ export const portfolioData = {
 
   
   projects: [
+      {
+      title: 'Farmer Multi-Vendor Platform',
+      icon: 'bi-shop',
+      desc: 'A platform connecting farmers directly with customers, enabling location-based product discovery and eliminating middlemen from the supply chain.',
+      features: [
+        'Farmers can add & manage products',
+        'Customers view nearby products',
+        'Direct farmer-to-customer supply',
+        'When a user registers or places an order, an email notification will be sent to the user using Nodemailer.'
+      ],
+      tech: ['React', 'Node.js', 'Express', 'SQL'],
+      github: '#',
+      live: 'https://final-former-websites.vercel.app'
+    },
     {
       title: 'E-Commerce Web Application',
       icon: 'bi-cart4',
@@ -98,20 +112,7 @@ export const portfolioData = {
       github: '#',
       live: '#'
     },
-    {
-      title: 'Farmer Multi-Vendor Platform',
-      icon: 'bi-shop',
-      desc: 'A platform connecting farmers directly with customers, enabling location-based product discovery and eliminating middlemen from the supply chain.',
-      features: [
-        'Farmers can add & manage products',
-        'Customers view nearby products',
-        'Direct farmer-to-customer supply',
-        'When a user registers or places an order, an email notification will be sent to the user using Nodemailer.'
-      ],
-      tech: ['React', 'Node.js', 'Express', 'SQl'],
-      github: '#',
-      live: '#'
-    }
+  
   ],
 
   //Contact
