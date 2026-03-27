@@ -123,7 +123,7 @@ export const portfolioData = {
       ],
       tech: ["React", "Node.js", "Express", "MongoDB"],
       github: "#",
-      live: "#",
+      live: "https://ecommerce-mini-project-nine.vercel.app/",
     },
   ],
 
