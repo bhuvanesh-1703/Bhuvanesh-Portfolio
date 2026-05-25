@@ -1,166 +1,190 @@
-
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
+  { label: "Journey", href: "#journey" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const HERO = {
   greeting: "Hello, I'm",
   name: "Bhuvanesh",
-  roles: ["Full-Stack Engineer", "MERN Developer", "UI/UX Enthusiast"],
+  roles: ["MERN Stack Developer", "Frontend Engineer", "Passionate Builder"],
   tagline:
-    "I build production-grade web applications — from real-time systems to multi-vendor platforms — with clean architecture and seamless user experiences.",
-  cta: { label: "View My Work", href: "#projects" },
-  resume: { label: "Download Resume", href: "/resume.pdf" },
+    "I build clean, responsive, and user-friendly web applications using React, Node.js, and modern UI/UX practices. Focused on writing readable code and solving problems.",
+  cta: { label: "View Projects", href: "#projects" },
+  resume: { label: "Get Resume", href: "/resume.pdf" },
   social: {
-    github: "https://github.com/bhuvanesh",
-    linkedin: "https://linkedin.com/in/bhuvanesh",
-    email: "mailto:bhuvanesh@email.com",
+    github: "https://github.com/bhuvanesh-1703",
+    linkedin: "https://linkedin.com/in/bhuvanesh-raja",
+    email: "mailto:bhuvaneshmahi2003@gmail.com",
   },
 };
 
 export const ABOUT = {
   intro:
-    "A full-stack developer based in Tamil Nadu, India, with a deep focus on the MERN stack. I specialize in building scalable, real-world applications that solve genuine problems.",
+    "I am a self-driven full-stack developer based in Tamil Nadu, India, with a strong focus on the MERN stack. I enjoy turning complex problems into elegant, readable web applications.",
   paragraphs: [
-    "I approach every project with an engineering mindset — thinking through architecture, performance, and developer experience before writing the first line of code.",
-    "When I'm not building web apps, I'm exploring system design, contributing to open-source, or sharpening my problem-solving skills through competitive programming.",
+    "My learning path is fueled by curiosity and hands-on build experience. I focus on understanding how databases communicate with APIs and how to translate design concepts into pixel-perfect, accessible frontends.",
+    "Rather than just learning syntax, I focus on project-based learning — building applications with real-world requirements like authentication, state management, and responsive structures.",
   ],
   stats: [
-    { value: "10+", label: "Projects Shipped" },
-    { value: "1.5+", label: "Years Experience" },
-    { value: "5+", label: "Happy Clients" },
+    { value: "8+", label: "Projects Built" },
+    { value: "500+", label: "GitHub Commits" },
+    { value: "100%", label: "Self-Driven Study" },
   ],
 };
 
 export const PROJECTS = [
   {
+    id: 1,
     title: "FarmAura",
-    summary: "Scalable farmer-to-customer multi-vendor marketplace.",
+    summary: "Farmer-to-customer multi-vendor marketplace.",
     description:
-      "Scalable farmer-to-customer multi-vendor marketplace with authentication, order management, and location-based architecture.",
+      "A multi-vendor e-commerce platform that connects local farmers directly with customers, eliminating broker fees. Features secure role-based registration, dashboard insights, and location-based discovery.",
     features: [
-      "Multi-role dashboards: customized farmer and customer panels",
-      "Location-based discovery to find nearby fresh produce options",
-      "Automated transactional SMTP email notifications via Nodemailer",
-      "Direct peer-to-peer farmer to customer commerce routing",
+      "Separate tailored dashboards for farmers (listings) and buyers",
+      "Dynamic location checks to discover nearby produce",
+      "Automated SMTP notifications for order confirmations via Nodemailer",
+      "Responsive design with smooth image loading and clean workflows",
     ],
     tech: ["React", "Node.js", "Express.js", "MySQL", "Tailwind CSS"],
-    metrics: {
-      architecture: "Multi-vendor",
-      auth: "Secure",
-      notifications: "Automated",
-    },
     github: "https://github.com/bhuvanesh-1703",
-    live: "https://final-former-websites.vercel.app",
-    color: "#10b981",
+    demo: "https://final-former-websites.vercel.app",
+    color: "#81b29a", // Sage accent
+    featured: true,
   },
   {
-    title: "Real-Time Chat App",
-    summary: "Low-latency WebSocket-powered messaging platform.",
+    id: 2,
+    title: "Real-Time Chat Platform",
+    summary: "Instant messaging app with WebSocket synchronization.",
     description:
-      "Low-latency WebSocket-powered messaging platform built using MERN + Socket.IO.",
+      "A responsive chat application supporting live messages, online/offline presence tracking, sound indicators, and persistent chat histories.",
     features: [
-      "Instant message exchange using custom Socket.IO listeners",
-      "Real-time online/offline presence tracking",
-      "Secure stateless authentication via JSON Web Tokens",
-      "Dynamic chat interface with sound indicators and message history",
+      "Low-latency message routing via custom Socket.io listeners",
+      "Stateless session authentication with JSON Web Tokens (JWT)",
+      "Database schema designed for thread lookups and message logs",
+      "Active status indicator and smooth visual state transitions",
     ],
-    tech: ["React", "Node.js", "Express.js", "Socket.IO", "MongoDB"],
-    metrics: {
-      latency: "<100ms",
-      sockets: "Bidirectional",
-      state: "Persistent",
-    },
+    tech: ["React", "Node.js", "Express.js", "Socket.io", "MongoDB"],
     github: "https://github.com/bhuvanesh-1703",
-    live: "https://real-time-chat-front-end-two.vercel.app/",
-
-    color: "#10b981",
+    demo: "https://real-time-chat-front-end-two.vercel.app/",
+    color: "#e07a5f", // Terracotta accent
+    featured: true,
   },
   {
-    title: "Portfolio Website",
-    summary: "Luxury Antigravity-inspired portfolio website.",
-    description:
-      "Luxury Antigravity-inspired portfolio built using React, Tailwind, and Framer Motion.",
-    features: [
-      "Fluid mouse-based card tilt physics and micro-animations",
-      "Interactive retro-futuristic developer terminal interface",
-      "Curated dark matte color palette with soft metallic gold glow",
-      "Fully accessible semantic markup with responsive layouts",
-    ],
-    tech: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-    metrics: {
-      animations: "Apple-like",
-      performance: "99+",
-      design: "2026 Level",
-    },
-    github: "https://github.com/bhuvanesh-1703",
-    live: "https://github.com/bhuvanesh-1703",
-    color: "#f59e0b",
-  },
-  {
-    id: 4,
-    featured: false,
+    id: 3,
     title: "Developer Blog CMS",
+    summary: "Headless blog publisher with Markdown formatting.",
     description:
-      "A headless CMS with markdown support, syntax highlighting, SEO optimization, and a custom admin panel for publishing technical content.",
-    tech: ["Next.js", "MongoDB", "Cloudinary", "MDX", "Tailwind"],
-    github: "https://github.com/bhuvanesh/dev-blog",
-    demo: "https://devblog.vercel.app",
-    color: "#ec4899",
+      "A personal CMS that parses MDX content, generates SEO metadata tags, supports code syntax highlighting, and provides a secure admin page for writing drafts.",
+    features: [
+      "Dynamic MDX parser for publishing responsive technical articles",
+      "Optimized static asset delivery using Cloudinary API integration",
+      "Automatic sitemap generation and schema tags for search engines",
+      "Clean tag filtration and reading-time estimations",
+    ],
+    tech: ["Next.js", "MongoDB", "Cloudinary", "MDX", "Tailwind CSS"],
+    github: "https://github.com/bhuvanesh-1703",
+    demo: "https://github.com/bhuvanesh-1703",
+    color: "#d4a373", // Warm Sand accent
+    featured: false,
   },
 ];
 
 export const SKILLS = [
   {
-    category: "Frontend",
+    category: "Frontend Tools",
     icon: "⬡",
     items: [
-      { name: "React", level: 90 },
-      { name: "JavaScript (ES2024)", level: 88 },
-      { name: "TypeScript", level: 75 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Framer Motion", level: 80 },
+      "React",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Framer Motion",
+      "HTML5 & CSS3",
     ],
   },
   {
-    category: "Backend",
+    category: "Backend Engine",
     icon: "⬡",
     items: [
-      { name: "Node.js", level: 85 },
-      { name: "Express.js", level: 85 },
-      { name: "REST APIs", level: 90 },
-      { name: "Socket.io", level: 80 },
-      { name: "JWT & Auth", level: 85 },
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "Socket.io",
+      "JWT & Auth",
+      "Nodemailer",
     ],
   },
   {
     category: "Database & Cloud",
     icon: "⬡",
     items: [
-      { name: "MongoDB", level: 88 },
-      { name: "PostgreSQL", level: 72 },
-      { name: "Redis", level: 70 },
-      { name: "AWS S3", level: 75 },
-      { name: "Docker", level: 68 },
+      "MongoDB",
+      "MySQL",
+      "PostgreSQL",
+      "Cloudinary",
+      "Render / Vercel Deploy",
     ],
   },
   {
-    category: "Tools & Workflow",
+    category: "Developer Workflow",
     icon: "⬡",
     items: [
-      { name: "Git & GitHub", level: 92 },
-      { name: "Vite / Webpack", level: 80 },
-      { name: "Figma", level: 70 },
-      { name: "Postman", level: 88 },
-      { name: "Linux / Bash", level: 72 },
+      "Git & GitHub",
+      "Vite Config",
+      "Postman API client",
+      "npm / package locks",
     ],
   },
-];
- contact: {
-    email: "bhuvaneshmahi2003@gmail.com",
-    github: "https://github.com/bhuvanesh-1703",
-    linkedin: "https://linkedin.com/in/bhuvanesh-raja",
+  {
+    category: "Deployment Tools",
+    icon: "⬡",
+    items: ["Vercel", "Netlify", "Render", "Mongodb Atlas"],
   },
+];
+
+export const JOURNEY = [
+  {
+    period: "2022 - 2026",
+    title: "Bachelor of Computer Science",
+    institution: "S.M.S College Of Arts And Science,Sivakasi",
+    description:
+      "Acquired core academic foundations in computer science, including Data Structures, Database Management Systems (DBMS), and Software Engineering principles.",
+  },
+  {
+    period: "2023 - 2025",
+    title: "Master Degree in Computer Science",
+    institution: "S.M.S College Of Arts And Science,Sivakasi",
+    description:
+      "Acquired core academic foundations in computer science, including Data Structures, Database Management Systems (DBMS), and Software Engineering principles.",
+  },
+  {
+    period: "2036",
+    title: "MERN Stack Deep Dive",
+    institution: "Anjana Infotech, Rajapalayam",
+    description:
+      "Learned modern JavaScript building APIs. Mastered core concepts like async request routing, REST architectural patterns, stateless JWT sessions, and document schemas.",
+  },
+  {
+    period: "2026",
+    title: "Building & Launching Projects",
+    institution: "Practical Code Implementations",
+    description:
+      "Designed, coded, and launched FarmAura and the Real-Time Chat Platform. Focused on handling real database integrations, deployment processes, and responsive styling challenges.",
+  },
+  {
+    period: "2026 (Present)",
+    title: "Modern Tooling & Quality Focus",
+    institution: "Continuous Growth",
+    description:
+      "Currently learning TypeScript typing patterns, testing tools, and improving codebase structure for cleaner, recruiter-friendly readability.",
+  },
+];
+
+export const CONTACT = {
+  email: "bhuvaneshmahi2003@gmail.com",
+  github: "https://github.com/bhuvanesh-1703",
+  linkedin: "https://linkedin.com/in/bhuvanesh-raja",
+};

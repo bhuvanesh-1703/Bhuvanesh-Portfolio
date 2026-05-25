@@ -32,8 +32,8 @@ const CustomCursor = () => {
           if (cursorRef.current) {
             cursorRef.current.style.width = '40px';
             cursorRef.current.style.height = '40px';
-            cursorRef.current.style.borderColor = 'rgba(212, 175, 55, 0.6)';
-            cursorRef.current.style.backgroundColor = 'rgba(212, 175, 55, 0.08)';
+            cursorRef.current.style.borderColor = 'rgba(224, 122, 95, 0.6)';
+            cursorRef.current.style.backgroundColor = 'rgba(224, 122, 95, 0.08)';
           }
           if (glowRef.current) {
             glowRef.current.style.width = '120px';
@@ -43,8 +43,8 @@ const CustomCursor = () => {
           if (cursorRef.current) {
             cursorRef.current.style.width = '12px';
             cursorRef.current.style.height = '12px';
-            cursorRef.current.style.borderColor = 'rgba(212, 175, 55, 0.35)';
-            cursorRef.current.style.backgroundColor = 'rgba(212, 175, 55, 0.15)';
+            cursorRef.current.style.borderColor = 'rgba(224, 122, 95, 0.35)';
+            cursorRef.current.style.backgroundColor = 'rgba(224, 122, 95, 0.15)';
           }
           if (glowRef.current) {
             glowRef.current.style.width = '200px';
@@ -88,7 +88,7 @@ const CustomCursor = () => {
         style={{
           width: '200px',
           height: '200px',
-          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(224, 122, 95, 0.04) 0%, transparent 70%)',
           willChange: 'transform',
         }}
       />
@@ -99,8 +99,8 @@ const CustomCursor = () => {
         style={{
           width: '12px',
           height: '12px',
-          border: '2px solid rgba(212, 175, 55, 0.35)',
-          background: 'rgba(212, 175, 55, 0.15)',
+          border: '2px solid rgba(224, 122, 95, 0.35)',
+          background: 'rgba(224, 122, 95, 0.15)',
           willChange: 'transform',
         }}
       />

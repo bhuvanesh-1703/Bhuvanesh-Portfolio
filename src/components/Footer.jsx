@@ -1,30 +1,48 @@
-import { motion } from 'framer-motion';
-import { Code2, Github, Linkedin, Mail, Heart } from 'lucide-react';
-import { NAV_LINKS } from '../data/portfolio';
+import { Code, Heart } from 'lucide-react';
+import { NAV_LINKS, CONTACT } from '../data/portfolio';
+import { Github, Linkedin, Mail } from './Icons';
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
+  const handleNav = (e, href) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const topOffset = element.offsetTop - 80;
+      window.scrollTo({
+        top: topOffset,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const SOCIALS = [
+    { icon: Github, href: CONTACT.github, label: 'GitHub' },
+    { icon: Linkedin, href: CONTACT.linkedin, label: 'LinkedIn' },
+    { icon: Mail, href: `mailto:${CONTACT.email}`, label: 'Email' },
+  ];
+
   return (
-    <footer className="relative bg-[#080810] border-t border-white/[0.06] py-12">
+    <footer className="relative bg-bg-primary border-t border-border-subtle py-12">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-              <Code2 size={14} className="text-white" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-terracotta to-accent-sage flex items-center justify-center">
+              <Code size={16} className="text-bg-primary stroke-[2.5]" />
             </div>
-            <span className="text-white/70 font-medium">Bhuvanesh</span>
+            <span className="text-text-secondary font-display font-bold text-sm">Bhuvanesh</span>
           </div>
 
-          {/* Nav */}
-          <ul className="flex flex-wrap items-center gap-5 justify-center">
+          {/* Navigation Links */}
+          <ul className="flex flex-wrap items-center gap-6 justify-center">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }); }}
-                  className="text-white/35 hover:text-white/70 text-sm transition-colors duration-150"
+                  onClick={(e) => handleNav(e, link.href)}
+                  className="text-text-tertiary hover:text-accent-terracotta text-sm transition-colors duration-150"
                 >
                   {link.label}
                 </a>
@@ -32,34 +50,31 @@ export default function Footer() {
             ))}
           </ul>
 
-          {/* Socials */}
+          {/* Social Links */}
           <div className="flex items-center gap-3">
-            {[
-              { icon: Github, href: 'https://github.com/bhuvanesh', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/bhuvanesh', label: 'LinkedIn' },
-              { icon: Mail, href: 'mailto:bhuvanesh@email.com', label: 'Email' },
-            ].map(({ icon: Icon, href, label }) => (
+            {SOCIALS.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-white/35 hover:text-white/70 transition-all duration-150"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-bg-secondary border border-border-subtle hover:border-accent-terracotta/30 text-text-tertiary hover:text-accent-terracotta transition-all duration-150"
               >
-                <Icon size={15} />
+                <Icon size={14} />
               </a>
             ))}
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/25 text-xs">
+        {/* Bottom Section */}
+        <div className="mt-8 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-text-tertiary text-xs">
             © {year} Bhuvanesh. All rights reserved.
           </p>
-          <p className="text-white/25 text-xs flex items-center gap-1.5">
-            Built with React, Vite & Tailwind CSS
-            <Heart size={11} className="text-violet-500 fill-violet-500" />
+          <p className="text-text-tertiary text-xs flex items-center gap-1.5">
+            Built with React, Vite & Tailwind CSS v4
+            <Heart size={11} className="text-accent-terracotta fill-accent-terracotta animate-pulse" />
           </p>
         </div>
       </div>

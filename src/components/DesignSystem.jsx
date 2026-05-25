@@ -1,25 +1,16 @@
-/* eslint-disable react-refresh/only-export-components */
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * PREMIUM DESIGN SYSTEM - 2026 Level Frontend Engineering
- * ═══════════════════════════════════════════════════════════════════════════════
- *
- * This file exports reusable components, animations, and utilities that ensure
- * consistent, professional UI/UX across the entire portfolio.
- */
 
 import { motion } from "framer-motion";
 
-// ─── ANIMATION VARIANTS ───
+
 export const animationConfig = {
-  // Ease functions for premium feel
+ 
   easing: {
-    smooth: [0.16, 1, 0.3, 1], // Apple-like smooth easing
+    smooth: [0.16, 1, 0.3, 1], 
     springy: { type: "spring", stiffness: 120, damping: 20 },
     snappy: { type: "spring", stiffness: 150, damping: 25 },
   },
 
-  // Standard fade-up for section reveals
+
   fadeUp: {
     hidden: { opacity: 0, y: 30 },
     visible: (i = 0) => ({
@@ -33,7 +24,7 @@ export const animationConfig = {
     }),
   },
 
-  // Staggered container for lists
+
   staggerContainer: {
     hidden: { opacity: 0 },
     visible: {
@@ -45,7 +36,7 @@ export const animationConfig = {
     },
   },
 
-  // Individual item animations
+ 
   staggerItem: {
     hidden: { opacity: 0, y: 20, rotateX: 10 },
     visible: {
