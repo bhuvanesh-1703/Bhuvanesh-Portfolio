@@ -59,7 +59,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20" id="home">
+    <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20 pb-28" id="home">
       {/* Premium earthy background grids and blur fields */}
       <div className="absolute inset-0 bg-bg-primary">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-accent-terracotta/5 rounded-full blur-[120px] pointer-events-none" />
