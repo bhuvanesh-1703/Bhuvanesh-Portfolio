@@ -9,7 +9,12 @@ export const NAV_LINKS = [
 export const HERO = {
   greeting: "Hello, I'm",
   name: "Bhuvanesh",
-  roles: ["MERN Stack Developer", "Frontend Engineer", "Passionate Builder"],
+  roles: [
+    "MERN Stack Developer",
+    "Full-Stack Web Developer",
+    "React.js Developer",
+    "Node.js Developer",
+  ],
   tagline:
     "I build clean, responsive, and user-friendly web applications using React, Node.js, and modern UI/UX practices. Focused on writing readable code and solving problems.",
   cta: { label: "View Projects", href: "#projects" },
@@ -21,19 +26,25 @@ export const HERO = {
   },
 };
 
+// ABOUT
+
 export const ABOUT = {
   intro:
-    "I am a self-driven full-stack developer based in Tamil Nadu, India, with a strong focus on the MERN stack. I enjoy turning complex problems into elegant, readable web applications.",
+    "I'm a MERN Stack Developer dedicated to building high-performance web applications that combine clean design, seamless user experiences, and scalable backend architecture. I enjoy solving real-world problems through modern web technologies.",
+
   paragraphs: [
-    "My learning path is fueled by curiosity and hands-on build experience. I focus on understanding how databases communicate with APIs and how to translate design concepts into pixel-perfect, accessible frontends.",
-    "Rather than just learning syntax, I focus on project-based learning — building applications with real-world requirements like authentication, state management, and responsive structures.",
+    "With a strong foundation in full-stack development, I work extensively with React.js, Node.js, Express.js, MongoDB, and MySQL to create reliable and maintainable applications. My focus is on writing clean code, optimizing performance, and delivering intuitive user experiences.",
+
+    "I have built and deployed several full-stack applications, including marketplace platforms, e-commerce solutions, and real-time communication systems. These projects strengthened my expertise in API development, authentication, database design, and cloud deployment.",
   ],
   stats: [
     { value: "8+", label: "Projects Built" },
-    { value: "500+", label: "GitHub Commits" },
-    { value: "100%", label: "Self-Driven Study" },
+    { value: "5+", label: "Live Deployments" },
+    { value: "1+", label: "Years Learning" },
   ],
 };
+
+// PROJECTS
 
 export const PROJECTS = [
   {
@@ -41,56 +52,100 @@ export const PROJECTS = [
     title: "FarmAura",
     summary: "Farmer-to-customer multi-vendor marketplace.",
     description:
-      "A multi-vendor e-commerce platform that connects local farmers directly with customers, eliminating broker fees. Features secure role-based registration, dashboard insights, and location-based discovery.",
+      "A full-stack agricultural marketplace that connects farmers directly with consumers, reducing intermediary costs and enabling fair pricing. The platform supports secure authentication, product management, order tracking, and role-based dashboards for both farmers and customers.",
     features: [
-      "Separate tailored dashboards for farmers (listings) and buyers",
-      "Dynamic location checks to discover nearby produce",
-      "Automated SMTP notifications for order confirmations via Nodemailer",
-      "Responsive design with smooth image loading and clean workflows",
+      "Role-based authentication for Admin,Vendor and Customer",
+      "Product listing, inventory management, and Add to Cart",
+      "Email notifications for order confirmations using Nodemailer",
+      "Responsive user experience optimized for desktop and mobile devices",
     ],
-    tech: ["React", "Node.js", "Express.js", "MySQL", "Tailwind CSS"],
+    tech: [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MySQL",
+      "Bootstrap",
+      "Vercel",
+      "Render",
+    ],
     github: "https://github.com/bhuvanesh-1703",
-    demo: "https://final-former-websites.vercel.app",
-    color: "#81b29a", // Sage accent
+    demo: "https://final-former-websites.vercel.app/",
+    color: "#e07a5f",
     featured: true,
   },
   {
     id: 2,
     title: "Real-Time Chat Platform",
-    summary: "Instant messaging app with WebSocket synchronization.",
+    summary: "Instant messaging application powered by WebSockets.",
     description:
-      "A responsive chat application supporting live messages, online/offline presence tracking, sound indicators, and persistent chat histories.",
+      "A real-time communication platform built using Socket.IO that enables seamless messaging between users. The application provides secure authentication, online status tracking, and persistent message storage for a modern chat experience.",
     features: [
-      "Low-latency message routing via custom Socket.io listeners",
-      "Stateless session authentication with JSON Web Tokens (JWT)",
-      "Database schema designed for thread lookups and message logs",
-      "Active status indicator and smooth visual state transitions",
+      "Instant message delivery with Socket.IO",
+      "JWT-based secure authentication and authorization",
+      "Online/offline presence tracking",
+      "Persistent chat history using MongoDB",
     ],
-    tech: ["React", "Node.js", "Express.js", "Socket.io", "MongoDB"],
+    tech: [
+      "React",
+      "Node.js",
+      "Express.js",
+      "Socket.io",
+      "MongoDB",
+      "Vercel",
+      "Render",
+    ],
     github: "https://github.com/bhuvanesh-1703",
     demo: "https://real-time-chat-front-end-two.vercel.app/",
-    color: "#e07a5f", // Terracotta accent
+    color: "#e07a5f",
     featured: true,
   },
   {
     id: 3,
-    title: "Developer Blog CMS",
-    summary: "Headless blog publisher with Markdown formatting.",
+    title: "E-Commerce Platform",
+    summary: "Complete MERN-based online shopping solution.",
     description:
-      "A personal CMS that parses MDX content, generates SEO metadata tags, supports code syntax highlighting, and provides a secure admin page for writing drafts.",
+      "A scalable e-commerce application featuring product management, shopping cart functionality, secure authentication, and role-based administration. Designed to deliver a seamless shopping experience with modern UI and efficient backend architecture.",
     features: [
-      "Dynamic MDX parser for publishing responsive technical articles",
-      "Optimized static asset delivery using Cloudinary API integration",
-      "Automatic sitemap generation and schema tags for search engines",
-      "Clean tag filtration and reading-time estimations",
+      "Product catalog with advanced filtering",
+      "Shopping cart and order management workflow",
+      "Admin dashboard for product and user management",
+      "JWT authentication with protected routes",
     ],
-    tech: ["Next.js", "MongoDB", "Cloudinary", "MDX", "Tailwind CSS"],
+    tech: [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT",
+      "Vercel",
+      "Render",
+    ],
     github: "https://github.com/bhuvanesh-1703",
-    demo: "https://github.com/bhuvanesh-1703",
-    color: "#d4a373", // Warm Sand accent
+    demo: "https://ecommerce-mini-project-nine.vercel.app/",
+    color: "#d4a373",
+    featured: false,
+  },
+  {
+    id: 4,
+    title: "SaaS Template Store",
+    summary: "Marketplace for premium SaaS website templates.",
+    description:
+      "A modern digital marketplace where users can browse, preview, and purchase professionally designed SaaS website templates. The platform focuses on delivering high-quality UI templates with secure user access and streamlined management features.",
+    features: [
+      "Template browsing with category-based filtering",
+      "Live preview and detailed template showcase",
+      "User authentication and account management",
+      "Add to Favorite and Remove to Favorite",
+    ],
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    github: "https://github.com/bhuvanesh-1703/fullstack-intern-task.git",
+    demo: "https://fullstack-intern-task-mu.vercel.app/",
+    color: "#d4a373",
     featured: false,
   },
 ];
+
+//SKILLS
 
 export const SKILLS = [
   {
@@ -99,9 +154,8 @@ export const SKILLS = [
     items: [
       "React",
       "JavaScript (ES6+)",
-      "TypeScript",
       "Tailwind CSS v4",
-      "Framer Motion",
+      "Bootsrap 5",
       "HTML5 & CSS3",
     ],
   },
@@ -120,13 +174,7 @@ export const SKILLS = [
   {
     category: "Database & Cloud",
     icon: "⬡",
-    items: [
-      "MongoDB",
-      "MySQL",
-      "PostgreSQL",
-      "Cloudinary",
-      "Render / Vercel Deploy",
-    ],
+    items: ["MongoDB", "MySQL", "Render / Vercel Deploy"],
   },
   {
     category: "Developer Workflow",
@@ -143,25 +191,32 @@ export const SKILLS = [
     icon: "⬡",
     items: ["Vercel", "Netlify", "Render", "Mongodb Atlas"],
   },
+  {
+    category: "AI-Assisted Development",
+    icon: "⬡",
+    items: ["ChatGPT", "GitHub Copilot", "Cursor AI", "Claude AI", "DeepSeek"],
+  },
 ];
 
+
+// Journey
 export const JOURNEY = [
   {
-    period: "2022 - 2026",
-    title: "Bachelor of Computer Science",
-    institution: "S.M.S College Of Arts And Science,Sivakasi",
+    period: "2020 - 2023",
+    title: "Bachelor of Science in Computer Science",
+    institution: "S.M.S College Of Arts And Science, Sivakasi",
     description:
-      "Acquired core academic foundations in computer science, including Data Structures, Database Management Systems (DBMS), and Software Engineering principles.",
+      "Built a strong foundation in programming, data structures, database management systems, computer networks, and software development fundamentals through academic coursework and practical assignments.",
   },
   {
     period: "2023 - 2025",
-    title: "Master Degree in Computer Science",
-    institution: "S.M.S College Of Arts And Science,Sivakasi",
+    title: "Master of Science in Computer Science",
+    institution: "S.M.S College Of Arts And Science, Sivakasi",
     description:
-      "Acquired core academic foundations in computer science, including Data Structures, Database Management Systems (DBMS), and Software Engineering principles.",
+      "Specialized in advanced software development concepts, web technologies, database design, and full-stack application development while working on real-world projects and modern development practices.",
   },
   {
-    period: "2036",
+    period: "2025",
     title: "MERN Stack Deep Dive",
     institution: "Anjana Infotech, Rajapalayam",
     description:
@@ -182,6 +237,8 @@ export const JOURNEY = [
       "Currently learning TypeScript typing patterns, testing tools, and improving codebase structure for cleaner, recruiter-friendly readability.",
   },
 ];
+
+//Contact
 
 export const CONTACT = {
   email: "bhuvaneshmahi2003@gmail.com",
