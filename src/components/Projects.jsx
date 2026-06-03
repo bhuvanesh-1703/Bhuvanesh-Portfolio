@@ -17,16 +17,31 @@ function ProjectCard({ project, index }) {
   return (
     <motion.article
       {...fadeUp(delay)}
-      className="group relative flex flex-col rounded-2xl bg-bg-secondary border border-border-subtle hover:border-accent-terracotta/20 hover:shadow-lg transition-all duration-300 overflow-hidden hover:-translate-y-1"
+      className="group relative flex flex-col rounded-2xl bg-bg-secondary border border-border-subtle hover:border-[var(--project-color)]/30 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] transition-all duration-500 overflow-hidden hover:-translate-y-1.5"
       style={{ '--project-color': color }}
     >
       {/* Top Accent Stripe */}
       <div
-        className="h-1 w-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+        className="h-1 w-full opacity-60 group-hover:opacity-100 transition-opacity duration-300 z-20"
         style={{ backgroundColor: color }}
       />
 
-      <div className="p-6 sm:p-7 flex flex-col flex-1">
+      {/* Project Image Banner */}
+      <div className="relative aspect-video w-full overflow-hidden bg-bg-primary border-b border-border-subtle/50 z-10">
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-90 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-bg-secondary/30 via-transparent to-transparent opacity-50 z-10" />
+        
+        {/* Lazy Loaded Image with smooth hover scale */}
+        <img
+          src={project.image}
+          alt={`${title} Preview`}
+          loading="lazy"
+          className="w-full h-full object-cover object-center transform group-hover:scale-[1.03] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]"
+        />
+      </div>
+
+      <div className="p-6 sm:p-7 flex flex-col flex-1 relative z-10">
         {/* Title and Featured Badge */}
         <div className="flex items-start justify-between gap-4 mb-3">
           <h3 className="text-text-primary font-display font-bold text-lg sm:text-xl leading-snug group-hover:text-accent-terracotta transition-colors duration-200">

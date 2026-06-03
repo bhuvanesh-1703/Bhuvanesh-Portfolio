@@ -1,3 +1,8 @@
+import farmauraImg from '../assets/farmaura.png';
+import chatPlatformImg from '../assets/chat_platform.png';
+import ecommerceImg from '../assets/ecommerce.png';
+import templateStoreImg from '../assets/template_store.png';
+
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
@@ -16,7 +21,7 @@ export const HERO = {
     "Node.js Developer",
   ],
   tagline:
-    "I build clean, responsive, and user-friendly web applications using React, Node.js, and modern UI/UX practices. Focused on writing readable code and solving problems.",
+    "Full-Stack MERN Developer building scalable web applications with React, Node.js, Express.js, and MongoDB.",
   cta: { label: "View Projects", href: "#projects" },
   resume: { label: "Get Resume", href: "/resume.pdf" },
   social: {
@@ -53,6 +58,7 @@ export const PROJECTS = [
     summary: "Farmer-to-customer multi-vendor marketplace.",
     description:
       "A full-stack agricultural marketplace that connects farmers directly with consumers, reducing intermediary costs and enabling fair pricing. The platform supports secure authentication, product management, order tracking, and role-based dashboards for both farmers and customers.",
+    image: farmauraImg,
     features: [
       "Role-based authentication for Admin,Vendor and Customer",
       "Product listing, inventory management, and Add to Cart",
@@ -79,6 +85,7 @@ export const PROJECTS = [
     summary: "Instant messaging application powered by WebSockets.",
     description:
       "A real-time communication platform built using Socket.IO that enables seamless messaging between users. The application provides secure authentication, online status tracking, and persistent message storage for a modern chat experience.",
+    image: chatPlatformImg,
     features: [
       "Instant message delivery with Socket.IO",
       "JWT-based secure authentication and authorization",
@@ -105,6 +112,7 @@ export const PROJECTS = [
     summary: "Complete MERN-based online shopping solution.",
     description:
       "A scalable e-commerce application featuring product management, shopping cart functionality, secure authentication, and role-based administration. Designed to deliver a seamless shopping experience with modern UI and efficient backend architecture.",
+    image: ecommerceImg,
     features: [
       "Product catalog with advanced filtering",
       "Shopping cart and order management workflow",
@@ -131,6 +139,7 @@ export const PROJECTS = [
     summary: "Marketplace for premium SaaS website templates.",
     description:
       "A modern digital marketplace where users can browse, preview, and purchase professionally designed SaaS website templates. The platform focuses on delivering high-quality UI templates with secure user access and streamlined management features.",
+    image: templateStoreImg,
     features: [
       "Template browsing with category-based filtering",
       "Live preview and detailed template showcase",
