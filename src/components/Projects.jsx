@@ -1,24 +1,36 @@
-import { motion } from 'framer-motion';
-import { ExternalLink, Star } from 'lucide-react';
-import { PROJECTS } from '../data/portfolio';
-import { Github } from './Icons';
+import { motion } from "framer-motion";
+import { ExternalLink, Star } from "lucide-react";
+import { PROJECTS } from "../data/portfolio";
+import { Github } from "./Icons";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
+  viewport: { once: true, margin: "-60px" },
   transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
 });
 
 function ProjectCard({ project, index }) {
-  const { title, description, features, tech, github, demo, color, featured } = project;
+  const {
+    title,
+    description,
+    features,
+    tech,
+    github,
+    demo,
+    liveUrl,
+    frontendUrl,
+    backendUrl,
+    color,
+    featured,
+  } = project;
   const delay = (index % 2) * 0.08;
 
   return (
     <motion.article
       {...fadeUp(delay)}
       className="group relative flex flex-col rounded-2xl bg-bg-secondary border border-border-subtle hover:border-[var(--project-color)]/30 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] transition-all duration-500 overflow-hidden hover:-translate-y-1.5"
-      style={{ '--project-color': color }}
+      style={{ "--project-color": color }}
     >
       {/* Top Accent Stripe */}
       <div
@@ -31,7 +43,7 @@ function ProjectCard({ project, index }) {
         {/* Subtle Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-90 z-10" />
         <div className="absolute inset-0 bg-gradient-to-tr from-bg-secondary/30 via-transparent to-transparent opacity-50 z-10" />
-        
+
         {/* Lazy Loaded Image with smooth hover scale */}
         <img
           src={project.image}
@@ -62,14 +74,22 @@ function ProjectCard({ project, index }) {
 
         {/* Key Features/Highlights - Recruiter-friendly addition */}
         <div className="mb-5 flex-1">
-          <h4 className="text-text-tertiary text-xs font-mono font-bold uppercase tracking-wider mb-2.5">Key Implementations</h4>
+          <h4 className="text-text-tertiary text-xs font-mono font-bold uppercase tracking-wider mb-2.5">
+            Key Implementations
+          </h4>
           <ul className="space-y-1.5">
-            {features && features.map((f, i) => (
-              <li key={i} className="text-text-secondary/80 text-xs flex items-start gap-2">
-                <span className="text-accent-terracotta mt-1 select-none">•</span>
-                <span>{f}</span>
-              </li>
-            ))}
+            {features &&
+              features.map((f, i) => (
+                <li
+                  key={i}
+                  className="text-text-secondary/80 text-xs flex items-start gap-2"
+                >
+                  <span className="text-accent-terracotta mt-1 select-none">
+                    •
+                  </span>
+                  <span>{f}</span>
+                </li>
+              ))}
           </ul>
         </div>
 
@@ -86,26 +106,106 @@ function ProjectCard({ project, index }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-4 pt-4 border-t border-border-subtle mt-auto">
-          <a
-            href={github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-text-tertiary hover:text-text-primary transition-colors duration-150"
-          >
-            <Github size={14} />
-            Source Code
-          </a>
-          <a
-            href={demo}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold ml-auto hover:underline transition-colors duration-150"
-            style={{ color: color }}
-          >
-            Live Demo
-            <ExternalLink size={12} />
-          </a>
+        <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-border-subtle mt-auto w-full">
+          {liveUrl || frontendUrl || backendUrl ? (
+            <>
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                {frontendUrl && (
+                  <a
+                    href={frontendUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
+                    aria-label={`View Frontend Source Code for ${title}`}
+                  >
+                    <Github size={13} />
+                    Frontend Code
+                  </a>
+                )}
+                {backendUrl && (
+                  <a
+                    href={backendUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
+                    aria-label={`View Backend Source Code for ${title}`}
+                  >
+                    <Github size={13} />
+                    Backend Code
+                  </a>
+                )}
+              </div>
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg border transition-all duration-200 shadow-sm ml-auto w-full sm:w-auto justify-center sm:justify-start"
+                  style={{
+                    backgroundColor: `${color}15`,
+                    borderColor: `${color}30`,
+                    color: color,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = `${color}25`;
+                    e.currentTarget.style.borderColor = color;
+                    e.currentTarget.style.boxShadow = `0 0 12px ${color}20`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${color}15`;
+                    e.currentTarget.style.borderColor = `${color}30`;
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  aria-label={`View Live Demo of ${title}`}
+                >
+                  Live Demo
+                  <ExternalLink size={12} />
+                </a>
+              )}
+            </>
+          ) : (
+            <>
+              {github && (
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
+                  aria-label={`View Source Code for ${title}`}
+                >
+                  <Github size={13} />
+                  Source Code
+                </a>
+              )}
+              {demo && (
+                <a
+                  href={demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg border transition-all duration-200 shadow-sm ml-auto w-full sm:w-auto justify-center sm:justify-start"
+                  style={{
+                    backgroundColor: `${color}15`,
+                    borderColor: `${color}30`,
+                    color: color,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = `${color}25`;
+                    e.currentTarget.style.borderColor = color;
+                    e.currentTarget.style.boxShadow = `0 0 12px ${color}20`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${color}15`;
+                    e.currentTarget.style.borderColor = `${color}30`;
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  aria-label={`View Live Demo of ${title}`}
+                >
+                  Live Demo
+                  <ExternalLink size={12} />
+                </a>
+              )}
+            </>
+          )}
         </div>
       </div>
     </motion.article>

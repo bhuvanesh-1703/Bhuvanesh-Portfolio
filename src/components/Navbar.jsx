@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code } from 'lucide-react';
-import { NAV_LINKS } from '../data/portfolio';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Code } from "lucide-react";
+import { NAV_LINKS } from "../data/portfolio";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      
+
       // Dynamic active section detection
-      const sections = NAV_LINKS.map(link => document.querySelector(link.href));
+      const sections = NAV_LINKS.map((link) =>
+        document.querySelector(link.href),
+      );
       const scrollPos = window.scrollY + 100;
 
       for (let i = 0; i < sections.length; i++) {
@@ -28,8 +30,8 @@ export default function Navbar() {
         }
       }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleNav = (href) => {
@@ -40,7 +42,7 @@ export default function Navbar() {
       const topOffset = element.offsetTop - 80;
       window.scrollTo({
         top: topOffset,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -53,15 +55,18 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'py-3.5 bg-bg-primary/80 backdrop-blur-xl border-b border-border-subtle'
-            : 'py-6 bg-transparent'
+            ? "py-3.5 bg-bg-primary/80 backdrop-blur-xl border-b border-border-subtle"
+            : "py-6 bg-transparent"
         }`}
       >
         <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
             className="flex items-center gap-2 group"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-terracotta to-accent-sage flex items-center justify-center shadow-lg shadow-accent-terracotta/10 transition-transform group-hover:scale-105 duration-200">
@@ -80,15 +85,19 @@ export default function Navbar() {
                   onClick={() => handleNav(link.href)}
                   className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 cursor-pointer ${
                     active === link.href
-                      ? 'text-accent-terracotta'
-                      : 'text-text-secondary hover:text-text-primary'
+                      ? "text-accent-terracotta"
+                      : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
                   {active === link.href && (
                     <motion.span
                       layoutId="nav-pill"
                       className="absolute inset-0 bg-white/[0.04] border border-white/[0.06] rounded-lg"
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 28,
+                      }}
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>
@@ -101,7 +110,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
-              onClick={(e) => { e.preventDefault(); handleNav('#contact'); }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNav("#contact");
+              }}
               className="px-4 py-2 text-sm font-medium text-text-primary hover:text-accent-terracotta border border-border-subtle hover:border-accent-terracotta/40 hover:bg-accent-terracotta/[0.04] rounded-xl transition-all duration-300"
             >
               Get in Touch
@@ -136,8 +148,8 @@ export default function Navbar() {
                     onClick={() => handleNav(link.href)}
                     className={`w-full text-left px-4 py-3 text-sm font-medium rounded-xl transition-colors duration-150 cursor-pointer ${
                       active === link.href
-                        ? 'text-accent-terracotta bg-white/[0.04]'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.02]'
+                        ? "text-accent-terracotta bg-white/[0.04]"
+                        : "text-text-secondary hover:text-text-primary hover:bg-white/[0.02]"
                     }`}
                   >
                     {link.label}
@@ -147,7 +159,10 @@ export default function Navbar() {
               <li className="pt-2 border-t border-border-subtle mt-1.5">
                 <a
                   href="#contact"
-                  onClick={(e) => { e.preventDefault(); handleNav('#contact'); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNav("#contact");
+                  }}
                   className="block text-center px-4 py-3 text-sm font-medium text-accent-terracotta bg-accent-terracotta/[0.06] border border-accent-terracotta/20 hover:bg-accent-terracotta/[0.1] rounded-xl transition-all duration-200"
                 >
                   Contact Me →
