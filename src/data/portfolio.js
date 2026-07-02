@@ -1,7 +1,8 @@
-import farmauraImg from '../assets/farmaura.png';
-import chatPlatformImg from '../assets/chat_platform.png';
-import ecommerceImg from '../assets/ecommerce.png';
-import templateStoreImg from '../assets/template_store.png';
+import farmauraImg from "../assets/farmaura.png";
+import chatPlatformImg from "../assets/chat_platform.png";
+import ecommerceImg from "../assets/ecommerce.png";
+import templateStoreImg from "../assets/template_store.png";
+import aiServiceImg from "../assets/Ai.png";
 
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -54,10 +55,46 @@ export const ABOUT = {
 export const PROJECTS = [
   {
     id: 1,
+    title: "AI Service",
+    summary: "AI-powered customer support platform and Management System",
+    description:
+      "A full-stack AI-powered SaaS application that enables businesses to provide instant customer support through an intelligent chatbot. Users can manage conversations, monitor analytics, customize chatbot behavior, and securely access role-based dashboards. The platform integrates modern AI APIs to deliver contextual and real-time responses.",
+
+    image: aiServiceImg,
+
+    features: [
+      "JWT-based authentication with secure user accounts",
+      "AI-powered chatbot using Gemini/OpenAI API",
+      "Conversation history and chat management",
+      "Dashboard with chatbot usage analytics",
+      "Responsive UI optimized for desktop and mobile",
+      "Cloudinary integration for file/image uploads",
+    ],
+
+    tech: [
+      "React",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Tailwind CSS",
+      "Gemini API",
+      "Cloudinary",
+      "JWT",
+      "Vercel",
+      "Render",
+    ],
+    github: "https://github.com/bhuvanesh-1703/Ac-Service-Website",
+    liveUrl: "https://serviceai-website-zeta.vercel.app/",
+
+    color: "#4f46e5",
+    featured: true,
+  },
+  {
+    id: 2,
     title: "FarmAura",
     summary: "Farmer-to-customer multi-vendor marketplace.",
     description:
-      "A full-stack agricultural marketplace that connects farmers directly with consumers, reducing intermediary costs and enabling fair pricing. The platform supports secure authentication, product management, order tracking, and role-based dashboards for both farmers and customers.",
+      "Developed a full-stack MERN e-commerce marketplace with three role-based portals (User, Vendor, Admin), featuring a secure vendor approval workflow and admin dashboard for product moderation and order tracking.",
     image: farmauraImg,
     features: [
       "Role-based authentication for Admin,Vendor and Customer",
@@ -66,7 +103,7 @@ export const PROJECTS = [
       "Responsive user experience optimized for desktop and mobile devices",
     ],
     tech: [
-      "React",
+      "React.js",
       "Node.js",
       "Express.js",
       "MySQL",
@@ -81,7 +118,7 @@ export const PROJECTS = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "Real-Time Chat Platform",
     summary: "Instant messaging application powered by WebSockets.",
     description:
@@ -93,23 +130,16 @@ export const PROJECTS = [
       "Online/offline presence tracking",
       "Persistent chat history using MongoDB",
     ],
-    tech: [
-      "React",
-      "Node.js",
-      "Express.js",
-      "Socket.io",
-      "MongoDB",
-      "Vercel",
-      "Render",
-    ],
-    frontendUrl: "https://github.com/bhuvanesh-1703/real-time-chat-Front-End.git",
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Vercel", "Render"],
+    frontendUrl:
+      "https://github.com/bhuvanesh-1703/real-time-chat-Front-End.git",
     backendUrl: "https://github.com/bhuvanesh-1703/real-time-chat-backend.git",
     liveUrl: "https://real-time-chat-front-end-two.vercel.app/",
     color: "#e07a5f",
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     title: "E-Commerce Platform",
     summary: "Complete MERN-based online shopping solution.",
     description:
@@ -130,14 +160,15 @@ export const PROJECTS = [
       "Vercel",
       "Render",
     ],
-    frontendUrl: "https://github.com/bhuvanesh-1703/ecommerce-mini-project-nine",
+    frontendUrl:
+      "https://github.com/bhuvanesh-1703/ecommerce-mini-project-nine",
     backendUrl: "https://github.com/bhuvanesh-1703/Ecommerce-Backend",
     liveUrl: "https://ecommerce-mini-project-nine.vercel.app/",
     color: "#d4a373",
     featured: false,
   },
   {
-    id: 4,
+    id: 5,
     title: "SaaS Template Store",
     summary: "Marketplace for premium SaaS website templates.",
     description:
@@ -209,7 +240,6 @@ export const SKILLS = [
     items: ["ChatGPT", "GitHub Copilot", "Cursor AI", "Claude AI", "DeepSeek"],
   },
 ];
-
 
 // Journey
 export const JOURNEY = [
