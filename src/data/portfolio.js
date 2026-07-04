@@ -13,18 +13,18 @@ export const NAV_LINKS = [
 ];
 
 export const HERO = {
-  greeting: "Hello, I'm",
-  name: "Bhuvanesh",
+  greeting: "Creative",
+  name: "MERN STACK",
   roles: [
-    "MERN Stack Developer",
-    "Full-Stack Web Developer",
-    "React.js Developer",
-    "Node.js Developer",
+    "Full Stack Engineer",
+    "MERN Developer",
+    "AI Enthusiast",
+    "Problem Solver",
   ],
   tagline:
-    "Full-Stack MERN Developer building scalable web applications with React, Node.js, Express.js, and MongoDB.",
-  cta: { label: "View Projects", href: "#projects" },
-  resume: { label: "Get Resume", href: "/resume.pdf" },
+    "Building high-performance digital experiences and scalable web architectures with a modern, editorial approach to code.",
+  cta: { label: "Work With Me", href: "#contact" },
+  resume: { label: "View Resume", href: "/resume.pdf" },
   social: {
     github: "https://github.com/bhuvanesh-1703",
     linkedin: "https://linkedin.com/in/bhuvanesh-raja",
@@ -36,12 +36,10 @@ export const HERO = {
 
 export const ABOUT = {
   intro:
-    "I'm a MERN Stack Developer dedicated to building high-performance web applications that combine clean design, seamless user experiences, and scalable backend architecture. I enjoy solving real-world problems through modern web technologies.",
-
+    "I'm a Full Stack Engineer dedicated to crafting authentic digital experiences that connect. From eye-catching frontend interfaces to robust backend architectures, I bring technical visions to life with code that inspires and scales.",
   paragraphs: [
-    "With a strong foundation in full-stack development, I work extensively with React.js, Node.js, Express.js, MongoDB, and MySQL to create reliable and maintainable applications. My focus is on writing clean code, optimizing performance, and delivering intuitive user experiences.",
-
-    "I have built and deployed several full-stack applications, including marketplace platforms, e-commerce solutions, and real-time communication systems. These projects strengthened my expertise in API development, authentication, database design, and cloud deployment.",
+    "Specializing in the MERN stack, I weave intricate databases and seamless React interfaces into cohesive applications. I thrive in evolving environments, quickly adapting to new trends and frameworks to stay at the cutting edge of web development.",
+    "Let's create something unforgettable together.",
   ],
   stats: [
     { value: "8+", label: "Projects Built" },

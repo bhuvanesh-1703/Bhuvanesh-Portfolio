@@ -9,7 +9,7 @@ function ScrollProgress() {
       className="fixed top-0 left-0 z-[60] h-[2px] origin-left"
       style={{
         scaleX,
-        background: 'linear-gradient(90deg, var(--color-accent-terracotta), var(--color-accent-sage))',
+        background: 'linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-teal))',
         boxShadow: '0 0 8px rgba(224, 122, 95, 0.3)',
         width: '100%',
       }}

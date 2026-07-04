@@ -1,94 +1,65 @@
 import { motion } from "framer-motion";
 import { SKILLS } from "../data/portfolio";
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
-});
+import { SectionWrapper, animationConfig } from "./DesignSystem";
 
 export default function Skills() {
+  const allSkills = SKILLS.flatMap((cat) => cat.items);
+
   return (
-    <section id="skills" className="py-24 md:py-28 relative bg-bg-primary">
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-accent-sage/3 rounded-full blur-[80px] pointer-events-none" />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div {...fadeUp(0)} className="mb-14">
-          <p className="text-accent-terracotta text-xs font-semibold tracking-[3px] uppercase mb-4 font-mono">
-            Expertise
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-text-primary tracking-tight">
-            Technical Skillset
-          </h2>
-          <div className="w-12 h-1 bg-accent-terracotta rounded-full mt-4" />
-        </motion.div>
-
-        {/* Skills grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SKILLS.map(({ category, items }, catIdx) => {
-            return (
-              <motion.div
-                key={category}
-                {...fadeUp(catIdx * 0.06)}
-                className="p-6 rounded-2xl bg-bg-secondary border border-border-subtle hover:border-accent-terracotta/20 transition-all duration-300 flex flex-col hover:-translate-y-0.5"
-              >
-                {/* Category header */}
-                <div className="flex items-center gap-2 mb-6 pb-3 border-b border-border-subtle">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-terracotta" />
-                  <h3 className="text-text-primary font-display font-semibold text-sm sm:text-base">
-                    {category}
-                  </h3>
-                </div>
-
-                {/* Skill badges list */}
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {items.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2.5 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-accent-terracotta hover:border-accent-terracotta/25 hover:bg-accent-terracotta/[0.02] transition-all duration-200 select-none"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Currently learning bar */}
-        <motion.div
-          {...fadeUp(0.35)}
-          className="mt-8 p-5 rounded-2xl bg-bg-secondary border border-border-subtle flex flex-wrap items-center gap-4 hover:border-accent-sage/25 transition-all duration-300"
+    <SectionWrapper id="skills" hasBackground={true}>
+      
+      {/* Header matching reference */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-32 mt-12 md:mt-16 relative z-10">
+        <motion.div 
+          variants={animationConfig.fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex flex-col gap-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-sage/10 border border-accent-sage/20 text-accent-sage text-[10px] font-mono font-bold uppercase tracking-wider">
-            <span className="w-1 h-1 rounded-full bg-accent-sage animate-ping" />
-            Current Focus
-          </div>
-          <span className="text-text-secondary text-sm">
-            Deepening knowledge in:
+          <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-text-secondary border-b border-border-subtle pb-2 w-fit">
+            — TOOLBOX
           </span>
-          <div className="flex flex-wrap gap-2">
-            {[
-              "TypeScript typing pattern",
-              "PostgreSQL indexes",
-              "Docker containers",
-              "Tailwind CSS v4 custom directives",
-            ].map((t) => (
-              <span
-                key={t}
-                className="px-2.5 py-1 text-xs font-mono font-medium bg-bg-primary border border-border-subtle text-text-secondary rounded-lg"
-              >
-                {t}
+          <h2 className="font-script text-5xl md:text-6xl lg:text-7xl text-text-primary tracking-tight">
+            The stack I reach for.
+          </h2>
+        </motion.div>
+        
+        <motion.span 
+          variants={animationConfig.fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="font-mono text-[10px] md:text-xs text-text-tertiary uppercase tracking-widest pb-2"
+        >
+          {allSkills.length} disciplines
+        </motion.span>
+      </div>
+
+      {/* Infinite Marquee */}
+      <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden flex items-center bg-transparent py-12 md:py-24 border-y border-border-subtle">
+        
+        {/* Fading Edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-r from-bg-primary to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-64 bg-gradient-to-l from-bg-primary to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          className="flex w-fit items-center gap-12 md:gap-24 whitespace-nowrap pl-12 md:pl-24"
+          animate={{ x: [0, "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+        >
+          {/* Render all skills twice for seamless loop */}
+          {[...allSkills, ...allSkills].map((skill, index) => (
+            <div key={index} className="flex items-center gap-12 md:gap-24">
+              <span className="font-script italic text-6xl sm:text-7xl md:text-8xl lg:text-[110px] text-text-primary tracking-tight pr-4">
+                {skill}
               </span>
-            ))}
-          </div>
+              <span className="text-3xl md:text-5xl text-[#e07a5f]">♦</span>
+            </div>
+          ))}
         </motion.div>
       </div>
-    </section>
+
+    </SectionWrapper>
   );
 }

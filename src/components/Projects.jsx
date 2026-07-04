@@ -1,18 +1,24 @@
-import { motion } from "framer-motion";
-import { ExternalLink, Star } from "lucide-react";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
-import { Github } from "./Icons";
+import { SectionWrapper, animationConfig } from "./DesignSystem";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
-});
+const ALL_TECH = [
+  "ALL",
+  "REACT",
+  "NODE.JS",
+  "MONGODB",
+  "EXPRESS.JS",
+  "TAILWIND CSS",
+  "JWT",
+];
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   const {
+    id,
     title,
+    summary,
     description,
     features,
     tech,
@@ -20,235 +26,166 @@ function ProjectCard({ project, index }) {
     demo,
     liveUrl,
     frontendUrl,
-    backendUrl,
-    color,
-    featured,
   } = project;
-  const delay = (index % 2) * 0.08;
+
+  const displayId = id < 10 ? `0${id}` : id;
+  const year = "2024";
 
   return (
-    <motion.article
-      {...fadeUp(delay)}
-      className="group relative flex flex-col rounded-2xl bg-bg-secondary border border-border-subtle hover:border-[var(--project-color)]/30 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] transition-all duration-500 overflow-hidden hover:-translate-y-1.5"
-      style={{ "--project-color": color }}
+    <motion.div
+      layout
+      variants={animationConfig.fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      exit={{ opacity: 0, y: 20 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="flex flex-col md:flex-row gap-10 md:gap-16 mb-24 md:mb-32 group"
     >
-      {/* Top Accent Stripe */}
-      <div
-        className="h-1 w-full opacity-60 group-hover:opacity-100 transition-opacity duration-300 z-20"
-        style={{ backgroundColor: color }}
-      />
-
-      {/* Project Image Banner */}
-      <div className="relative aspect-video w-full overflow-hidden bg-bg-primary border-b border-border-subtle/50 z-10">
-        {/* Subtle Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-90 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-bg-secondary/30 via-transparent to-transparent opacity-50 z-10" />
-
-        {/* Lazy Loaded Image with smooth hover scale */}
-        <img
-          src={project.image}
-          alt={`${title} Preview`}
-          loading="lazy"
-          className="w-full h-full object-cover object-center transform group-hover:scale-[1.03] transition-transform duration-700 ease-[0.16, 1, 0.3, 1]"
-        />
+      {/* Image Side */}
+      <div className="w-full md:w-1/2 relative">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-bg-secondary">
+          <img
+            src={project.image}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover object-center transform group-hover:scale-[1.03] transition-transform duration-1000 ease-[0.16,1,0.3,1]"
+          />
+        </div>
       </div>
 
-      <div className="p-6 sm:p-7 flex flex-col flex-1 relative z-10">
-        {/* Title and Featured Badge */}
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <h3 className="text-text-primary font-display font-bold text-lg sm:text-xl leading-snug group-hover:text-accent-terracotta transition-colors duration-200">
-            {title}
-          </h3>
-          {featured && (
-            <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-accent-sage/10 border border-accent-sage/20 text-accent-sage text-[10px] font-mono font-bold uppercase tracking-wider">
-              <Star size={10} className="fill-accent-sage" />
-              Core Project
-            </span>
-          )}
+      {/* Details Side */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center relative">
+        {/* Date / ID */}
+        <div className="text-text-tertiary font-mono text-[10px] tracking-[0.2em] mb-4 uppercase flex items-center gap-2">
+          <span>{displayId}</span>
+          <span>-</span>
+          <span>{year}</span>
         </div>
 
-        {/* Short Description */}
-        <p className="text-text-secondary text-sm leading-relaxed mb-5">
+        {/* Title & Subtitle */}
+        <h3 className="font-script text-4xl md:text-5xl lg:text-6xl text-text-primary mb-2 md:mb-3">
+          {title}
+        </h3>
+        <p className="font-script italic text-lg md:text-xl lg:text-2xl text-text-secondary mb-6 md:mb-8">
+          {summary || "Full-stack web application"}
+        </p>
+
+        {/* Description */}
+        <p className="font-sans text-text-primary/90 text-sm md:text-base leading-relaxed font-light mb-8 max-w-lg">
           {description}
         </p>
 
-        {/* Key Features/Highlights - Recruiter-friendly addition */}
-        <div className="mb-5 flex-1">
-          <h4 className="text-text-tertiary text-xs font-mono font-bold uppercase tracking-wider mb-2.5">
-            Key Implementations
-          </h4>
-          <ul className="space-y-1.5">
-            {features &&
-              features.map((f, i) => (
-                <li
-                  key={i}
-                  className="text-text-secondary/80 text-xs flex items-start gap-2"
-                >
-                  <span className="text-accent-terracotta mt-1 select-none">
-                    •
-                  </span>
-                  <span>{f}</span>
-                </li>
-              ))}
-          </ul>
+        {/* Role & Stack */}
+        <div className="grid grid-cols-2 gap-4 md:gap-8 mb-8">
+          <div>
+            <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-tertiary mb-2 md:mb-3">
+              Role
+            </h4>
+            <p className="font-sans text-xs md:text-sm text-text-secondary font-light">
+              Full-Stack Developer
+            </p>
+          </div>
+          <div>
+            <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-tertiary mb-2 md:mb-3">
+              Stack
+            </h4>
+            <p className="font-sans text-xs md:text-sm text-text-secondary font-light leading-relaxed">
+              {tech.slice(0, 4).join(", ")}
+            </p>
+          </div>
+        </div>
+
+        {/* Features / Highlights */}
+        <div className="flex flex-col gap-2 md:gap-3 mb-8">
+          {features?.map((feature, i) => (
+            <div key={i} className="flex items-start gap-4">
+              <span className="text-[#e07a5f] mt-[2px] font-bold">—</span>
+              <span className="font-sans text-xs md:text-sm text-text-secondary font-light">
+                {feature}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* Tech Badges */}
-        <div className="flex flex-wrap gap-1.5 mb-6">
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-10">
           {tech.map((t) => (
             <span
               key={t}
-              className="px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary transition-colors"
+              className="px-2 md:px-3 py-1 border border-border-subtle font-mono text-[8px] md:text-[10px] uppercase tracking-[0.1em] text-text-tertiary hover:border-text-secondary transition-colors"
             >
               {t}
             </span>
           ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-border-subtle mt-auto w-full">
-          {liveUrl || frontendUrl || backendUrl ? (
-            <>
-              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-                {frontendUrl && (
-                  <a
-                    href={frontendUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
-                    aria-label={`View Frontend Source Code for ${title}`}
-                  >
-                    <Github size={13} />
-                    Frontend Code
-                  </a>
-                )}
-                {backendUrl && (
-                  <a
-                    href={backendUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
-                    aria-label={`View Backend Source Code for ${title}`}
-                  >
-                    <Github size={13} />
-                    Backend Code
-                  </a>
-                )}
-              </div>
-              {liveUrl && (
-                <a
-                  href={liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg border transition-all duration-200 shadow-sm ml-auto w-full sm:w-auto justify-center sm:justify-start"
-                  style={{
-                    backgroundColor: `${color}15`,
-                    borderColor: `${color}30`,
-                    color: color,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = `${color}25`;
-                    e.currentTarget.style.borderColor = color;
-                    e.currentTarget.style.boxShadow = `0 0 12px ${color}20`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = `${color}15`;
-                    e.currentTarget.style.borderColor = `${color}30`;
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                  aria-label={`View Live Demo of ${title}`}
-                >
-                  Live Demo
-                  <ExternalLink size={12} />
-                </a>
-              )}
-            </>
-          ) : (
-            <>
-              {github && (
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-bg-primary border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-bg-tertiary hover:border-text-tertiary/20 transition-all duration-200"
-                  aria-label={`View Source Code for ${title}`}
-                >
-                  <Github size={13} />
-                  Source Code
-                </a>
-              )}
-              {demo && (
-                <a
-                  href={demo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg border transition-all duration-200 shadow-sm ml-auto w-full sm:w-auto justify-center sm:justify-start"
-                  style={{
-                    backgroundColor: `${color}15`,
-                    borderColor: `${color}30`,
-                    color: color,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = `${color}25`;
-                    e.currentTarget.style.borderColor = color;
-                    e.currentTarget.style.boxShadow = `0 0 12px ${color}20`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = `${color}15`;
-                    e.currentTarget.style.borderColor = `${color}30`;
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                  aria-label={`View Live Demo of ${title}`}
-                >
-                  Live Demo
-                  <ExternalLink size={12} />
-                </a>
-              )}
-            </>
-          )}
-        </div>
+        {/* Action link */}
+        {(liveUrl || demo || frontendUrl || github) && (
+          <a
+            href={liveUrl || demo || frontendUrl || github}
+            target="_blank"
+            rel="noreferrer"
+            className="group/btn inline-flex items-center gap-2 md:gap-3 font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] text-text-primary hover:text-[#e07a5f] transition-colors mt-auto w-fit"
+          >
+            Ask About This Project 
+            <ArrowUpRight size={14} className="md:w-4 md:h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+          </a>
+        )}
       </div>
-    </motion.article>
+    </motion.div>
   );
 }
 
 export default function Projects() {
+  const [filter, setFilter] = useState("ALL");
+
+  const filteredProjects = useMemo(() => {
+    if (filter === "ALL") return PROJECTS;
+    return PROJECTS.filter(p => p.tech.some(t => t.toUpperCase() === filter.toUpperCase()));
+  }, [filter]);
+
   return (
-    <section id="projects" className="py-24 md:py-28 relative bg-bg-primary">
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-accent-terracotta/3 rounded-full blur-[100px] pointer-events-none" />
-      </div>
+    <SectionWrapper id="projects" hasBackground={false}>
+      
+      {/* Custom Header Matching Screenshot */}
+      <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 md:gap-12 mb-16 md:mb-24 mt-12 md:mt-16">
+        
+        {/* Massive Title */}
+        <div className="flex flex-col">
+          <h2 className="font-script italic text-6xl sm:text-7xl md:text-8xl lg:text-[110px] text-text-primary leading-[1] md:leading-[0.9] tracking-tight">
+            not
+          </h2>
+          <h2 className="font-script text-6xl sm:text-7xl md:text-8xl lg:text-[110px] text-text-primary leading-[1] md:leading-[0.9] tracking-tight">
+            screenshots.
+          </h2>
+        </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div {...fadeUp(0)} className="mb-14">
-          <p className="text-accent-terracotta text-xs font-semibold tracking-[3px] uppercase mb-4 font-mono">
-            Portfolio
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-text-primary tracking-tight">
-              Selected Work
-            </h2>
-            <a
-              href="https://github.com/bhuvanesh-1703"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-text-secondary hover:text-accent-terracotta transition-colors duration-200 pb-1"
+        {/* Filters */}
+        <div className="flex flex-wrap items-center gap-2 xl:pb-4 max-w-2xl">
+          {ALL_TECH.map(tech => (
+            <button
+              key={tech}
+              onClick={() => setFilter(tech)}
+              className={`px-3 py-1.5 border font-mono text-[10px] uppercase tracking-widest transition-colors ${
+                filter === tech 
+                  ? 'border-[#e07a5f] bg-[#e07a5f] text-white' 
+                  : 'border-border-subtle text-text-tertiary hover:border-text-secondary hover:text-text-primary'
+              }`}
             >
-              All Projects on GitHub
-              <ExternalLink size={12} />
-            </a>
-          </div>
-          <div className="w-12 h-1 bg-accent-terracotta rounded-full mt-4" />
-        </motion.div>
-
-        {/* Grid layout */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+              {tech}
+            </button>
           ))}
         </div>
       </div>
-    </section>
+
+      <div className="relative z-10 w-full mt-12 md:mt-16">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </AnimatePresence>
+      </div>
+
+    </SectionWrapper>
   );
 }

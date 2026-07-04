@@ -24,15 +24,21 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-bg-primary border-t border-border-subtle py-12">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="relative bg-bg-primary border-t border-border-subtle py-12 md:py-16 transition-colors duration-300">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-24">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-terracotta to-accent-sage flex items-center justify-center">
-              <Code size={16} className="text-bg-primary stroke-[2.5]" />
-            </div>
-            <span className="text-text-secondary font-display font-bold text-sm">Bhuvanesh</span>
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <a
+              href="#"
+              onClick={(e) => handleNav(e, '#')}
+              className="font-sans text-2xl font-bold tracking-tighter text-text-primary transition-colors hover:text-text-secondary"
+            >
+              BHUVANESH.
+            </a>
+            <span className="text-text-secondary font-mono text-[10px] tracking-widest uppercase">
+              MERN & Frontend Developer
+            </span>
           </div>
 
           {/* Navigation Links */}
@@ -42,7 +48,7 @@ export default function Footer() {
                 <a
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className="text-text-tertiary hover:text-accent-terracotta text-sm transition-colors duration-150"
+                  className="font-mono text-xs tracking-widest uppercase text-text-secondary hover:text-text-primary transition-colors duration-300"
                 >
                   {link.label}
                 </a>
@@ -51,7 +57,7 @@ export default function Footer() {
           </ul>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             {SOCIALS.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
@@ -59,22 +65,22 @@ export default function Footer() {
                 aria-label={label}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-bg-secondary border border-border-subtle hover:border-accent-terracotta/30 text-text-tertiary hover:text-accent-terracotta transition-all duration-150"
+                className="group flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors duration-300"
               >
-                <Icon size={14} />
+                <Icon size={18} className="transition-transform duration-300 group-hover:scale-110" />
               </a>
             ))}
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-8 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-text-tertiary text-xs">
-            © {year} Bhuvanesh. All rights reserved.
+        <div className="mt-16 pt-8 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-text-tertiary font-mono text-[10px] uppercase tracking-widest">
+            © {year} BHUVANESH. ALL RIGHTS RESERVED.
           </p>
-          <p className="text-text-tertiary text-xs flex items-center gap-1.5">
-            Built with React, Vite & Tailwind CSS v4
-            <Heart size={11} className="text-accent-terracotta fill-accent-terracotta animate-pulse" />
+          <p className="text-text-tertiary font-mono text-[10px] uppercase tracking-widest flex items-center gap-2">
+            BUILT WITH REACT, VITE & TAILWIND
+            <Heart size={10} className="text-text-primary fill-text-primary animate-pulse" />
           </p>
         </div>
       </div>
