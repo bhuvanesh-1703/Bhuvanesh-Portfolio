@@ -26,10 +26,10 @@ function ProjectCard({ project }) {
     demo,
     liveUrl,
     frontendUrl,
+    year,
   } = project;
 
   const displayId = id < 10 ? `0${id}` : id;
-  const year = "2024";
 
   return (
     <motion.div
@@ -141,7 +141,7 @@ export default function Projects() {
 
   const filteredProjects = useMemo(() => {
     if (filter === "ALL") return PROJECTS;
-    return PROJECTS.filter(p => p.tech.some(t => t.toUpperCase() === filter.toUpperCase()));
+    return PROJECTS.filter(p => p.tech.some(t => t.toUpperCase().startsWith(filter)));
   }, [filter]);
 
   return (

@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
 import { HERO } from "../data/portfolio";
 import { animationConfig } from "./DesignSystem";
 
@@ -52,14 +52,10 @@ export default function Hero() {
 
           {/* Massive Typography */}
           <motion.div variants={animationConfig.fadeUp} className="flex flex-col gap-0 mb-12">
-            <h1 className="font-script text-7xl sm:text-8xl md:text-9xl lg:text-[160px] leading-[0.9] text-text-primary tracking-tight">
-              Build.
-            </h1>
-            <h1 className="font-script italic text-7xl sm:text-8xl md:text-9xl lg:text-[160px] leading-[0.9] text-text-secondary tracking-tight">
-              Ship.
-            </h1>
-            <h1 className="font-script text-7xl sm:text-8xl md:text-9xl lg:text-[160px] leading-[0.9] text-[#e07a5f] tracking-tight">
-              Refine.
+            <h1 className="font-script text-7xl sm:text-8xl md:text-9xl lg:text-[160px] leading-[0.9] tracking-tight">
+              <span className="block text-text-primary">Build.</span>
+              <span className="block italic text-text-secondary">Ship.</span>
+              <span className="block text-[#e07a5f]">Refine.</span>
             </h1>
           </motion.div>
 
@@ -79,6 +75,15 @@ export default function Hero() {
             >
               See Selected Work <ArrowDown size={14} />
             </button>
+            <a
+              href={HERO.resume.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group/btn w-full sm:w-auto px-8 py-4 bg-transparent border border-border-subtle text-text-primary hover:border-text-primary transition-colors flex items-center justify-center gap-3 font-mono text-xs font-bold uppercase tracking-widest"
+            >
+              {HERO.resume.label}
+              <FileText size={14} className="transition-transform group-hover/btn:scale-110" />
+            </a>
             <button 
               onClick={handleScrollToContact}
               className="group/btn w-full sm:w-auto px-8 py-4 bg-transparent border border-border-subtle text-text-primary hover:border-text-primary transition-colors flex items-center justify-center gap-3 font-mono text-xs font-bold uppercase tracking-widest"

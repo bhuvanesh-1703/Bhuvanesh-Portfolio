@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { NAV_LINKS } from "../data/portfolio";
+import { Menu, X, Moon, Sun, FileText } from "lucide-react";
+import { NAV_LINKS, HERO } from "../data/portfolio";
 import { useTheme } from "./ThemeProvider";
 
 export default function Navbar() {
@@ -9,7 +9,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("");
   const { theme, toggleTheme } = useTheme();
+  const observerRef = useRef(null);
 
+  // Scroll detection for navbar background
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
@@ -18,8 +20,39 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Scroll-spy: IntersectionObserver updates active state based on which section is visible
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map((link) => link.href.replace("#", ""));
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (sections.length === 0) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`);
+          }
+        }
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observerRef.current.observe(section));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
   const handleNav = (href) => {
-    setActive(href);
     setMobileOpen(false);
     const element = document.querySelector(href);
     if (element) {
@@ -75,6 +108,15 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden md:flex items-center gap-6">
+            <a
+              href={HERO.resume.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-text-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
+            >
+              Resume
+              <FileText size={12} className="transition-transform group-hover:scale-110" />
+            </a>
             <button
               onClick={toggleTheme}
               className="text-text-secondary hover:text-text-primary transition-colors"
@@ -123,6 +165,17 @@ export default function Navbar() {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href={HERO.resume.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center gap-3 font-sans text-4xl font-bold tracking-tight text-[#e07a5f] transition-colors"
+                >
+                  Resume <FileText size={28} />
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

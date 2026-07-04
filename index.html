@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://bhuvanesh-portfolio.vercel.app/" />
     <meta property="og:title" content="Bhuvanesh — Full-Stack Engineer" />
     <meta property="og:description" content="Production-grade web applications built with the MERN stack." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="https://bhuvanesh-portfolio.vercel.app/og-image.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -26,6 +26,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <script>
+      (function(){
+        var t=localStorage.getItem('theme');
+        if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))
+          document.documentElement.classList.add('dark');
+      })()
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

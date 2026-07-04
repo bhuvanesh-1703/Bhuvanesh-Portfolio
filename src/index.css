@@ -6,8 +6,10 @@
     --color-bg-secondary: #FFFFFF;
     --color-text-primary: #111111;
     --color-text-secondary: #666666;
+    --color-text-tertiary: #AAAAAA;
     --color-border-subtle: #E5E5E5;
     --color-accent-blue: #1C3C87;
+    --color-accent-teal: #0D9488;
   }
 
   .dark {
@@ -15,8 +17,10 @@
     --color-bg-secondary: #111111;
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #999999;
+    --color-text-tertiary: #555555;
     --color-border-subtle: #222222;
     --color-accent-blue: #3B82F6;
+    --color-accent-teal: #14B8A6;
   }
 }
 
@@ -29,8 +33,10 @@
   --color-bg-secondary: var(--color-bg-secondary);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
   --color-border-subtle: var(--color-border-subtle);
   --color-accent-blue: var(--color-accent-blue);
+  --color-accent-teal: var(--color-accent-teal);
 }
 
 * {
@@ -89,8 +95,14 @@ body::before {
   color: var(--color-bg-primary);
   
 }
-/* Custom hide cursor class */
+/* Custom hide cursor class — exempts form elements to preserve native text/resize cursors */
 .has-custom-cursor,
 .has-custom-cursor * {
   cursor: none !important;
+}
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor [contenteditable] {
+  cursor: text !important;
 }

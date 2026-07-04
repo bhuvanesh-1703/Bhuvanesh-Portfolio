@@ -1,8 +1,8 @@
-import farmauraImg from "../assets/farmaura.png";
-import chatPlatformImg from "../assets/chat_platform.png";
-import ecommerceImg from "../assets/ecommerce.png";
-import templateStoreImg from "../assets/template_store.png";
-import aiServiceImg from "../assets/Ai.png";
+import farmauraImg from "../assets/farmaura.webp";
+import chatPlatformImg from "../assets/chat_platform.webp";
+import ecommerceImg from "../assets/ecommerce.webp";
+import templateStoreImg from "../assets/template_store.webp";
+import aiServiceImg from "../assets/Ai.webp";
 
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -85,6 +85,7 @@ export const PROJECTS = [
     liveUrl: "https://serviceai-website-zeta.vercel.app/",
 
     color: "#4f46e5",
+    year: "2026",
     featured: true,
   },
   {
@@ -101,7 +102,7 @@ export const PROJECTS = [
       "Responsive user experience optimized for desktop and mobile devices",
     ],
     tech: [
-      "React.js",
+      "React",
       "Node.js",
       "Express.js",
       "MySQL",
@@ -113,6 +114,7 @@ export const PROJECTS = [
     backendUrl: "https://github.com/bhuvanesh-1703/backend-farmer.git",
     liveUrl: "https://final-former-websites.vercel.app/",
     color: "#e07a5f",
+    year: "2026",
     featured: true,
   },
   {
@@ -134,6 +136,7 @@ export const PROJECTS = [
     backendUrl: "https://github.com/bhuvanesh-1703/real-time-chat-backend.git",
     liveUrl: "https://real-time-chat-front-end-two.vercel.app/",
     color: "#e07a5f",
+    year: "2026",
     featured: true,
   },
   {
@@ -163,6 +166,7 @@ export const PROJECTS = [
     backendUrl: "https://github.com/bhuvanesh-1703/Ecommerce-Backend",
     liveUrl: "https://ecommerce-mini-project-nine.vercel.app/",
     color: "#d4a373",
+    year: "2026",
     featured: false,
   },
   {
@@ -182,6 +186,7 @@ export const PROJECTS = [
     github: "https://github.com/bhuvanesh-1703/fullstack-intern-task.git",
     demo: "https://fullstack-intern-task-mu.vercel.app/",
     color: "#d4a373",
+    year: "2025",
     featured: false,
   },
 ];
