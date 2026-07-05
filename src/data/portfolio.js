@@ -44,7 +44,7 @@ export const ABOUT = {
   stats: [
     { value: "8+", label: "Projects Built" },
     { value: "5+", label: "Live Deployments" },
-    { value: "1+", label: "Years Learning" },
+   
   ],
 };
 
@@ -180,7 +180,7 @@ export const PROJECTS = [
       "Template browsing with category-based filtering",
       "Live preview and detailed template showcase",
       "User authentication and account management",
-      "Add to Favorite and Remove to Favorite",
+      "Add to Favorites / Remove from Favorites",
     ],
     tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
     github: "https://github.com/bhuvanesh-1703/fullstack-intern-task.git",
@@ -221,6 +221,7 @@ export const SKILLS = [
       { name: "MongoDB", level: "strong" },
       { name: "MySQL", level: "comfortable" },
       { name: "Render / Vercel Deploy", level: "strong" },
+      { name: "Docker", level: "comfortable" },
     ],
   },
   {
@@ -245,6 +246,7 @@ export const SKILLS = [
     category: "AI-Assisted Development",
     items: [
       { name: "ChatGPT", level: "comfortable" },
+      { name: "Gemini", level: "comfortable" },
       { name: "GitHub Copilot", level: "comfortable" },
       { name: "Cursor AI", level: "comfortable" },
       { name: "Claude AI", level: "comfortable" },
@@ -296,6 +298,7 @@ export const JOURNEY = [
 
 export const CONTACT = {
   email: "bhuvaneshmahi2003@gmail.com",
+  phone: "9092743327",
   github: "https://github.com/bhuvanesh-1703",
   linkedin: "https://linkedin.com/in/bhuvanesh-raja",
 };

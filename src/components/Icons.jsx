@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function Github({ size = 20, className = "", ...props }) {
   return (
     <svg
@@ -56,6 +54,47 @@ export function Mail({ size = 20, className = "", ...props }) {
     >
       <rect width="20" height="16" x="2" y="4" rx="2" />
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+export function Sparrow({ size = 20, className = "", ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1v2a4 4 0 0 0 3 3.87V22h4v-3.13A4 4 0 0 0 17 15v-2h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
+      <path d="M9 10h.01" />
+      <path d="M15 10h.01" />
+      <path d="M10 14a3.5 3.5 0 0 0 4 0" />
+    </svg>
+  );
+}
+
+export function Phone({ size = 20, className = "", ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }

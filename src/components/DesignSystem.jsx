@@ -7,6 +7,12 @@ export const animationConfig = {
     smooth: [0.16, 1, 0.3, 1],
     springy: { type: "spring", stiffness: 120, damping: 20 },
   },
+  staggerContainer: {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15 },
+    },
+  },
   fadeUp: {
     hidden: { opacity: 0, y: 40 },
     visible: (i = 0) => ({

@@ -1,20 +1,14 @@
 import { Code, Heart } from 'lucide-react';
 import { NAV_LINKS, CONTACT } from '../data/portfolio';
 import { Github, Linkedin, Mail } from './Icons';
+import { scrollToElement } from '../utils';
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   const handleNav = (e, href) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const topOffset = element.offsetTop - 80;
-      window.scrollTo({
-        top: topOffset,
-        behavior: 'smooth'
-      });
-    }
+    scrollToElement(href);
   };
 
   const SOCIALS = [

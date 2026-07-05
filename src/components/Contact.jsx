@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { CONTACT } from '../data/portfolio';
-import { Github, Linkedin, Mail } from './Icons';
+import { Github, Linkedin, Mail, Phone } from './Icons';
 import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';
 
 const LINKS = [
   { icon: Mail, label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { icon: Phone, label: 'Phone', value: CONTACT.phone, href: `tel:${CONTACT.phone}` },
   { icon: Github, label: 'GitHub', value: CONTACT.github.replace('https://', ''), href: CONTACT.github },
   { icon: Linkedin, label: 'LinkedIn', value: CONTACT.linkedin.replace('https://', ''), href: CONTACT.linkedin },
 ];

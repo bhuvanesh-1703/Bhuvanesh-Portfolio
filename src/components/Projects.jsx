@@ -122,7 +122,7 @@ function BrowserMockup({ image, url, title, accent }) {
         <img
           src={image}
           alt={`${title} screenshot`}
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-contain"
         />
       </div>
     </div>

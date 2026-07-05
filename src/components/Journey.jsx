@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { JOURNEY } from '../data/portfolio';
 import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';

@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, FileText } from "lucide-react";
 import { NAV_LINKS, HERO } from "../data/portfolio";
-import { Github } from "./Icons";
+import { Github, Sparrow } from "./Icons";
+import { scrollToElement } from "../utils";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,14 +54,7 @@ export default function Navbar() {
 
   const handleNav = (href) => {
     setMobileOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      const topOffset = element.offsetTop - 80;
-      window.scrollTo({
-        top: topOffset,
-        behavior: "smooth",
-      });
-    }
+    scrollToElement(href);
   };
 
   return (
@@ -113,8 +107,8 @@ export default function Navbar() {
               rel="noreferrer"
               className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-text-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
             >
-              GitHub
-              <Github size={12} className="transition-transform group-hover:scale-110" />
+              JARVIS
+              <Sparrow size={12} className="transition-transform group-hover:scale-110" />
             </a>
             <a
               href={HERO.resume.href}
