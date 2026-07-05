@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun, FileText } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { NAV_LINKS, HERO } from "../data/portfolio";
-import { useTheme } from "./ThemeProvider";
+import { Github } from "./Icons";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("");
-  const { theme, toggleTheme } = useTheme();
   const observerRef = useRef(null);
 
   // Scroll detection for navbar background
@@ -107,7 +106,16 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={HERO.social.github}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-text-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
+            >
+              GitHub
+              <Github size={12} className="transition-transform group-hover:scale-110" />
+            </a>
             <a
               href={HERO.resume.href}
               target="_blank"
@@ -117,23 +125,10 @@ export default function Navbar() {
               Resume
               <FileText size={12} className="transition-transform group-hover:scale-110" />
             </a>
-            <button
-              onClick={toggleTheme}
-              className="text-text-secondary hover:text-text-primary transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={18} strokeWidth={2} /> : <Moon size={18} strokeWidth={2} />}
-            </button>
           </div>
 
-          {/* Mobile Toggle & Theme Toggle */}
-          <div className="flex md:hidden items-center gap-6">
-            <button
-              onClick={toggleTheme}
-              className="text-text-secondary hover:text-text-primary transition-colors"
-            >
-              {theme === "dark" ? <Sun size={20} strokeWidth={2} /> : <Moon size={20} strokeWidth={2} />}
-            </button>
+          {/* Mobile menu toggle */}
+          <div className="flex md:hidden items-center">
             <button
               className="text-text-primary transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -165,6 +160,17 @@ export default function Navbar() {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href={HERO.social.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center gap-3 font-sans text-4xl font-bold tracking-tight text-text-primary transition-colors"
+                >
+                  GitHub <Github size={28} />
+                </a>
+              </li>
               <li>
                 <a
                   href={HERO.resume.href}

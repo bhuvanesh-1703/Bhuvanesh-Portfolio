@@ -26,13 +26,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <script>
-      (function(){
-        var t=localStorage.getItem('theme');
-        if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))
-          document.documentElement.classList.add('dark');
-      })()
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

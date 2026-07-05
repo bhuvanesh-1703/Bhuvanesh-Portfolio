@@ -8,6 +8,7 @@ import Skills from './components/Skills';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { HoveredSkillProvider } from './components/SkillContext';
 
 export default function App() {
   return (
@@ -18,8 +19,10 @@ export default function App() {
       <main className="relative">
         <Hero />
         <About />
-        <Projects />
-        <Skills />
+        <HoveredSkillProvider>
+          <Projects />
+          <Skills />
+        </HoveredSkillProvider>
         <Journey />
         <Contact />
       </main>
