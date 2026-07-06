@@ -132,7 +132,7 @@ function BrowserMockup({ image, url, title, accent }) {
 function ProjectCard({ project, index, onSelect, isSelected }) {
   const cardRef = useRef(null);
   const { hoveredSkill } = useHoveredSkill();
-  const accent = project.color || "#e07a5f";
+  const accent = project.color || "var(--color-accent-gold)";
   const visibleTech = project.tech.slice(0, 3);
   const isDimmed = hoveredSkill && !projectUsesSkill(project, hoveredSkill);
 
@@ -227,7 +227,7 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
 
           {/* Title */}
           <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 pt-16">
-            <h3 className="font-script text-2xl sm:text-3xl text-white leading-tight tracking-tight mb-2">
+            <h3 className="font-serif text-2xl sm:text-3xl text-white leading-tight tracking-wide mb-2 font-normal">
               {project.title}
             </h3>
             <p className="font-sans text-sm text-white/70 font-light leading-relaxed line-clamp-2">
@@ -272,7 +272,7 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
 
 function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, triggerRef }) {
   const panelRef = useRef(null);
-  const accent = project.color || "#e07a5f";
+  const accent = project.color || "var(--color-accent-gold)";
   const liveUrl = project.liveUrl || project.demo;
 
   useEffect(() => {
@@ -372,10 +372,10 @@ function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, tri
             </span>
           </div>
 
-          <h3 className="font-script text-3xl sm:text-4xl text-text-primary tracking-tight mb-2">
+          <h3 className="font-serif text-3xl sm:text-4xl text-text-primary tracking-wide mb-2 font-normal">
             {project.title}
           </h3>
-          <p className="font-script italic text-base sm:text-lg text-text-secondary mb-6">
+          <p className="font-serif italic text-base sm:text-lg text-text-secondary mb-6">
             {project.summary}
           </p>
 
@@ -494,7 +494,7 @@ export default function Projects() {
           <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-text-secondary border-b border-border-subtle pb-2 w-fit">
             — Selected Work
           </span>
-          <h2 className="font-script text-5xl sm:text-6xl md:text-7xl text-text-primary tracking-tight leading-[1.05]">
+          <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl text-white tracking-wide leading-[1.05] font-normal">
             Things I&apos;ve built
             <span className="italic text-text-secondary"> &amp; shipped.</span>
           </h2>
@@ -546,8 +546,8 @@ export default function Projects() {
                 disabled={count === 0}
                 className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 border font-mono text-[10px] uppercase tracking-widest transition-colors disabled:opacity-30 disabled:pointer-events-none ${
                   isActive
-                    ? "border-[#e07a5f] bg-[#e07a5f] text-white"
-                    : "border-border-subtle text-text-tertiary hover:border-text-secondary hover:text-text-primary bg-bg-secondary"
+                    ? "border-accent-gold bg-accent-gold text-white"
+                    : "border-border-subtle text-text-tertiary hover:border-accent-gold hover:text-white bg-bg-secondary"
                 }`}
               >
                 {tech}

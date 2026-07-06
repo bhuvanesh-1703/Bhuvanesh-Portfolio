@@ -26,9 +26,9 @@ export default function Footer() {
             <a
               href="#"
               onClick={(e) => handleNav(e, '#')}
-              className="font-sans text-2xl font-bold tracking-tighter text-text-primary transition-colors hover:text-text-secondary"
+              className="font-serif text-3xl font-normal tracking-wide text-text-primary transition-colors hover:text-accent-gold"
             >
-              BHUVANESH.
+              Bhuvanesh.
             </a>
             <span className="text-text-secondary font-mono text-[10px] tracking-widest uppercase">
               MERN & Frontend Developer

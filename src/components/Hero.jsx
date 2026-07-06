@@ -61,14 +61,14 @@ export default function Hero() {
             {/* Premium Typography */}
             <motion.div
               variants={animationConfig.fadeUp}
-              className="flex flex-col gap-2 mb-8"
+              className="flex flex-col gap-4 mb-10"
             >
-              <h1 className="font-sans font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[1.05] tracking-tight text-white">
-                Engineering <span className="text-text-secondary">digital</span>{" "}
+              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[1.05] tracking-tight text-white font-normal">
+                Engineering <span className="italic text-text-secondary">digital</span>{" "}
                 <br />
                 experiences <br />
                 with{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500 italic font-serif">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-yellow-200 italic font-serif pr-2">
                   precision.
                 </span>
               </h1>
@@ -92,10 +92,10 @@ export default function Hero() {
                 className="group relative px-6 py-3 bg-white text-black rounded-full font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                Explore Projects{" "}
+                <span className="relative z-10">Explore Projects</span>
                 <ArrowRight
                   size={16}
-                  className="transition-transform group-hover:translate-x-1"
+                  className="relative z-10 transition-transform group-hover:translate-x-1"
                 />
               </button>
 
@@ -129,12 +129,12 @@ export default function Hero() {
               <div className="w-full h-full rounded-xl bg-black/40 backdrop-blur-sm border border-white/[0.05] p-6 flex flex-col relative z-10">
                 {/* Mock code editor header */}
                 <div className="flex items-center justify-between mb-6 border-b border-white/[0.05] pb-4">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-red-500" />
+                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-yellow-500" />
+                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-green-500" />
                   </div>
-                  <div className="font-mono text-[10px] text-text-tertiary flex items-center gap-2">
+                  <div className="font-mono text-[10px] text-text-tertiary flex items-center gap-2 uppercase tracking-widest">
                     <Code2 size={12} /> index.js
                   </div>
                 </div>

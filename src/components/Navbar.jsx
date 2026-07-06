@@ -62,10 +62,10 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "py-4 bg-bg-primary/80 backdrop-blur-lg border-b border-border-subtle"
+            ? "py-4 bg-bg-primary/70 backdrop-blur-2xl border-b border-white/[0.03] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             : "py-8 bg-transparent"
         }`}
       >
@@ -77,9 +77,9 @@ export default function Navbar() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="font-sans text-xl md:text-2xl font-bold tracking-tighter text-text-primary transition-colors hover:text-text-secondary"
+            className="font-serif text-2xl md:text-3xl tracking-wide text-text-primary transition-all duration-300 hover:text-accent-gold"
           >
-            BHUVANESH.
+            Bhuvanesh.
           </a>
 
           {/* Desktop Nav */}

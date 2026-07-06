@@ -17,8 +17,8 @@ export default function About() {
           variants={animationConfig.fadeUp}
           className="w-full lg:w-1/2 flex flex-col"
         >
-          <h3 className="font-sans text-3xl md:text-5xl font-bold text-text-primary tracking-tighter mb-8 leading-[1.1]">
-            My core philosophy is <span className="text-text-secondary">simplicity and scale.</span>
+          <h3 className="font-serif text-4xl md:text-6xl text-text-primary tracking-wide mb-10 leading-[1.1] font-normal">
+            My core philosophy is <span className="italic text-text-secondary">simplicity and scale.</span>
           </h3>
           <p className="font-sans text-lg md:text-xl text-text-secondary leading-relaxed font-light">
             {ABOUT.intro}
@@ -50,7 +50,7 @@ export default function About() {
           >
             {ABOUT.stats.map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-2">
-                <span className="font-sans text-5xl md:text-6xl font-bold text-text-primary tracking-tighter">{value}</span>
+                <span className="font-serif text-6xl md:text-7xl font-normal text-white tracking-tight">{value}</span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">{label}</span>
               </div>
             ))}
