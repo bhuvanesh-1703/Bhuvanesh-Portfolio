@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { SKILLS } from "../data/portfolio";
 import { SectionWrapper, animationConfig } from "./DesignSystem";
 import { useHoveredSkill } from "./SkillContext";
@@ -27,7 +27,7 @@ function ProficiencyDots({ level }) {
         <span
           key={i}
           className={`w-[6px] h-[6px] rounded-full transition-colors ${
-            filled ? "bg-[#e07a5f]" : "bg-border-subtle"
+            filled ? "bg-accent-lime" : "bg-border-subtle"
           }`}
         />
       ))}
@@ -42,7 +42,7 @@ function SkillPill({ skill }) {
     <span
       onMouseEnter={() => setHoveredSkill(skill.name)}
       onMouseLeave={() => setHoveredSkill(null)}
-      className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border-subtle font-mono text-[10px] md:text-[11px] text-text-secondary tracking-wider uppercase transition-all duration-300 hover:border-text-secondary hover:text-text-primary cursor-default select-none"
+      className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border-subtle font-mono text-[10px] md:text-[11px] text-text-secondary tracking-wider uppercase transition-all duration-300 hover:border-accent-lime hover:text-white cursor-default select-none"
     >
       {skill.name}
       <ProficiencyDots level={skill.level} />
@@ -60,7 +60,7 @@ function CategoryCard({ category, index }) {
       viewport={{ once: true, margin: "-60px" }}
       whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 150, damping: 20 }}
-      className="group p-6 md:p-8 border border-border-subtle bg-bg-secondary/50 hover:bg-bg-secondary transition-colors duration-300"
+      className="group p-6 md:p-8 border border-border-subtle bg-bg-secondary/50 hover:bg-bg-secondary hover:border-accent-lime/30 transition-colors duration-300"
     >
       {/* Category label */}
       <h3 className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-text-tertiary mb-5 md:mb-6">

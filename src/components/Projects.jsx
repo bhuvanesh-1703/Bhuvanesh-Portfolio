@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
@@ -85,11 +85,10 @@ function ProjectGithubLinks({ project, accent, compact = false }) {
           target="_blank"
           rel="noreferrer"
           title="Open live demo"
-          style={{ backgroundColor: compact ? undefined : accent, "--project-accent": accent }}
           className={
             compact
               ? "inline-flex items-center gap-1.5 px-2 py-1 border border-border-subtle font-mono text-[9px] uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-text-tertiary transition-colors"
-              : "inline-flex items-center gap-2 px-4 py-2.5 font-mono text-[10px] uppercase tracking-widest text-white hover:opacity-90 transition-opacity"
+              : "inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-mono text-[10px] uppercase tracking-widest hover:bg-accent-lime hover:text-white transition-colors duration-300"
           }
         >
           <ExternalLink size={compact ? 11 : 15} />
@@ -132,9 +131,9 @@ function BrowserMockup({ image, url, title, accent }) {
 function ProjectCard({ project, index, onSelect, isSelected }) {
   const cardRef = useRef(null);
   const { hoveredSkill } = useHoveredSkill();
-  const accent = project.color || "var(--color-accent-gold)";
-  const visibleTech = project.tech.slice(0, 3);
+  const accent = project.color || "var(--color-accent-lime)";
   const isDimmed = hoveredSkill && !projectUsesSkill(project, hoveredSkill);
+  const isEven = index % 2 === 0;
 
   return (
     <motion.article
@@ -144,135 +143,89 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
       custom={index}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "-100px" }}
       className={`group ${isDimmed ? "opacity-30" : "opacity-100"} transition-opacity duration-500`}
     >
-      <button
-        type="button"
-        onClick={() => onSelect(project, cardRef)}
-        aria-expanded={isSelected}
-        aria-label={`View ${project.title} details`}
-        style={{
-          "--project-accent": accent,
-          boxShadow: isSelected ? `0 0 0 2px ${accent}` : undefined,
-        }}
-        className={`relative w-full text-left overflow-hidden border bg-bg-secondary transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--project-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary ${
-          isSelected
-            ? "border-[color:var(--project-accent)]"
-            : "border-border-subtle hover:border-text-tertiary"
-        }`}
-      >
-        {/* Project screenshot */}
-        <div className="relative aspect-[4/3] overflow-hidden">
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          />
-
-          {/* Accent tint + scrim for readability */}
-          <div
-            className="absolute inset-0 opacity-30 mix-blend-overlay"
-            style={{
-              background: `linear-gradient(160deg, ${accent} 0%, transparent 60%)`,
-            }}
-          />
-          <div className="absolute inset-0 project-cover-grain" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
-
-          {/* Accent top edge */}
-          <div
-            className="absolute inset-x-0 top-0 h-[3px] z-10"
-            style={{ backgroundColor: accent }}
-          />
-
-          {/* Index watermark */}
-          <span
-            className="absolute -right-2 -bottom-4 font-script text-[120px] sm:text-[140px] leading-none text-white/[0.07] select-none pointer-events-none"
-            aria-hidden
-          >
-            {padIndex(index + 1)}
-          </span>
-
-          {/* Top meta + GitHub quick links */}
-          <div className="relative z-10 flex items-start justify-between p-5 sm:p-6">
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/60">
+      <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center`}>
+        
+        {/* Content Side */}
+        <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-text-tertiary">
               {padIndex(index + 1)}
             </span>
-            <div className="flex items-center gap-2">
-              {getProjectGithubLinks(project).map(({ label, url }) => (
-                <a
-                  key={`${label}-${url}`}
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={`${label} on GitHub`}
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-8 h-8 flex items-center justify-center border border-white/25 text-white/80 bg-black/30 backdrop-blur-sm hover:bg-black/50 hover:text-white hover:border-white/40 transition-colors"
-                >
-                  <Github size={14} />
-                </a>
-              ))}
-              {project.featured && (
-                <span className="px-2 py-0.5 border border-white/20 font-mono text-[9px] uppercase tracking-wider text-white/80 bg-black/10">
+            <div className="w-8 h-[1px] bg-border-subtle" />
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent-lime">
+              {project.year}
+            </span>
+            {project.featured && (
+              <>
+                <div className="w-8 h-[1px] bg-border-subtle" />
+                <span className="px-2 py-0.5 border border-accent-lime/30 font-mono text-[9px] uppercase tracking-wider text-accent-lime bg-accent-lime/5">
                   Featured
                 </span>
-              )}
-              <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-white/50">
-                {project.year}
-              </span>
-            </div>
+              </>
+            )}
           </div>
 
-          {/* Title */}
-          <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 pt-16">
-            <h3 className="font-serif text-2xl sm:text-3xl text-white leading-tight tracking-wide mb-2 font-normal">
-              {project.title}
-            </h3>
-            <p className="font-sans text-sm text-white/70 font-light leading-relaxed line-clamp-2">
-              {project.summary}
-            </p>
-          </div>
+          <h3 className="font-serif text-5xl md:text-6xl text-white leading-tight tracking-wide mb-6 font-normal">
+            {project.title}
+          </h3>
+          
+          <p className="font-sans text-lg md:text-xl text-text-secondary font-light leading-relaxed mb-8">
+            {project.summary}
+          </p>
 
-          {/* Hover overlay */}
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors duration-300">
-            <span className="flex items-center gap-2 px-4 py-2 border border-white/30 font-mono text-[10px] uppercase tracking-widest text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 bg-black/20 backdrop-blur-sm">
-              View project
-              <ArrowUpRight size={14} />
-            </span>
-          </div>
-        </div>
-
-        {/* Tech strip + GitHub links */}
-        <div className="border-t border-border-subtle bg-bg-secondary">
-          <div className="flex flex-wrap items-center gap-2 px-5 py-3">
-            {visibleTech.map((t) => (
+          <div className="flex flex-wrap gap-2 mb-10">
+            {project.tech.map((t) => (
               <span
                 key={t}
-                className="px-2 py-0.5 border border-border-subtle font-mono text-[9px] uppercase tracking-wider text-text-tertiary group-hover:border-text-tertiary transition-colors"
+                className="px-3 py-1.5 border border-border-subtle font-mono text-[10px] uppercase tracking-widest text-text-tertiary"
               >
                 {t}
               </span>
             ))}
-            {project.tech.length > 3 && (
-              <span className="font-mono text-[9px] uppercase tracking-wider text-text-tertiary">
-                +{project.tech.length - 3}
-              </span>
-            )}
           </div>
-          <div className="px-5 pb-4 pt-1 border-t border-border-subtle/60">
-            <ProjectGithubLinks project={project} accent={accent} compact />
+
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              type="button"
+              onClick={() => onSelect(project, cardRef)}
+              aria-expanded={isSelected}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-mono text-[10px] uppercase tracking-widest hover:bg-accent-lime hover:text-white transition-colors duration-300"
+            >
+              View Case Study <ArrowUpRight size={16} />
+            </button>
+            <ProjectGithubLinks project={project} accent={accent} compact={false} />
           </div>
         </div>
-      </button>
+
+        {/* Image Side */}
+        <div className="w-full lg:w-1/2 relative">
+          <button
+            type="button"
+            onClick={() => onSelect(project, cardRef)}
+            className="block w-full relative aspect-[4/3] lg:aspect-square overflow-hidden bg-bg-secondary border border-border-subtle transition-transform duration-700 hover:scale-[1.02]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 project-cover-grain z-10 pointer-events-none" />
+            <img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-contain p-8 lg:p-12 transition-transform duration-1000 ease-out group-hover:scale-[1.05]"
+            />
+          </button>
+        </div>
+        
+      </div>
     </motion.article>
   );
 }
 
 function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, triggerRef }) {
   const panelRef = useRef(null);
-  const accent = project.color || "var(--color-accent-gold)";
+  const accent = project.color || "var(--color-accent-lime)";
   const liveUrl = project.liveUrl || project.demo;
 
   useEffect(() => {
@@ -291,16 +244,24 @@ function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, tri
   }, [project.id]);
 
   return (
-    <motion.div
-      ref={panelRef}
-      key={project.id}
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 16 }}
-      transition={{ type: "spring", stiffness: 260, damping: 28 }}
-      className="mt-8 md:mt-10 border border-border-subtle bg-bg-secondary overflow-hidden"
-      style={{ borderTopColor: accent, borderTopWidth: 3 }}
-    >
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-auto">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+      />
+      <motion.div
+        ref={panelRef}
+        key={project.id}
+        initial={{ opacity: 0, y: 24, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 16, scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
+        className="relative w-full max-w-6xl max-h-[90vh] border border-border-subtle bg-bg-secondary overflow-y-auto shadow-2xl flex flex-col"
+        style={{ borderTopColor: accent, borderTopWidth: 3 }}
+      >
       {/* Panel toolbar */}
       <div className="flex items-center justify-between gap-4 px-5 sm:px-8 py-4 border-b border-border-subtle bg-bg-primary/50">
         <div className="flex items-center gap-2">
@@ -428,7 +389,8 @@ function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, tri
           </div>
         </div>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -481,7 +443,8 @@ export default function Projects() {
   }, [filter]);
 
   return (
-    <SectionWrapper id="projects" hasBackground={true}>
+    <>
+      <SectionWrapper id="projects" hasBackground={true}>
       {/* Section header */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-12 md:mb-16 mt-12 md:mt-16 relative z-10">
         <motion.div
@@ -546,8 +509,8 @@ export default function Projects() {
                 disabled={count === 0}
                 className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 border font-mono text-[10px] uppercase tracking-widest transition-colors disabled:opacity-30 disabled:pointer-events-none ${
                   isActive
-                    ? "border-accent-gold bg-accent-gold text-white"
-                    : "border-border-subtle text-text-tertiary hover:border-accent-gold hover:text-white bg-bg-secondary"
+                    ? "border-accent-lime bg-accent-lime text-white"
+                    : "border-border-subtle text-text-tertiary hover:border-accent-lime hover:text-white bg-bg-secondary"
                 }`}
               >
                 {tech}
@@ -572,7 +535,7 @@ export default function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5"
+              className="flex flex-col gap-32 pb-16"
             >
               {filteredProjects.map((project, i) => (
                 <ProjectCard
@@ -596,22 +559,23 @@ export default function Projects() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Detail panel — full width below grid */}
-        <AnimatePresence mode="wait">
-          {selectedProject && (
-            <ProjectDetail
-              project={selectedProject}
-              onClose={handleClose}
-              onPrev={handlePrev}
-              onNext={handleNext}
-              hasPrev={selectedIndex > 0}
-              hasNext={selectedIndex < filteredProjects.length - 1}
-              triggerRef={triggerRef}
-            />
-          )}
-        </AnimatePresence>
       </motion.div>
     </SectionWrapper>
+
+    {/* Detail panel — full width below grid */}
+    <AnimatePresence mode="wait">
+      {selectedProject && (
+        <ProjectDetail
+          project={selectedProject}
+          onClose={handleClose}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          hasPrev={selectedIndex > 0}
+          hasNext={selectedIndex < filteredProjects.length - 1}
+          triggerRef={triggerRef}
+        />
+      )}
+    </AnimatePresence>
+  </>
   );
 }

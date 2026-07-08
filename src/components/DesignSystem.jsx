@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 
 // ─── ANIMATION CONFIG ───
 // eslint-disable-next-line react-refresh/only-export-components
@@ -61,11 +61,11 @@ export function SectionHeader({ title, subtitle, align = "left", className = "" 
     >
       <div className={`relative inline-flex flex-col ${align === "center" ? "items-center" : "items-start"}`}>
         {subtitle && (
-          <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-text-secondary mb-6">
+          <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-accent-lime mb-6">
             [ {subtitle} ]
           </span>
         )}
-        <h2 className="font-sans font-bold text-5xl sm:text-7xl md:text-[100px] leading-[0.9] text-text-primary tracking-tighter relative z-10">
+        <h2 className="font-serif font-normal text-5xl sm:text-7xl md:text-[100px] leading-[0.9] text-white tracking-tight relative z-10">
           {title}
         </h2>
       </div>

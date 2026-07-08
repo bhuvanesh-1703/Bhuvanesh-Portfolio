@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+﻿import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, Sparkles } from "lucide-react";
 

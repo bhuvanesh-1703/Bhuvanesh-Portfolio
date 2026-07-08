@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { JOURNEY } from '../data/portfolio';
 import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';
 
@@ -23,7 +23,7 @@ export default function Journey() {
               >
                 {/* Left side: Period and Institution */}
                 <div className="w-full md:w-1/3 flex flex-col gap-2 md:pl-6">
-                  <span className="text-xs font-mono font-bold tracking-widest uppercase text-text-secondary group-hover:text-text-primary transition-colors">
+                  <span className="text-xs font-mono font-bold tracking-widest uppercase text-text-secondary group-hover:text-accent-lime transition-colors">
                     {item.period}
                   </span>
                   <span className="text-text-primary font-sans font-medium text-lg">

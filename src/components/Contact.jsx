@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -147,14 +147,14 @@ export default function Contact() {
           <button
             type="submit"
             disabled={state === 'sending'}
-            className="group relative overflow-hidden rounded-none border border-accent-gold px-8 py-4 mt-4 text-sm font-medium tracking-[0.2em] text-accent-gold uppercase transition-colors duration-300 hover:text-bg-primary disabled:opacity-50"
+            className="group relative overflow-hidden rounded-none border border-accent-lime px-8 py-4 mt-4 text-sm font-medium tracking-[0.2em] text-accent-lime uppercase transition-colors duration-300 hover:text-bg-primary disabled:opacity-50"
           >
-            <div className="absolute inset-0 -translate-y-full bg-accent-gold transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0" />
+            <div className="absolute inset-0 -translate-y-full bg-accent-lime transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0" />
             <span className="relative z-10 flex items-center justify-center gap-3">
               {state === 'sending' ? (
                 <>
                   <motion.div
-                    className="w-4 h-4 border-2 border-accent-gold/30 border-t-accent-gold rounded-full group-hover:border-bg-primary/30 group-hover:border-t-bg-primary"
+                    className="w-4 h-4 border-2 border-accent-lime/30 border-t-accent-lime rounded-full group-hover:border-bg-primary/30 group-hover:border-t-bg-primary"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
                   />

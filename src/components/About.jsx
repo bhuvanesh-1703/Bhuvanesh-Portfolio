@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { ABOUT } from "../data/portfolio";
 import { SectionWrapper, SectionHeader, animationConfig } from "./DesignSystem";
 

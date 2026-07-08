@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+﻿import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   FileText,
@@ -68,7 +68,7 @@ export default function Hero() {
                 <br />
                 experiences <br />
                 with{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-yellow-200 italic font-serif pr-2">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-lime to-yellow-200 italic font-serif pr-2">
                   precision.
                 </span>
               </h1>
@@ -124,7 +124,7 @@ export default function Hero() {
           >
             <div className="relative w-full max-w-md aspect-square rounded-2xl bg-white/[0.02] border border-white/[0.05] p-1 overflow-hidden shadow-2xl">
               {/* Internal abstract glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-accent-gold/10 blur-[80px] rounded-full pointer-events-none" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-accent-lime/10 blur-[80px] rounded-full pointer-events-none" />
 
               <div className="w-full h-full rounded-xl bg-black/40 backdrop-blur-sm border border-white/[0.05] p-6 flex flex-col relative z-10">
                 {/* Mock code editor header */}
@@ -143,26 +143,26 @@ export default function Hero() {
                 <div className="font-mono text-xs leading-loose text-text-secondary flex-1">
                   <p>
                     <span className="text-text-secondary">const</span> developer{" "}
-                    <span className="text-accent-gold">=</span> {"{"}
+                    <span className="text-accent-lime">=</span> {"{"}
                   </p>
                   <p className="pl-4">
-                    name: <span className="text-accent-gold">'Bhuvanesh'</span>,
+                    name: <span className="text-accent-lime">'Bhuvanesh'</span>,
                   </p>
                   <p className="pl-4">
                     role:{" "}
-                    <span className="text-accent-gold">
+                    <span className="text-accent-lime">
                       'Full Stack Engineer'
                     </span>
                     ,
                   </p>
                   <p className="pl-4">
-                    skills: [<span className="text-accent-gold">'React'</span>,{" "}
-                    <span className="text-accent-gold">'Node.js'</span>,{" "}
-                    <span className="text-accent-gold">'Next.js'</span>],
+                    skills: [<span className="text-accent-lime">'React'</span>,{" "}
+                    <span className="text-accent-lime">'Node.js'</span>,{" "}
+                    <span className="text-accent-lime">'Next.js'</span>],
                   </p>
                   <p className="pl-4">
                     passion:{" "}
-                    <span className="text-accent-gold">
+                    <span className="text-accent-lime">
                       'Building scalable experiences'
                     </span>
                   </p>
@@ -170,7 +170,7 @@ export default function Hero() {
                   <br />
                   <p>
                     <span className="text-text-secondary">await</span> developer.
-                    <span className="text-accent-gold">build</span>();
+                    <span className="text-accent-lime">build</span>();
                   </p>
                 </div>
 

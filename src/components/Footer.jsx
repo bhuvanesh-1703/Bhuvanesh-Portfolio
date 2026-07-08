@@ -1,4 +1,4 @@
-import { Code, Heart } from 'lucide-react';
+﻿import { Code, Heart } from 'lucide-react';
 import { NAV_LINKS, CONTACT } from '../data/portfolio';
 import { Github, Linkedin, Mail } from './Icons';
 import { scrollToElement } from '../utils';
@@ -26,7 +26,7 @@ export default function Footer() {
             <a
               href="#"
               onClick={(e) => handleNav(e, '#')}
-              className="font-serif text-3xl font-normal tracking-wide text-text-primary transition-colors hover:text-accent-gold"
+              className="font-serif text-3xl font-normal tracking-wide text-text-primary transition-colors hover:text-accent-lime"
             >
               Bhuvanesh.
             </a>

@@ -1,13 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, FileText } from "lucide-react";
 import { NAV_LINKS, HERO } from "../data/portfolio";
 import { Github, Sparrow } from "./Icons";
 import { scrollToElement } from "../utils";
+import JarvisModal from "./JarvisModal";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isJarvisOpen, setIsJarvisOpen] = useState(false);
   const [active, setActive] = useState("");
   const observerRef = useRef(null);
 
@@ -77,7 +79,7 @@ export default function Navbar() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="font-serif text-2xl md:text-3xl tracking-wide text-text-primary transition-all duration-300 hover:text-accent-gold"
+            className="font-serif text-2xl md:text-3xl tracking-wide text-text-primary transition-all duration-300 hover:text-accent-lime"
           >
             Bhuvanesh.
           </a>
@@ -101,15 +103,13 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden md:flex items-center gap-4">
-            <a
-              href={HERO.social.github}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-text-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
+            <button
+              onClick={() => setIsJarvisOpen(true)}
+              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-accent-lime hover:text-accent-lime font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
             >
               JARVIS
               <Sparrow size={12} className="transition-transform group-hover:scale-110" />
-            </a>
+            </button>
             <a
               href={HERO.resume.href}
               target="_blank"
@@ -180,6 +180,9 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Jarvis Modal */}
+      <JarvisModal isOpen={isJarvisOpen} onClose={() => setIsJarvisOpen(false)} />
     </>
   );
 }

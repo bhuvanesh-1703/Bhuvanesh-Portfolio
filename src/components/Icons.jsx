@@ -1,4 +1,4 @@
-export function Github({ size = 20, className = "", ...props }) {
+﻿export function Github({ size = 20, className = "", ...props }) {
   return (
     <svg
       width={size}
