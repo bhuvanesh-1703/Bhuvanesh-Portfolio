@@ -110,6 +110,16 @@ body::before {
   }
 }
 
+/* Disable grain overlay on mobile for performance */
+@media (max-width: 768px) {
+  body::before {
+    display: none;
+  }
+  .project-cover-grain::after {
+    display: none;
+  }
+}
+
 @keyframes shimmer {
   100% {
     transform: translateX(100%);

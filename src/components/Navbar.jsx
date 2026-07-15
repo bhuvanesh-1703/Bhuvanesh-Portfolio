@@ -1,15 +1,13 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, FileText } from "lucide-react";
+import { Menu, X, FileText, Sparkles } from "lucide-react";
 import { NAV_LINKS, HERO } from "../data/portfolio";
-import { Github, Sparrow } from "./Icons";
+import { Github } from "./Icons";
 import { scrollToElement } from "../utils";
-import JarvisModal from "./JarvisModal";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isJarvisOpen, setIsJarvisOpen] = useState(false);
   const [active, setActive] = useState("");
   const observerRef = useRef(null);
 
@@ -59,6 +57,10 @@ export default function Navbar() {
     scrollToElement(href);
   };
 
+  const openChat = () => {
+    window.dispatchEvent(new Event("open-chat"));
+  };
+
   return (
     <>
       <motion.header
@@ -90,10 +92,10 @@ export default function Navbar() {
               <li key={link.href}>
                 <button
                   onClick={() => handleNav(link.href)}
-                  className={`font-mono text-xs tracking-widest uppercase transition-colors duration-300 ${
+                  className={`font-mono text-xs lg:text-sm tracking-widest uppercase transition-colors duration-300 ${
                     active === link.href
-                      ? "text-text-primary font-bold"
-                      : "text-text-secondary hover:text-text-primary"
+                      ? "text-white font-bold"
+                      : "text-text-secondary hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -104,17 +106,17 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={() => setIsJarvisOpen(true)}
-              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-accent-lime hover:text-accent-lime font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
+              onClick={openChat}
+              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-[#e07a5f] hover:text-[#e07a5f] font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
             >
-              JARVIS
-              <Sparrow size={12} className="transition-transform group-hover:scale-110" />
+              Ask AI
+              <Sparkles size={12} className="transition-transform group-hover:scale-110" />
             </button>
             <a
               href={HERO.resume.href}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-secondary hover:text-text-primary hover:border-text-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
+              className="group inline-flex items-center gap-2 px-4 py-2 bg-text-primary text-bg-primary hover:bg-accent-lime hover:text-bg-primary font-mono text-[10px] uppercase tracking-widest transition-colors duration-300"
             >
               Resume
               <FileText size={12} className="transition-transform group-hover:scale-110" />
@@ -124,7 +126,7 @@ export default function Navbar() {
           {/* Mobile menu toggle */}
           <div className="flex md:hidden items-center">
             <button
-              className="text-text-primary transition-colors"
+              className="text-text-primary transition-colors p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -143,26 +145,37 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="fixed inset-x-0 top-[72px] z-40 bg-bg-primary/95 backdrop-blur-md border-b border-border-subtle overflow-hidden md:hidden"
           >
-            <ul className="flex flex-col py-8 px-6 gap-6">
+            <ul className="flex flex-col py-8 px-6 gap-4">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNav(link.href)}
-                    className="font-sans text-4xl font-bold tracking-tight text-text-primary transition-colors"
+                    className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-text-primary transition-colors min-h-[48px] flex items-center"
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
               <li>
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    openChat();
+                  }}
+                  className="inline-flex items-center gap-3 font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#e07a5f] transition-colors min-h-[48px]"
+                >
+                  Ask AI <Sparkles size={24} />
+                </button>
+              </li>
+              <li>
                 <a
                   href={HERO.social.github}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-3 font-sans text-4xl font-bold tracking-tight text-text-primary transition-colors"
+                  className="inline-flex items-center gap-3 font-sans text-3xl sm:text-4xl font-bold tracking-tight text-text-primary transition-colors min-h-[48px]"
                 >
-                  GitHub <Github size={28} />
+                  GitHub <Github size={24} />
                 </a>
               </li>
               <li>
@@ -171,18 +184,15 @@ export default function Navbar() {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-3 font-sans text-4xl font-bold tracking-tight text-[#e07a5f] transition-colors"
+                  className="inline-flex items-center gap-3 font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#e07a5f] transition-colors min-h-[48px]"
                 >
-                  Resume <FileText size={28} />
+                  Resume <FileText size={24} />
                 </a>
               </li>
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Jarvis Modal */}
-      <JarvisModal isOpen={isJarvisOpen} onClose={() => setIsJarvisOpen(false)} />
     </>
   );
 }

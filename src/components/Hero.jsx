@@ -1,10 +1,9 @@
-﻿import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   FileText,
-  Sparkles,
-  Code2,
-  ChevronRight,
+  Mail,
 } from "lucide-react";
 import { HERO } from "../data/portfolio";
 import { animationConfig } from "./DesignSystem";
@@ -12,12 +11,18 @@ import { scrollToElement } from "../utils";
 
 export default function Hero() {
   const { scrollY } = useScroll();
-  const yText = useTransform(scrollY, [0, 1000], [0, 150]);
-  const opacityText = useTransform(scrollY, [0, 500], [1, 0]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const openChat = () => {
-    window.dispatchEvent(new Event("open-chat"));
-  };
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Disable parallax on mobile to avoid jank on mid-range devices
+  const yText = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 150]);
+  const opacityText = useTransform(scrollY, [0, 500], [1, isMobile ? 1 : 0]);
 
   return (
     <section
@@ -36,13 +41,13 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-bg-primary via-transparent to-bg-primary" />
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Side: Typography & CTAs */}
+        <div className="flex flex-col items-start justify-center">
+          {/* Animated content: badge + headline + tagline */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={animationConfig.staggerContainer}
-            className="flex flex-col w-full lg:col-span-7 xl:col-span-7"
+            className="flex flex-col w-full max-w-4xl"
             style={{ y: yText, opacity: opacityText }}
           >
             {/* Version / Status badge */}
@@ -81,121 +86,46 @@ export default function Hero() {
             >
               {HERO.tagline}
             </motion.p>
+          </motion.div>
 
-            {/* Premium CTAs */}
-            <motion.div
-              variants={animationConfig.fadeUp}
-              className="flex flex-wrap items-center gap-4"
+          {/* CTAs — OUTSIDE animation container for instant visibility */}
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              onClick={() => scrollToElement("#projects", 100)}
+              className="group relative px-6 py-3 bg-white text-black rounded-full font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 overflow-hidden"
             >
-              <button
-                onClick={() => scrollToElement("#projects", 100)}
-                className="group relative px-6 py-3 bg-white text-black rounded-full font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <span className="relative z-10">Explore Projects</span>
-                <ArrowRight
-                  size={16}
-                  className="relative z-10 transition-transform group-hover:translate-x-1"
-                />
-              </button>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+              <span className="relative z-10">Explore Projects</span>
+              <ArrowRight
+                size={16}
+                className="relative z-10 transition-transform group-hover:translate-x-1"
+              />
+            </button>
 
-              <a
-                href={HERO.resume.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group px-6 py-3 bg-transparent text-white border border-white/10 rounded-full font-medium text-sm hover:bg-white/5 transition-all active:scale-[0.98] flex items-center gap-2"
-              >
-                <FileText
-                  size={16}
-                  className="text-text-tertiary group-hover:text-white transition-colors"
-                />
-                View Resume
-              </a>
-            </motion.div>
-          </motion.div>
+            <a
+              href={HERO.resume.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group px-6 py-3 bg-transparent text-white border border-white/10 rounded-full font-medium text-sm hover:bg-white/5 transition-all active:scale-[0.98] flex items-center gap-2"
+            >
+              <FileText
+                size={16}
+                className="text-text-tertiary group-hover:text-white transition-colors"
+              />
+              View Resume
+            </a>
 
-          {/* Right Side: Abstract Visual / Code Interface */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden lg:flex lg:col-span-5 xl:col-span-5 justify-end"
-            style={{ y: yText }}
-          >
-            <div className="relative w-full max-w-md aspect-square rounded-2xl bg-white/[0.02] border border-white/[0.05] p-1 overflow-hidden shadow-2xl">
-              {/* Internal abstract glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-accent-lime/10 blur-[80px] rounded-full pointer-events-none" />
-
-              <div className="w-full h-full rounded-xl bg-black/40 backdrop-blur-sm border border-white/[0.05] p-6 flex flex-col relative z-10">
-                {/* Mock code editor header */}
-                <div className="flex items-center justify-between mb-6 border-b border-white/[0.05] pb-4">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-red-500" />
-                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-white/20 transition-colors hover:bg-green-500" />
-                  </div>
-                  <div className="font-mono text-[10px] text-text-tertiary flex items-center gap-2 uppercase tracking-widest">
-                    <Code2 size={12} /> index.js
-                  </div>
-                </div>
-
-                {/* Mock code content */}
-                <div className="font-mono text-xs leading-loose text-text-secondary flex-1">
-                  <p>
-                    <span className="text-text-secondary">const</span> developer{" "}
-                    <span className="text-accent-lime">=</span> {"{"}
-                  </p>
-                  <p className="pl-4">
-                    name: <span className="text-accent-lime">'Bhuvanesh'</span>,
-                  </p>
-                  <p className="pl-4">
-                    role:{" "}
-                    <span className="text-accent-lime">
-                      'Full Stack Engineer'
-                    </span>
-                    ,
-                  </p>
-                  <p className="pl-4">
-                    skills: [<span className="text-accent-lime">'React'</span>,{" "}
-                    <span className="text-accent-lime">'Node.js'</span>,{" "}
-                    <span className="text-accent-lime">'Next.js'</span>],
-                  </p>
-                  <p className="pl-4">
-                    passion:{" "}
-                    <span className="text-accent-lime">
-                      'Building scalable experiences'
-                    </span>
-                  </p>
-                  <p>{"}"};</p>
-                  <br />
-                  <p>
-                    <span className="text-text-secondary">await</span> developer.
-                    <span className="text-accent-lime">build</span>();
-                  </p>
-                </div>
-
-                {/* Integrated AI Trigger */}
-                <button
-                  onClick={openChat}
-                  className="mt-auto w-full group relative flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/20 transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <Sparkles
-                      size={14}
-                      className="text-white/50 group-hover:text-white transition-colors"
-                    />
-                    <span className="font-sans text-xs font-medium text-text-secondary group-hover:text-white transition-colors">
-                      Ask Jarvis AI
-                    </span>
-                  </div>
-                  <ChevronRight
-                    size={14}
-                    className="text-white/30 group-hover:text-white transition-colors group-hover:translate-x-0.5"
-                  />
-                </button>
-              </div>
-            </div>
-          </motion.div>
+            <a
+              href={`mailto:${HERO.social.email.replace("mailto:", "")}`}
+              className="group px-6 py-3 bg-white text-black rounded-full font-medium text-sm hover:bg-[#d4694e] transition-all active:scale-[0.98] flex items-center gap-2"
+            >
+              <Mail
+                size={16}
+                className="transition-transform group-hover:scale-110"
+              />
+              Contact Me
+            </a>
+          </div>
         </div>
       </div>
     </section>

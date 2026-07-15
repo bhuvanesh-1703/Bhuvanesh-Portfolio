@@ -1,10 +1,10 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { JOURNEY } from '../data/portfolio';
 import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';
 
 export default function Journey() {
   return (
-    <SectionWrapper id="journey" hasBackground={true}>
+    <SectionWrapper id="journey" hasBackground={false}>
       <SectionHeader title="TRAJECTORY" subtitle="Learning Journey" />
 
       <div className="relative z-10 w-full mt-16 md:mt-24">

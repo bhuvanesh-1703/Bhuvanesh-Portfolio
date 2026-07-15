@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -8,7 +8,6 @@ import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';
 
 const LINKS = [
   { icon: Mail, label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-  { icon: Phone, label: 'Phone', value: CONTACT.phone, href: `tel:${CONTACT.phone}` },
   { icon: Github, label: 'GitHub', value: CONTACT.github.replace('https://', ''), href: CONTACT.github },
   { icon: Linkedin, label: 'LinkedIn', value: CONTACT.linkedin.replace('https://', ''), href: CONTACT.linkedin },
 ];
@@ -40,7 +39,7 @@ export default function Contact() {
     <SectionWrapper id="contact">
       <SectionHeader title="Let's Talk" subtitle="Contact" />
 
-      <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-start relative z-10 mt-12">
+      <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start relative z-10 mt-8">
         {/* Left Side: Contact Information */}
         <div>
           <motion.p
@@ -48,7 +47,7 @@ export default function Contact() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-text-secondary text-lg sm:text-xl leading-relaxed mb-16 max-w-md font-light"
+            className="text-text-secondary text-base sm:text-lg leading-relaxed mb-10 max-w-md font-light"
           >
             I am actively open to full-time roles, projects, and collaboration opportunities. Whether you have a specific role in mind, need a developer, or just want to say hi — feel free to drop a message.
           </motion.p>
@@ -85,7 +84,7 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true }}
           onSubmit={handleSubmit}
-          className="p-8 sm:p-12 border border-border-subtle bg-bg-secondary flex flex-col gap-8 shadow-2xl shadow-black/5"
+          className="p-6 sm:p-8 border border-border-subtle bg-bg-secondary flex flex-col gap-6 shadow-2xl shadow-black/5"
         >
           <div className="grid sm:grid-cols-2 gap-8">
             <div>

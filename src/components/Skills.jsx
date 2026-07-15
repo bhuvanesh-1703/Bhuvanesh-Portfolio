@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { SKILLS } from "../data/portfolio";
 import { SectionWrapper, animationConfig } from "./DesignSystem";
 import { useHoveredSkill } from "./SkillContext";
@@ -81,7 +81,7 @@ export default function Skills() {
   const totalSkills = SKILLS.reduce((acc, cat) => acc + cat.items.length, 0);
 
   return (
-    <SectionWrapper id="skills" hasBackground={true}>
+    <SectionWrapper id="skills" hasBackground={false}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24 mt-12 md:mt-16 relative z-10">
         <motion.div
@@ -129,6 +129,9 @@ export default function Skills() {
           <CategoryCard key={category.category} category={category} index={i} />
         ))}
       </div>
+
+
     </SectionWrapper>
   );
 }
+

@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
@@ -172,9 +172,18 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
             {project.title}
           </h3>
           
-          <p className="font-sans text-lg md:text-xl text-text-secondary font-light leading-relaxed mb-8">
+          <p className="font-sans text-lg md:text-xl text-text-secondary font-light leading-relaxed mb-6">
             {project.summary}
           </p>
+
+          {project.impact && (
+            <div className="flex items-start gap-3 mb-8 p-4 bg-bg-secondary/50 border-l-2 border-accent-lime">
+              <span className="font-mono text-xs text-text-tertiary uppercase tracking-widest mt-1 shrink-0">Impact</span>
+              <p className="font-sans text-sm md:text-base text-text-primary leading-relaxed">
+                {project.impact}
+              </p>
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-2 mb-10">
             {project.tech.map((t) => (
@@ -211,7 +220,7 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
             <div className="absolute inset-0 project-cover-grain z-10 pointer-events-none" />
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} - ${project.summary}`}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-contain p-8 lg:p-12 transition-transform duration-1000 ease-out group-hover:scale-[1.05]"
             />
@@ -340,9 +349,27 @@ function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, tri
             {project.summary}
           </p>
 
-          <p className="font-sans text-sm md:text-[15px] text-text-secondary font-light leading-relaxed mb-8">
-            {project.description}
-          </p>
+          {/* Case Study: Problem → Role/Decisions → Outcome */}
+          <div className="mb-8 space-y-4">
+            {project.problem && (
+              <div className="p-4 bg-bg-primary/50 border-l-2 border-[#e07a5f]">
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#e07a5f] mb-2">Problem</h4>
+                <p className="font-sans text-sm text-text-secondary leading-relaxed">{project.problem}</p>
+              </div>
+            )}
+            {project.roleDecisions && (
+              <div className="p-4 bg-bg-primary/50 border-l-2 border-text-tertiary">
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-tertiary mb-2">My Role & Decisions</h4>
+                <p className="font-sans text-sm text-text-secondary leading-relaxed">{project.roleDecisions}</p>
+              </div>
+            )}
+            {project.outcome && (
+              <div className="p-4 bg-bg-primary/50 border-l-2 border-accent-lime">
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-lime mb-2">Outcome</h4>
+                <p className="font-sans text-sm text-text-primary leading-relaxed">{project.outcome}</p>
+              </div>
+            )}
+          </div>
 
           {project.features?.length > 0 && (
             <div className="mb-8">

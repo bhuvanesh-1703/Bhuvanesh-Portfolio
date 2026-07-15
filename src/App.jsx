@@ -1,4 +1,4 @@
-﻿import ScrollProgress from "./components/ScrollProgress";
+import ScrollProgress from "./components/ScrollProgress";
 import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -8,6 +8,7 @@ import Skills from "./components/Skills";
 import Journey from "./components/Journey";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import AIChatButton from "./components/chat/AIChatButton";
 import { HoveredSkillProvider } from "./components/SkillContext";
 
 
@@ -28,14 +29,14 @@ export default function App() {
         <Hero />
         <About />
         <HoveredSkillProvider>
-          <Projects />
           <Skills />
+          <Projects />
         </HoveredSkillProvider>
         <Journey />
         <Contact />
       </main>
       <Footer />
-
+      <AIChatButton />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Copy, Check } from "lucide-react";
 import { Sparkles } from "lucide-react";
@@ -20,7 +20,7 @@ export default function ChatMessage({ message }) {
     >
       {(isAI || isError) && (
         <div
-          className={`w-6 h-6 rounded-full shrink-0 flex items-center justify-center mt-1 ${isError ? "bg-red-500/20 text-red-500" : "bg-[#e07a5f]/20 text-[#e07a5f]"}`}
+          className={`w-6 h-6 rounded-full shrink-0 flex items-center justify-center mt-1 ${isError ? "bg-red-500/20 text-red-500" : "bg-[#C6FF1A]/20 text-[#C6FF1A]"}`}
         >
           <Sparkles size={12} />
         </div>
@@ -32,7 +32,7 @@ export default function ChatMessage({ message }) {
             ? "bg-bg-secondary border border-border-subtle text-text-primary rounded-tl-none"
             : isError
               ? "bg-red-500/10 border border-red-500/30 text-red-400 rounded-tl-none"
-              : "bg-[#e07a5f]/10 border border-[#e07a5f]/30 text-text-primary rounded-tr-none"
+              : "bg-[#C6FF1A]/10 border border-[#C6FF1A]/30 text-text-primary rounded-tr-none"
         }`}
       >
         {isAI ? (
