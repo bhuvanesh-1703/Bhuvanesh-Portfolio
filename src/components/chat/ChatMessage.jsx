@@ -35,7 +35,7 @@ export default function ChatMessage({ message }) {
               : "bg-[#C6FF1A]/10 border border-[#C6FF1A]/30 text-text-primary rounded-tr-none"
         }`}
       >
-        {isAI ? (
+        {(isAI || isError) ? (
           <div className="prose prose-invert prose-sm max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-li:my-0">
             <ReactMarkdown>{message.content}</ReactMarkdown>
           </div>
