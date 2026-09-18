@@ -1,63 +1,25 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ABOUT } from "../data/portfolio";
-import { SectionWrapper, SectionHeader, animationConfig } from "./DesignSystem";
+import { SectionWrapper } from "./DesignSystem";
 
 export default function About() {
-  return (
-    <SectionWrapper id="about" hasBackground={true}>
-      <SectionHeader title="ABOUT ME" subtitle="Introduction" />
-      
-      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 mt-16">
-        
-        {/* Left Column: Huge typography element */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={animationConfig.fadeUp}
-          className="w-full lg:w-1/2 flex flex-col"
-        >
-          <h3 className="font-serif text-4xl md:text-6xl text-text-primary tracking-wide mb-10 leading-[1.1] font-normal">
-            My core philosophy is <span className="italic text-text-secondary">simplicity and scale.</span>
-          </h3>
-          <p className="font-sans text-lg md:text-xl text-text-secondary leading-relaxed font-light">
-            {ABOUT.intro}
-          </p>
-        </motion.div>
-
-        {/* Right Column: Text block & Grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={animationConfig.staggerContainer}
-          className="w-full lg:w-1/2 flex flex-col pt-2 lg:pt-0"
-        >
-          {ABOUT.paragraphs.map((p, i) => (
-            <motion.p 
-              key={i} 
-              variants={animationConfig.fadeUp} 
-              className="font-sans text-base md:text-lg text-text-secondary leading-relaxed mb-6 font-light"
-            >
-              {p}
-            </motion.p>
-          ))}
-
-          {/* Minimal Stats */}
-          <motion.div 
-            variants={animationConfig.fadeUp}
-            className="grid grid-cols-2 gap-x-8 gap-y-12 mt-12 pt-12 border-t border-border-subtle"
-          >
-            {ABOUT.stats.map(({ value, label }) => (
-              <div key={label} className="flex flex-col gap-2">
-                <span className="font-serif text-6xl md:text-7xl font-normal text-white tracking-tight">{value}</span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-secondary">{label}</span>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-        
+  return <SectionWrapper id="about" hasBackground={false}>
+    <div className="cinema-section max-w-[1400px] mx-auto pt-20 md:pt-28">
+      <div className="flex items-end justify-between mb-12">
+        <div><span className="cinema-kicker">02 — ABOUT</span><h2 className="cinema-display text-7xl md:text-[10rem] mt-4 text-white">WHO I AM</h2></div>
+        <span className="cinema-kicker hidden md:block">BUILD / LEARN / SHIP</span>
       </div>
-    </SectionWrapper>
-  );
+      <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-12 md:gap-20 py-12 border-t border-white/10">
+        <motion.h3 initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-3xl md:text-5xl leading-tight text-white/90">
+          {ABOUT.intro}
+        </motion.h3>
+        <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-white/50 text-base md:text-lg leading-relaxed">
+          {ABOUT.paragraphs.map((p,i)=><p key={i} className="mb-6">{p}</p>)}
+          <div className="grid grid-cols-2 gap-6 pt-8 border-t border-white/10 mt-8">
+            {ABOUT.stats.map(s=><div key={s.label}><div className="cinema-display text-5xl text-white">{s.value}</div><div className="cinema-kicker mt-2">{s.label}</div></div>)}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </SectionWrapper>;
 }
