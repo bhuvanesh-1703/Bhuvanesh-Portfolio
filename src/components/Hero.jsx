@@ -1,133 +1,59 @@
-import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  ArrowRight,
-  FileText,
-  Mail,
-} from "lucide-react";
+import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
 import { HERO } from "../data/portfolio";
-import { animationConfig } from "./DesignSystem";
 import { scrollToElement } from "../utils";
 
 export default function Hero() {
   const { scrollY } = useScroll();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  // Disable parallax on mobile to avoid jank on mid-range devices
-  const yText = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 150]);
-  const opacityText = useTransform(scrollY, [0, 500], [1, isMobile ? 1 : 0]);
+  const y = useTransform(scrollY, [0, 900], [0, 180]);
+  const opacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   return (
-    <section
-      id="home"
-      className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden pt-32 pb-24 md:pt-40 px-6 sm:px-12 md:px-24 bg-bg-primary"
-    >
-      {/* Subtle Grid Background (Premium Modern touch) */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-          backgroundSize: "4rem 4rem",
-        }}
-      />
-      {/* Soft gradient wash at the top/bottom to fade the grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-bg-primary via-transparent to-bg-primary" />
+    <section id="home" className="relative min-h-[100svh] overflow-hidden px-5 sm:px-10 md:px-16 lg:px-20 flex items-center pt-24">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -right-20 top-20 w-[45vw] h-[45vw] rounded-full bg-[#e34b32]/[.07] blur-[100px]" />
+        <div className="absolute left-[8%] bottom-[8%] w-px h-40 bg-gradient-to-t from-[#e34b32] to-transparent" />
+        <div className="absolute right-[8%] top-28 w-px h-48 bg-gradient-to-b from-white/20 to-transparent" />
+        <div className="absolute inset-0 opacity-[.025]" style={{backgroundImage:"linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)",backgroundSize:"80px 80px"}} />
+      </div>
 
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto">
-        <div className="flex flex-col items-start justify-center">
-          {/* Animated content: badge + headline + tagline */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={animationConfig.staggerContainer}
-            className="flex flex-col w-full max-w-4xl"
-            style={{ y: yText, opacity: opacityText }}
-          >
-            {/* Version / Status badge */}
-            <motion.div variants={animationConfig.fadeUp} className="mb-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.05] shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset]">
-                <span className="relative flex h-1.5 w-1.5 ml-1">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
-                </span>
-                <span className="font-sans text-[11px] tracking-wide text-text-secondary">
-                  Open to new opportunities
-                </span>
-              </div>
-            </motion.div>
+      <motion.div style={{ y, opacity }} className="relative z-10 w-full max-w-[1500px] mx-auto">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="w-10 h-px bg-[#e34b32]" />
+          <span className="cinema-kicker text-white/50">PORTFOLIO / 2026</span>
+        </div>
 
-            {/* Premium Typography */}
-            <motion.div
-              variants={animationConfig.fadeUp}
-              className="flex flex-col gap-4 mb-10"
-            >
-              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[1.05] tracking-tight text-white font-normal">
-                Engineering <span className="italic text-text-secondary">digital</span>{" "}
-                <br />
-                experiences <br />
-                with{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-lime to-yellow-200 italic font-serif pr-2">
-                  precision.
-                </span>
-              </h1>
-            </motion.div>
+        <div className="max-w-[1250px]">
+          <motion.p initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:.15,duration:.7}} className="cinema-kicker mb-5">
+            FULL STACK DEVELOPER · MERN · AI · AUTOMATION
+          </motion.p>
 
-            {/* Description */}
-            <motion.p
-              variants={animationConfig.fadeUp}
-              className="font-sans text-base md:text-lg text-text-tertiary max-w-lg leading-relaxed mb-10"
-            >
-              {HERO.tagline}
+          <motion.h1 initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} transition={{delay:.25,duration:1,ease:[.16,1,.3,1]}} className="cinema-display text-[18vw] sm:text-[16vw] lg:text-[13vw] text-[#f4f1ea]">
+            BHUVANESH
+          </motion.h1>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-7">
+            <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.8}} className="max-w-xl text-base md:text-lg leading-relaxed text-white/55">
+              I build practical web products with React, Node.js, MongoDB and AI — from customer-facing interfaces to automation and real-time systems.
             </motion.p>
-          </motion.div>
 
-          {/* CTAs — OUTSIDE animation container for instant visibility */}
-          <div className="flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => scrollToElement("#projects", 100)}
-              className="group relative px-6 py-3 bg-white text-black rounded-full font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-              <span className="relative z-10">Explore Projects</span>
-              <ArrowRight
-                size={16}
-                className="relative z-10 transition-transform group-hover:translate-x-1"
-              />
-            </button>
-
-            <a
-              href={HERO.resume.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group px-6 py-3 bg-transparent text-white border border-white/10 rounded-full font-medium text-sm hover:bg-white/5 transition-all active:scale-[0.98] flex items-center gap-2"
-            >
-              <FileText
-                size={16}
-                className="text-text-tertiary group-hover:text-white transition-colors"
-              />
-              View Resume
-            </a>
-
-            <a
-              href={`mailto:${HERO.social.email.replace("mailto:", "")}`}
-              className="group px-6 py-3 bg-white text-black rounded-full font-medium text-sm hover:bg-[#d4694e] transition-all active:scale-[0.98] flex items-center gap-2"
-            >
-              <Mail
-                size={16}
-                className="transition-transform group-hover:scale-110"
-              />
-              Contact Me
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => scrollToElement("#projects", 100)} className="group inline-flex items-center gap-3 border border-white/20 px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] hover:border-[#e34b32] hover:bg-[#e34b32] transition-all">
+                View Work <ArrowUpRight size={15} />
+              </button>
+              <a href={HERO.resume.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 border border-white/10 px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/65 hover:text-white hover:border-white/40 transition-all">
+                <FileText size={14} /> Resume
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div className="mt-16 md:mt-24 flex items-center justify-between border-t border-white/10 pt-4">
+          <span className="cinema-kicker">SCROLL TO EXPLORE</span>
+          <ArrowDown size={15} className="text-[#e34b32] animate-bounce" />
+          <span className="cinema-kicker hidden sm:block">RAJAPALAYAM / INDIA</span>
+        </div>
+      </motion.div>
     </section>
   );
 }
