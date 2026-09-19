@@ -10,18 +10,24 @@ const playNotificationSound = () => {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
-    
-    oscillator.type = 'sine';
+
+    oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-    
+    oscillator.frequency.exponentialRampToValueAtTime(
+      300,
+      audioCtx.currentTime + 0.1,
+    );
+
     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
     gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
-    
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioCtx.currentTime + 0.2,
+    );
+
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-    
+
     oscillator.start(audioCtx.currentTime);
     oscillator.stop(audioCtx.currentTime + 0.2);
   } catch {
@@ -46,7 +52,7 @@ export default function AIChatButton() {
         setShowPopup(true);
         setIsAnimating(true);
         playNotificationSound();
-        
+
         hideTimer = setTimeout(() => {
           setShowPopup(false);
           setIsAnimating(false);
@@ -122,9 +128,13 @@ export default function AIChatButton() {
             >
               <div className="flex flex-col gap-2">
                 <p className="font-sans text-sm text-white leading-relaxed">
-                  👋 Welcome!<br/>
-                  Need help exploring my portfolio?<br/>
-                  <span className="text-white/60 text-[11px] mt-1 block">Ask me anything about my projects, skills, or resume.</span>
+                  👋 Welcome!
+                  <br />
+                  Need help exploring my portfolio?
+                  <br />
+                  <span className="text-white/60 text-[11px] mt-1 block">
+                    Ask me anything about my projects, skills, or resume.
+                  </span>
                 </p>
                 <div className="flex gap-2 mt-2">
                   <button
@@ -141,7 +151,7 @@ export default function AIChatButton() {
                   </button>
                 </div>
               </div>
-              
+
               {/* CSS Triangle pointing to the FAB */}
               <div className="absolute -bottom-2 right-5 w-4 h-4 bg-[#0b0b0b] border-b border-r border-white/10 rotate-45" />
             </motion.div>
@@ -151,13 +161,13 @@ export default function AIChatButton() {
         {/* Floating Button */}
         <motion.button
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
-            scale: 1, 
+          animate={{
+            scale: 1,
             opacity: 1,
-            y: isAnimating ? [0, -15, 0] : 0 
+            y: isAnimating ? [0, -15, 0] : 0,
           }}
-          transition={{ 
-            y: { duration: 0.5, ease: "easeOut" }
+          transition={{
+            y: { duration: 0.5, ease: "easeOut" },
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -205,10 +215,13 @@ export default function AIChatButton() {
       </div>
 
       <Suspense fallback={null}>
-        <AIChatWindow isOpen={isOpen} onClose={() => {
-          setIsOpen(false);
-          sessionStorage.setItem("chat_interacted", "true");
-        }} />
+        <AIChatWindow
+          isOpen={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+            sessionStorage.setItem("chat_interacted", "true");
+          }}
+        />
       </Suspense>
     </>
   );

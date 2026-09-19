@@ -34,7 +34,7 @@ export const HERO = {
 
 export const ABOUT = {
   intro:
-    "I'm a Full-Stack Engineer specializing in high-concurrency MERN applications, AI API integrations, and real-time WebSocket systems. From engineering platforms like Farmaura and AI Service to deploying 5+ production web systems, I turn complex technical visions into fast, scalable code.",
+    "I'm a Full Stack Engineer who ships. In the last year I've taken 5 MERN apps from empty repo to live production — including an AI support platform that cut response times by 80% and a real-time chat app holding sub-50ms latency at 100 concurrent connections. I care as much about the Lighthouse score as the pixel.",
   paragraphs: [
     "Specializing in React, Node.js, MongoDB, and Tailwind CSS, I architect seamless interfaces and resilient microservices. I focus on clean state management, modular component design, and optimized database queries for production-grade reliability.",
     "Engineered for performance. Built for scale.",
@@ -204,60 +204,60 @@ export const SKILLS = [
   {
     category: "Frontend Tools",
     items: [
-      { name: "React", level: "strong" },
-      { name: "JavaScript (ES6+)", level: "strong" },
-      { name: "Tailwind CSS", level: "comfortable" },
-      { name: "Bootstrap 5", level: "comfortable" },
-      { name: "HTML5 & CSS3", level: "strong" },
+      { name: "React", level: "strong", tag: "daily driver", tier: "w-full" },
+      { name: "JavaScript (ES6+)", level: "strong", tier: "w-full" },
+      { name: "Tailwind CSS", level: "strong", tag: "shipped in prod", tier: "w-full" },
+      { name: "Bootstrap 5", level: "comfortable", tier: "w-2/3" },
+      { name: "HTML5 & CSS3", level: "strong", tier: "w-full" },
     ],
   },
   {
     category: "Backend Engine",
     items: [
-      { name: "Node.js", level: "strong" },
-      { name: "Express.js", level: "strong" },
-      { name: "REST APIs", level: "strong" },
-      { name: "Socket.io", level: "comfortable" },
-      { name: "JWT & Auth", level: "comfortable" },
-      { name: "Nodemailer", level: "comfortable" },
+      { name: "Node.js", level: "strong", tag: "daily driver", tier: "w-full" },
+      { name: "Express.js", level: "strong", tier: "w-full" },
+      { name: "REST APIs", level: "strong", tier: "w-full" },
+      { name: "Socket.io", level: "comfortable", tag: "shipped in prod", tier: "w-2/3" },
+      { name: "JWT & Auth", level: "comfortable", tier: "w-2/3" },
+      { name: "Nodemailer", level: "comfortable", tier: "w-2/3" },
     ],
   },
   {
     category: "Database & Cloud",
     items: [
-      { name: "MongoDB", level: "strong" },
-      { name: "MySQL", level: "comfortable" },
-      { name: "Render / Vercel Deploy", level: "strong" },
-      { name: "Docker", level: "comfortable" },
+      { name: "MongoDB", level: "strong", tag: "daily driver", tier: "w-full" },
+      { name: "MySQL", level: "comfortable", tier: "w-2/3" },
+      { name: "Render / Vercel Deploy", level: "strong", tier: "w-full" },
+      { name: "Docker", level: "learning", tag: "learning", tier: "w-1/3" },
     ],
   },
   {
     category: "Developer Workflow",
     items: [
-      { name: "Git & GitHub", level: "strong" },
-      { name: "Vite Config", level: "comfortable" },
-      { name: "Postman API client", level: "comfortable" },
-      { name: "npm / package locks", level: "comfortable" },
+      { name: "Git & GitHub", level: "strong", tag: "daily driver", tier: "w-full" },
+      { name: "Vite Config", level: "comfortable", tier: "w-2/3" },
+      { name: "Postman API client", level: "comfortable", tier: "w-2/3" },
+      { name: "npm / package locks", level: "comfortable", tier: "w-2/3" },
     ],
   },
   {
     category: "Deployment Tools",
     items: [
-      { name: "Vercel", level: "strong" },
-      { name: "Netlify", level: "comfortable" },
-      { name: "Render", level: "strong" },
-      { name: "MongoDB Atlas", level: "comfortable" },
+      { name: "Vercel", level: "strong", tag: "production", tier: "w-full" },
+      { name: "Netlify", level: "comfortable", tier: "w-2/3" },
+      { name: "Render", level: "strong", tag: "cloud backend", tier: "w-full" },
+      { name: "MongoDB Atlas", level: "comfortable", tier: "w-2/3" },
     ],
   },
   {
     category: "AI-Assisted Development",
     items: [
-      { name: "ChatGPT", level: "comfortable" },
-      { name: "Gemini", level: "comfortable" },
-      { name: "GitHub Copilot", level: "comfortable" },
-      { name: "Cursor AI", level: "comfortable" },
-      { name: "Claude AI", level: "comfortable" },
-      { name: "DeepSeek", level: "learning" },
+      { name: "ChatGPT", level: "comfortable", tier: "w-2/3" },
+      { name: "Gemini", level: "comfortable", tag: "daily driver", tier: "w-2/3" },
+      { name: "GitHub Copilot", level: "comfortable", tier: "w-2/3" },
+      { name: "Cursor AI", level: "comfortable", tier: "w-2/3" },
+      { name: "Claude AI", level: "comfortable", tier: "w-2/3" },
+      { name: "DeepSeek", level: "learning", tag: "exploring", tier: "w-1/3" },
     ],
   },
 ];

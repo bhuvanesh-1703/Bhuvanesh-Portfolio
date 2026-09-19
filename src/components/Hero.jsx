@@ -800,7 +800,7 @@ export default function Hero() {
 
         {import.meta.env.DEV &&
           !N && (
-            <p className="absolute left-1/2 top-24 z-20 -translate-x-1/2 cinema-kicker text-[#e34b32]">
+            <p className="absolute left-1/2 top-24 z-20 -translate-x-1/2 cinema-kicker text-accent">
               No frames found in
               src/hero-frames/ or
               src/assets/hero-frames/
@@ -822,7 +822,7 @@ export default function Hero() {
               <span className="cinema-kicker flex items-center gap-3">
                 <ArrowDown
                   size={14}
-                  className="animate-bounce text-[#91ff00]"
+                  className="animate-bounce text-accent"
                 />
 
                 SCROLL TO EXPLORE
@@ -858,7 +858,7 @@ export default function Hero() {
                 100
               )
             }
-            className="inline-flex items-center gap-2.5 bg-[#91ff00] px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-black transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-2.5 bg-accent px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[.18em] text-black transition-transform hover:scale-[1.03]"
           >
             View Work
 
@@ -910,7 +910,7 @@ export default function Hero() {
                 scaleX:
                   barScale,
               }}
-              className="h-full w-full origin-left bg-[#91ff00]"
+              className="h-full w-full origin-left bg-accent"
             />
 
           </div>

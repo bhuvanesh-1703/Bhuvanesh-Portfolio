@@ -202,9 +202,9 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
               type="button"
               onClick={() => onSelect(project, cardRef)}
               aria-expanded={isSelected}
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-accent text-black font-mono text-[10px] font-bold uppercase tracking-widest hover:scale-[1.03] transition-transform duration-200 shadow-md shadow-accent/10"
+              className="inline-flex items-center gap-2.5 bg-accent px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[.18em] text-black transition-transform hover:scale-[1.03]"
             >
-              View Case Study <ArrowUpRight size={15} />
+              View Case Study <ArrowUpRight size={14} />
             </button>
             <ProjectGithubLinks project={project} accent={accent} compact={false} />
           </div>
@@ -216,7 +216,7 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
           <button
             type="button"
             onClick={() => onSelect(project, cardRef)}
-            className="block w-full relative aspect-[4/3] lg:aspect-square overflow-hidden bg-bg-secondary border border-border-subtle transition-transform duration-700 hover:scale-[1.02]"
+            className="block w-full relative aspect-[4/3] lg:aspect-square overflow-hidden bg-bg-secondary border border-border-subtle group-hover:border-accent/40 transition-all duration-200 group-hover:scale-[1.02]"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-0 project-cover-grain z-10 pointer-events-none" />
@@ -354,8 +354,8 @@ function ProjectDetail({ project, onClose, onPrev, onNext, hasPrev, hasNext, tri
           {/* Case Study: Problem → Role/Decisions → Outcome */}
           <div className="mb-8 space-y-4">
             {project.problem && (
-              <div className="p-4 bg-bg-primary/50 border-l-2 border-[#e07a5f]">
-                <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#e07a5f] mb-2">Problem</h4>
+              <div className="p-4 bg-bg-primary/50 border-l-2 border-accent/80">
+                <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-2">Problem</h4>
                 <p className="font-sans text-sm text-text-secondary leading-relaxed">{project.problem}</p>
               </div>
             )}
@@ -467,9 +467,11 @@ export default function Projects() {
     }
   }, [selectedIndex, filteredProjects]);
 
-  useEffect(() => {
+  // Filter change resets selection
+  const handleFilterChange = useCallback((tech) => {
+    setFilter(tech);
     setSelectedProject(null);
-  }, [filter]);
+  }, []);
 
   return (
     <>
@@ -535,7 +537,7 @@ export default function Projects() {
                 role="tab"
                 aria-pressed={isActive}
                 aria-selected={isActive}
-                onClick={() => setFilter(tech)}
+                onClick={() => handleFilterChange(tech)}
                 disabled={count === 0}
                 className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 border font-mono text-[10px] uppercase tracking-widest transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none ${
                   isActive

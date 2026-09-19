@@ -16,8 +16,7 @@ export default function AIChatWindow({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      content:
-        "👋 Welcome to my portfolio!\n\nI'm Bhuvanesh's AI Assistant.",
+      content: "👋 Welcome to my portfolio!\n\nI'm Bhuvanesh's AI Assistant.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -102,7 +101,9 @@ export default function AIChatWindow({ isOpen, onClose }) {
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#080808] shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center border border-accent/30">
-                <span className="text-accent text-xs font-bold font-mono">AI</span>
+                <span className="text-accent text-xs font-bold font-mono">
+                  AI
+                </span>
               </div>
               <div>
                 <h3 className="font-sans text-sm font-semibold text-white tracking-wide">
@@ -187,7 +188,10 @@ export default function AIChatWindow({ isOpen, onClose }) {
 
           {/* Input */}
           <div className="p-3 border-t border-white/10 bg-[#080808] shrink-0">
-            <form onSubmit={handleSubmit} className="relative flex items-center">
+            <form
+              onSubmit={handleSubmit}
+              className="relative flex items-center"
+            >
               <input
                 ref={inputRef}
                 type="text"

@@ -74,10 +74,11 @@ export default function Navbar() {
 
     window.addEventListener("keydown", onKeyDown);
     menuRef.current?.querySelector("button, a")?.focus();
+    const toggleEl = toggleRef.current;
 
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      toggleRef.current?.focus();
+      toggleEl?.focus();
     };
   }, [open]);
 

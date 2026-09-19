@@ -59,7 +59,7 @@ export default function Footer() {
                 aria-label={label}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-center text-white/60 hover:text-accent transition-colors duration-200 focus-visible:outline-none"
+                className="group flex items-center justify-center text-muted hover:text-accent transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
               >
                 <Icon size={18} className="transition-transform duration-200 group-hover:scale-110" />
               </a>
@@ -68,11 +68,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/60 font-mono text-[11px] uppercase tracking-widest">
+        <div className="mt-16 pt-8 border-t border-hairline flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-muted font-mono text-[11px] uppercase tracking-widest">
             © {year} BHUVANESH. ALL RIGHTS RESERVED.
           </p>
-          <p className="text-white/60 font-mono text-[11px] uppercase tracking-widest flex items-center gap-2">
+          <p className="text-muted font-mono text-[11px] uppercase tracking-widest flex items-center gap-2">
             BUILT WITH REACT, VITE &amp; TAILWIND
             <Heart size={11} className="text-accent fill-accent animate-pulse" />
           </p>

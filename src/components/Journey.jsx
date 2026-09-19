@@ -7,11 +7,11 @@ export default function Journey() {
 
   return (
     <SectionWrapper id="journey" hasBackground={false}>
-      <div className="max-w-[1400px] mx-auto py-24 md:py-32 lg:py-40 px-5 sm:px-10 md:px-16 lg:px-20">
+      <div className="cinema-section">
         <div className="flex items-end justify-between mb-16">
           <div>
             <span className="cinema-kicker text-accent">04 — JOURNEY</span>
-            <h2 className="cinema-display text-6xl sm:text-7xl md:text-9xl mt-4 text-white font-display tracking-wide">
+            <h2 className="cinema-display text-5xl sm:text-6xl md:text-8xl mt-4 text-white font-display tracking-wide">
               THE PATH
             </h2>
           </div>
@@ -31,7 +31,11 @@ export default function Journey() {
                   initial: { opacity: 0, y: 24 },
                   whileInView: { opacity: 1, y: 0 },
                   viewport: { once: true, margin: "-80px" },
-                  transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+                  transition: {
+                    duration: 0.6,
+                    delay: i * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
                 };
 
             return (

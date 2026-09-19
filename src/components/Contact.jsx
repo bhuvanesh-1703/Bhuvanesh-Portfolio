@@ -47,7 +47,7 @@ export default function Contact() {
 
   return (
     <SectionWrapper id="contact">
-      <div className="max-w-[1400px] mx-auto py-24 md:py-32 lg:py-40 px-5 sm:px-10 md:px-16 lg:px-20">
+      <div className="cinema-section">
         <SectionHeader title="LET'S TALK" subtitle="05 — CONTACT" />
 
         <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start relative z-10 mt-12">

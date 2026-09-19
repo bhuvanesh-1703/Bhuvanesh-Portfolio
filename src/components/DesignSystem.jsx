@@ -1,33 +1,33 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 // ─── ANIMATION CONFIG ───
 // eslint-disable-next-line react-refresh/only-export-components
 export const animationConfig = {
   easing: {
-    smooth: [0.16, 1, 0.3, 1],
+    smooth: [0.22, 1, 0.36, 1],
     springy: { type: "spring", stiffness: 120, damping: 20 },
   },
   staggerContainer: {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.1 },
     },
   },
   fadeUp: {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 24 },
     visible: (i = 0) => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-        delay: i * 0.1,
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: i * 0.08,
       },
     }),
   },
   slideLeft: {
-    hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+    hidden: { opacity: 0, x: 24 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
   },
   hoverLift: {
     y: -4,
@@ -40,11 +40,11 @@ export function SectionWrapper({ children, id, className = "", hasBackground = f
   return (
     <section
       id={id}
-      className={`relative py-32 md:py-48 overflow-hidden transition-colors duration-300 ${
+      className={`relative py-24 md:py-32 lg:py-40 overflow-hidden transition-colors duration-300 ${
         hasBackground ? "bg-bg-secondary border-y border-border-subtle" : ""
       } ${className}`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-24">{children}</div>
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 md:px-16 lg:px-20">{children}</div>
     </section>
   );
 }
