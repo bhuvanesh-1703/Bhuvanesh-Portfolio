@@ -1,322 +1,303 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, FileText, Mail, ChevronDown } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ArrowDown, ArrowUpRight, FileText, Mail } from "lucide-react";
 import { HERO } from "../data/portfolio";
 import { scrollToElement } from "../utils";
-import { animationConfig } from "./DesignSystem";
 
-// Detect and numerically sort all 192 frame images inside hero image/video_frames_24fps/
-const frameModules = import.meta.glob("../hero image/video_frames_24fps/*.png", {
+/**
+ * Scroll-scrubbed hero.
+ *
+ * The 192 frames live in  src/assets/hero-frames/  (WebP, ~12 MB total).
+ * They're sorted by filename, so frame_000002 comes before frame_000010.
+ * Scrolling drives a smoothed 0 → 1 progress value, and the canvas shows the
+ * matching frame (neighbouring frames cross-fade for sub-frame smoothness).
+ */
+const modules = import.meta.glob("../assets/hero-frames/*.webp", {
   eager: true,
+  query: "?url",
   import: "default",
 });
 
-const framePaths = Object.keys(frameModules)
-  .sort((a, b) =>
-    a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
-  )
-  .map((key) => frameModules[key]);
+const FRAMES = Object.entries(modules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
+const N = FRAMES.length;
 
-export default function Hero() {
-  const containerRef = useRef(null);
-  const canvasRef = useRef(null);
-  const loadedImagesRef = useRef([]);
-  const currentFrameRef = useRef(0);
-  const rafIdRef = useRef(null);
+// Total scroll length of the hero, in viewport heights (1 screen is the pinned view).
+const SCROLL_VH = 400;
 
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [scrollStarted, setScrollStarted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [currentFrameNum, setCurrentFrameNum] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+// Soft edge (px) used where the frame doesn't reach the screen edge (letterboxing).
+const FEATHER = 72;
 
-  const { scrollY } = useScroll();
-
-  const handleMouseMove = (e) => {
-    if (isMobile) return;
-    const x = Math.round((e.clientX / window.innerWidth) * 100);
-    const y = Math.round((e.clientY / window.innerHeight) * 100);
-    setMousePos({ x, y });
-  };
-
-  // Check screen width & reduced motion preference
-  useEffect(() => {
-    const checkScreen = () => setIsMobile(window.innerWidth < 768);
-    checkScreen();
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleMotionChange = (e) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handleMotionChange);
-    window.addEventListener("resize", checkScreen);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleMotionChange);
-      window.removeEventListener("resize", checkScreen);
-    };
-  }, []);
-
-  // Subtle scroll transforms for Hero content overlay
-  const yText = useTransform(scrollY, [0, 1500], [0, isMobile ? 0 : 60]);
-  const opacityText = useTransform(scrollY, [0, 1200, 1600], [1, 1, 0.5]);
-
-  // High-DPI canvas render maintaining image aspect ratio without distortion
-  const drawFrame = useCallback((frameIndex) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const images = loadedImagesRef.current;
-    let img = images[frameIndex];
-
-    // Fallback to nearest loaded frame during rapid scroll
-    if (!img || !img.complete || img.naturalWidth === 0) {
-      for (let i = 1; i < framePaths.length; i++) {
-        if (frameIndex - i >= 0 && images[frameIndex - i]?.complete) {
-          img = images[frameIndex - i];
-          break;
-        }
-        if (frameIndex + i < framePaths.length && images[frameIndex + i]?.complete) {
-          img = images[frameIndex + i];
-          break;
-        }
+// Load every 16th frame first, then fill the gaps, so scrubbing works almost immediately.
+const LOAD_ORDER = (() => {
+  const seen = new Set();
+  const order = [];
+  for (const step of [16, 8, 4, 2, 1]) {
+    for (let i = 0; i < N; i += step) {
+      if (!seen.has(i)) {
+        seen.add(i);
+        order.push(i);
       }
     }
+  }
+  return order;
+})();
 
-    if (!img || !img.complete || img.naturalWidth === 0) return;
+const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const smoothstep = (v) => {
+  const x = clamp01(v);
+  return x * x * (3 - 2 * x);
+};
 
-    const dpr = window.devicePixelRatio || 1;
-    const displayWidth = canvas.clientWidth;
-    const displayHeight = canvas.clientHeight;
+export default function Hero() {
+  const sectionRef = useRef(null);
+  const canvasRef = useRef(null);
+  const imagesRef = useRef([]);
+  const readyRef = useRef([]);
+  const progressRef = useRef(0);
+  const reduceMotion = useReducedMotion();
+  const [loadedPct, setLoadedPct] = useState(N ? 0 : 100);
 
-    if (canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr) {
-      canvas.width = displayWidth * dpr;
-      canvas.height = displayHeight * dpr;
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // The spring turns choppy wheel/trackpad steps into a smooth glide.
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 28,
+    mass: 0.35,
+    restDelta: 0.0002,
+  });
+
+  /* ---------- canvas rendering ---------- */
+
+  // Closest frame that has actually loaded (covers fast scrolling on slow networks).
+  const nearest = useCallback((index) => {
+    const ready = readyRef.current;
+    for (let d = 0; d < N; d++) {
+      if (ready[index - d]) return imagesRef.current[index - d];
+      if (ready[index + d]) return imagesRef.current[index + d];
     }
-
-    ctx.save();
-    ctx.scale(dpr, dpr);
-    ctx.clearRect(0, 0, displayWidth, displayHeight);
-
-    // Calculate aspect-ratio contain/cover fit without distortion
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = displayWidth / displayHeight;
-
-    let renderW, renderH;
-    if (canvasRatio > imgRatio) {
-      renderW = displayWidth;
-      renderH = displayWidth / imgRatio;
-    } else {
-      renderH = displayHeight;
-      renderW = displayHeight * imgRatio;
-    }
-
-    const offsetX = (displayWidth - renderW) / 2;
-    const offsetY = (displayHeight - renderH) / 2;
-
-    ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-    ctx.restore();
+    return null;
   }, []);
 
-  // Preload frame sequence with high priority on Frame 0
-  useEffect(() => {
-    let isMounted = true;
-    const total = framePaths.length;
-    const imageArray = new Array(total);
-    loadedImagesRef.current = imageArray;
+  const render = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !N) return;
+    const ctx = canvas.getContext("2d");
+    const cw = canvas.width;
+    const ch = canvas.height;
+    if (!cw || !ch) return;
 
-    if (total === 0) return;
+    const p = clamp01(progressRef.current);
+    const pos = p * (N - 1);
+    const a = Math.floor(pos);
+    const t = pos - a;
 
-    // Load first frame immediately
-    const firstImg = new Image();
-    firstImg.src = framePaths[0];
-    firstImg.onload = () => {
-      if (!isMounted) return;
-      imageArray[0] = firstImg;
-      drawFrame(0);
-      setImagesLoaded(true);
+    const imgA = nearest(a);
+    if (!imgA) return;
+    const imgB = t > 0.001 && a + 1 < N ? nearest(a + 1) : null;
+
+    const iw = imgA.naturalWidth;
+    const ih = imgA.naturalHeight;
+    const dpr = cw / (canvas.clientWidth || cw);
+
+    // "contain" always shows the whole frame (needed at the end: the title spans the full width).
+    // On screens narrower than 16:9 the frame starts zoomed-in on the person (only the black
+    // sides are cropped) and pulls back to "contain" as the title lands.
+    const contain = Math.min(cw / iw, ch / ih);
+    const narrower = cw / ch < iw / ih;
+    const focus = narrower ? Math.min(ch / ih, contain * 2.4) : contain;
+    const pull = smoothstep((p - 0.45) / 0.4);
+    const scale = focus + (contain - focus) * pull;
+
+    const w = iw * scale;
+    const h = ih * scale;
+    const x = (cw - w) / 2;
+    const y = (ch - h) / 2;
+
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "#050505";
+    ctx.fillRect(0, 0, cw, ch);
+    ctx.drawImage(imgA, x, y, w, h);
+    if (imgB && imgB !== imgA) {
+      ctx.globalAlpha = t;
+      ctx.drawImage(imgB, x, y, w, h);
+      ctx.globalAlpha = 1;
+    }
+
+    // Feather any frame edge that sits inside the screen so there's never a visible seam.
+    const f = Math.min(FEATHER * dpr, w * 0.06, h * 0.06);
+    const fade = (x0, y0, x1, y1, rx, ry, rw, rh) => {
+      const g = ctx.createLinearGradient(x0, y0, x1, y1);
+      g.addColorStop(0, "rgba(5,5,5,1)");
+      g.addColorStop(1, "rgba(5,5,5,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(rx, ry, rw, rh);
     };
+    if (x > 1) fade(x, 0, x + f, 0, x, y, f, h);
+    if (x + w < cw - 1) fade(x + w, 0, x + w - f, 0, x + w - f, y, f, h);
+    if (y > 1) fade(0, y, 0, y + f, x, y, w, f);
+    if (y + h < ch - 1) fade(0, y + h, 0, y + h - f, x, y + h - f, w, f);
+  }, [nearest]);
 
-    // Preload remaining frames in sequence
-    framePaths.forEach((src, idx) => {
-      if (idx === 0) return;
+  // Preload frames (coarse → fine).
+  useEffect(() => {
+    if (!N) return;
+    let cancelled = false;
+    let done = 0;
+    imagesRef.current = new Array(N);
+    readyRef.current = new Array(N).fill(false);
+
+    LOAD_ORDER.forEach((index) => {
       const img = new Image();
-      img.src = src;
+      img.decoding = "async";
       img.onload = () => {
-        if (!isMounted) return;
-        imageArray[idx] = img;
-        if (currentFrameRef.current === idx) {
-          drawFrame(idx);
-        }
+        if (cancelled) return;
+        imagesRef.current[index] = img;
+        readyRef.current[index] = true;
+        done += 1;
+        if (done % 6 === 0 || done === N) setLoadedPct(Math.round((done / N) * 100));
+        render();
       };
+      img.src = FRAMES[index];
     });
 
     return () => {
-      isMounted = false;
+      cancelled = true;
     };
-  }, [drawFrame]);
+  }, [render]);
 
-  // Scroll mapping to frame sequence using requestAnimationFrame
+  // Keep the canvas sharp and correctly sized.
   useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const updateFrameOnScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const scrollableHeight = rect.height - window.innerHeight;
-      if (scrollableHeight <= 0) return;
-
-      const scrolled = -rect.top;
-    window.addEventListener("resize", handleResize);
-
-    updateFrameOnScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(canvas.clientWidth * dpr);
+      canvas.height = Math.round(canvas.clientHeight * dpr);
+      render();
     };
-  }, [drawFrame, scrollStarted, prefersReducedMotion]);
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+    return () => ro.disconnect();
+  }, [render]);
+
+  // Reduced motion: no scrubbing, just show the finished composition.
+  useEffect(() => {
+    if (reduceMotion) {
+      progressRef.current = 1;
+      render();
+    }
+  }, [reduceMotion, render]);
+
+  useMotionValueEvent(progress, "change", (v) => {
+    if (reduceMotion) return;
+    progressRef.current = v;
+    render();
+  });
+
+  /* ---------- overlay choreography ---------- */
+  const introOpacity = useTransform(progress, [0, 0.05, 0.1], [1, 1, 0]);
+  const ctaOpacity = useTransform(progress, [0.86, 0.94], [0, 1]);
+  const ctaY = useTransform(progress, [0.86, 0.94], [16, 0]);
+  const ctaEvents = useTransform(progress, (v) => (v > 0.88 ? "auto" : "none"));
+  const barScale = useTransform(progress, [0, 1], [0, 1]);
+
+  const ctaStyle = reduceMotion
+    ? { opacity: 1 }
+    : { opacity: ctaOpacity, y: ctaY, pointerEvents: ctaEvents };
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      ref={containerRef}
-      className="relative w-full h-[320vh] bg-bg-primary overflow-x-hidden"
+      style={{ height: reduceMotion ? "100svh" : `${SCROLL_VH}vh` }}
+      className="relative bg-[#050505]"
     >
-      {/* Full viewport sticky container pinned while frame sequence scrolls */}
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden flex flex-col justify-center px-6 sm:px-12 md:px-24">
-        {/* Subtle Grid Background */}
-        <div
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-            backgroundSize: "4rem 4rem",
-          }}
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
+        <h1 className="sr-only">Bhuvanesh — Full Stack Developer (MERN · AI · Automation)</h1>
+
+        <canvas
+          ref={canvasRef}
+          role="img"
+          aria-label="Bhuvanesh walks toward the camera as his name, BHUVANESH, fills the screen"
+          className="absolute inset-0 h-full w-full"
         />
 
-        {/* Cinematic Canvas Frame Sequence Layer */}
-        <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full object-cover transition-opacity duration-700"
-            style={{ opacity: imagesLoaded ? 0.7 : 0 }}
-          />
-        </div>
+        {import.meta.env.DEV && !N && (
+          <p className="absolute top-24 left-1/2 -translate-x-1/2 z-20 cinema-kicker text-[#e34b32]">
+            No frames found in src/assets/hero-frames/
+          </p>
+        )}
 
-        {/* Gradient Scrim Overlay for crisp text legibility */}
-        <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-t from-bg-primary via-bg-primary/50 to-bg-primary/70" />
-
-        {/* Hero Content Layer */}
-        <div className="relative z-10 w-full max-w-[1200px] mx-auto">
-          <div className="flex flex-col items-start justify-center">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={animationConfig.staggerContainer}
-              className="flex flex-col w-full max-w-4xl"
-              style={{ y: yText, opacity: opacityText }}
-            >
-              {/* Status / Role Badge */}
-              <motion.div variants={animationConfig.fadeUp} className="mb-6">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md">
-                  <span className="relative flex h-2 w-2 ml-0.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  <span className="font-mono text-xs tracking-wider uppercase text-text-secondary">
-                    Bhuvanesh • Full-Stack Developer
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Headline */}
-              <motion.div
-                variants={animationConfig.fadeUp}
-                className="flex flex-col gap-3 mb-6"
-              >
-                <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[84px] leading-[1.05] tracking-tight text-white font-normal">
-                  Engineering <span className="italic text-text-secondary">digital</span>{" "}
-                  <br />
-                  experiences <br />
-                  with{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-lime to-yellow-200 italic font-serif pr-2">
-                    precision.
-                  </span>
-                </h1>
-              </motion.div>
-
-              {/* Tagline */}
-              <motion.p
-                variants={animationConfig.fadeUp}
-                className="font-sans text-base md:text-lg text-text-tertiary max-w-xl leading-relaxed mb-8"
-              >
-                {HERO.tagline}
-              </motion.p>
-            </motion.div>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => scrollToElement("#projects", 100)}
-                className="group relative px-6 py-3 bg-white text-black rounded-full font-medium text-sm transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 overflow-hidden shadow-lg shadow-white/10"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <span className="relative z-10">Explore Projects</span>
-                <ArrowRight
-                  size={16}
-                  className="relative z-10 transition-transform group-hover:translate-x-1"
-                />
-              </button>
-
-              <a
-                href={HERO.resume.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group px-6 py-3 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-medium text-sm hover:bg-white/10 transition-all active:scale-[0.98] flex items-center gap-2"
-              >
-                <FileText
-                  size={16}
-                  className="text-text-tertiary group-hover:text-white transition-colors"
-                />
-                View Resume
-              </a>
-
-              <a
-                href={`mailto:${HERO.social.email.replace("mailto:", "")}`}
-                className="group px-6 py-3 bg-transparent text-white border border-white/10 rounded-full font-medium text-sm hover:bg-white/10 transition-all active:scale-[0.98] flex items-center gap-2"
-              >
-                <Mail
-                  size={16}
-                  className="transition-transform group-hover:scale-110"
-                />
-                Contact Me
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Minimal Scroll Indicator */}
-        <div
-          className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 transition-opacity duration-500 pointer-events-none ${
-            scrollStarted ? "opacity-0" : "opacity-80 hover:opacity-100"
-          }`}
-        >
-          <span className="font-mono text-[10px] tracking-[0.25em] text-text-tertiary uppercase">
-            SCROLL TO EXPLORE
-          </span>
+        {/* opening kicker + scroll hint */}
+        {!reduceMotion && (
           <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ opacity: introOpacity }}
+            className="pointer-events-none absolute inset-x-0 bottom-6 z-10 px-5 sm:px-10 md:px-16 lg:px-20"
           >
-            <ChevronDown size={16} className="text-text-secondary" />
+            <div className="mx-auto flex max-w-[1500px] items-center justify-between">
+              <span className="cinema-kicker flex items-center gap-3">
+                <ArrowDown size={14} className="animate-bounce text-[#91ff00]" />
+                SCROLL TO EXPLORE
+              </span>
+              <span className="cinema-kicker hidden sm:block">PORTFOLIO / 2026</span>
+            </div>
           </motion.div>
-        </div>
+        )}
+
+        {/* frame-loading indicator (disappears once everything is cached) */}
+        {loadedPct < 100 && (
+          <span className="cinema-kicker pointer-events-none absolute left-5 top-24 z-10 sm:left-10 md:left-16 lg:left-20">
+            LOADING {loadedPct}%
+          </span>
+        )}
+
+        {/* end-of-sequence actions */}
+        <motion.div
+          style={ctaStyle}
+          className="absolute inset-x-0 bottom-6 z-20 flex flex-wrap justify-center gap-3 px-5 sm:inset-x-auto sm:right-8 sm:justify-end sm:px-0 md:right-12"
+        >
+          <button
+            onClick={() => scrollToElement("#projects", 100)}
+            className="inline-flex items-center gap-2.5 bg-[#91ff00] px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-black transition-transform hover:scale-[1.03]"
+          >
+            View Work <ArrowUpRight size={14} />
+          </button>
+          <a
+            href={HERO.resume.href}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2.5 border border-white/25 bg-black/50 px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/85 backdrop-blur-md transition-all hover:border-white/60 hover:text-white"
+          >
+            <FileText size={14} /> Resume
+          </a>
+          <button
+            onClick={() => scrollToElement("#contact", 100)}
+            className="inline-flex items-center gap-2.5 border border-white/25 bg-black/50 px-5 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/85 backdrop-blur-md transition-all hover:border-white/60 hover:text-white"
+          >
+            <Mail size={14} /> Contact
+          </button>
+        </motion.div>
+
+        {/* scroll progress hairline */}
+        {!reduceMotion && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-white/10">
+            <motion.div style={{ scaleX: barScale }} className="h-full w-full origin-left bg-[#91ff00]" />
+          </div>
+        )}
       </div>
     </section>
   );
