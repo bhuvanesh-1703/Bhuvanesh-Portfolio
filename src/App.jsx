@@ -11,21 +11,19 @@ import Footer from "./components/Footer";
 import AIChatButton from "./components/chat/AIChatButton";
 import { HoveredSkillProvider } from "./components/SkillContext";
 
-
 export default function App() {
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary antialiased overflow-x-hidden">
-      {/* Skip to content — visible only on keyboard focus */}
+    <div className="cinema-page min-h-screen text-text-primary antialiased">
       <a
         href="#projects"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-[#e07a5f] focus:text-white focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-[#e34b32] focus:text-white focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest"
       >
         Skip to content
       </a>
       <ScrollProgress />
       <CustomCursor />
       <Navbar />
-      <main className="relative">
+      <main className="relative z-10">
         <Hero />
         <About />
         <HoveredSkillProvider>

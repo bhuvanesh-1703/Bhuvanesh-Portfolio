@@ -1,50 +1,17 @@
-import { motion } from 'framer-motion';
-import { JOURNEY } from '../data/portfolio';
-import { SectionWrapper, SectionHeader, animationConfig } from './DesignSystem';
+import { motion } from "framer-motion";
+import { JOURNEY } from "../data/portfolio";
+import { SectionWrapper } from "./DesignSystem";
 
 export default function Journey() {
-  return (
-    <SectionWrapper id="journey" hasBackground={false}>
-      <SectionHeader title="TRAJECTORY" subtitle="Learning Journey" />
-
-      <div className="relative z-10 w-full mt-16 md:mt-24">
-        {/* Timeline Layout */}
-        <div className="flex flex-col">
-          {JOURNEY.map((item, index) => {
-            return (
-              <motion.div
-                key={index}
-                variants={animationConfig.fadeUp}
-                custom={index * 0.1}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-60px' }}
-                className="group relative flex flex-col md:flex-row md:items-start gap-6 md:gap-16 border-t border-border-subtle py-12 transition-colors duration-500 hover:bg-bg-secondary"
-              >
-                {/* Left side: Period and Institution */}
-                <div className="w-full md:w-1/3 flex flex-col gap-2 md:pl-6">
-                  <span className="text-xs font-mono font-bold tracking-widest uppercase text-text-secondary group-hover:text-accent-lime transition-colors">
-                    {item.period}
-                  </span>
-                  <span className="text-text-primary font-sans font-medium text-lg">
-                    {item.institution}
-                  </span>
-                </div>
-                
-                {/* Right side: Title and Description */}
-                <div className="w-full md:w-2/3 flex flex-col gap-4 md:pr-6">
-                  <h3 className="text-text-primary font-sans font-bold text-2xl md:text-3xl tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-text-secondary font-sans font-light text-base md:text-lg leading-relaxed max-w-2xl">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+  return <SectionWrapper id="journey" hasBackground={false}>
+    <div className="max-w-[1400px] mx-auto pt-20 md:pt-28">
+      <div className="mb-12"><span className="cinema-kicker">05 — JOURNEY</span><h2 className="cinema-display text-7xl md:text-[10rem] mt-4 text-white">THE PATH</h2></div>
+      <div className="border-t border-white/10">
+        {JOURNEY.map((item,i)=><motion.div key={i} initial={{opacity:0,x:-25}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{delay:i*.07}} className="group grid md:grid-cols-[180px_1fr] gap-6 md:gap-12 py-10 border-b border-white/10 hover:bg-white/[.02] transition-colors">
+          <span className="cinema-kicker text-[#e34b32]">{item.period}</span>
+          <div><h3 className="text-2xl md:text-4xl text-white">{item.title}</h3><p className="mt-3 max-w-3xl text-white/45 leading-relaxed">{item.description}</p><p className="mt-5 cinema-kicker">{item.institution}</p></div>
+        </motion.div>)}
       </div>
-    </SectionWrapper>
-  );
+    </div>
+  </SectionWrapper>;
 }

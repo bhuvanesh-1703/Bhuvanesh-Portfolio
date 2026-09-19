@@ -3,135 +3,48 @@ import { SKILLS } from "../data/portfolio";
 import { SectionWrapper, animationConfig } from "./DesignSystem";
 import { useHoveredSkill } from "./SkillContext";
 
-const LEVEL_DOTS = {
-  strong: [true, true, true],
-  comfortable: [true, true, false],
-  learning: [true, false, false],
-};
-
-const LEVEL_LABELS = {
-  strong: "Shipped in multiple projects",
-  comfortable: "Used in production",
-  learning: "Currently studying",
-};
-
-function ProficiencyDots({ level }) {
-  const dots = LEVEL_DOTS[level] || LEVEL_DOTS.learning;
-  return (
-    <div
-      className="flex items-center gap-1"
-      title={LEVEL_LABELS[level]}
-      aria-label={`Proficiency: ${level}`}
-    >
-      {dots.map((filled, i) => (
-        <span
-          key={i}
-          className={`w-[6px] h-[6px] rounded-full transition-colors ${
-            filled ? "bg-accent-lime" : "bg-border-subtle"
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
-
-function SkillPill({ skill }) {
+function SkillRow({ category, index }) {
   const { setHoveredSkill } = useHoveredSkill();
-
-  return (
-    <span
-      onMouseEnter={() => setHoveredSkill(skill.name)}
-      onMouseLeave={() => setHoveredSkill(null)}
-      className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border-subtle font-mono text-[10px] md:text-[11px] text-text-secondary tracking-wider uppercase transition-all duration-300 hover:border-accent-lime hover:text-white cursor-default select-none"
-    >
-      {skill.name}
-      <ProficiencyDots level={skill.level} />
-    </span>
-  );
-}
-
-function CategoryCard({ category, index }) {
   return (
     <motion.div
-      variants={animationConfig.fadeUp}
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 150, damping: 20 }}
-      className="group p-6 md:p-8 border border-border-subtle bg-bg-secondary/50 hover:bg-bg-secondary hover:border-accent-lime/30 transition-colors duration-300"
+      initial={{opacity:0,y:35}}
+      whileInView={{opacity:1,y:0}}
+      viewport={{once:true,margin:"-80px"}}
+      transition={{duration:.7,delay:index*.06}}
+      className="group grid grid-cols-[80px_1fr] md:grid-cols-[140px_1fr] gap-5 md:gap-10 py-8 border-t border-white/10"
     >
-      {/* Category label */}
-      <h3 className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-text-tertiary mb-5 md:mb-6">
-        {category.category}
-      </h3>
-
-      {/* Skill pills */}
-      <div className="flex flex-wrap gap-2">
-        {category.items.map((skill) => (
-          <SkillPill key={skill.name} skill={skill} />
-        ))}
+      <span className="cinema-kicker text-[#e34b32] pt-1">{String(index+1).padStart(2,"0")}</span>
+      <div>
+        <h3 className="cinema-display text-4xl md:text-6xl lg:text-7xl text-white/90 group-hover:text-[#e34b32] transition-colors duration-500">
+          {category.category}
+        </h3>
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mt-5">
+          {category.items.map((skill) => (
+            <span key={skill.name} onMouseEnter={()=>setHoveredSkill(skill.name)} onMouseLeave={()=>setHoveredSkill(null)} className="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-white/40 hover:text-white transition-colors cursor-default">
+              {skill.name}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
 }
 
 export default function Skills() {
-  const totalSkills = SKILLS.reduce((acc, cat) => acc + cat.items.length, 0);
-
   return (
     <SectionWrapper id="skills" hasBackground={false}>
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24 mt-12 md:mt-16 relative z-10">
-        <motion.div
-          variants={animationConfig.fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-col gap-6"
-        >
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-text-secondary border-b border-border-subtle pb-2 w-fit">
-            — TOOLBOX
-          </span>
-          <h2 className="font-script text-5xl md:text-6xl lg:text-7xl text-text-primary tracking-tight">
-            The stack I reach for.
-          </h2>
-        </motion.div>
-
-        <motion.div
-          variants={animationConfig.fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex items-center gap-6 pb-2"
-        >
-          <span className="font-mono text-[10px] md:text-xs text-text-tertiary uppercase tracking-widest">
-            {totalSkills} disciplines
-          </span>
-          {/* Proficiency legend */}
-          <div className="hidden sm:flex items-center gap-4 border-l border-border-subtle pl-6">
-            {Object.entries(LEVEL_LABELS).map(([level, label]) => (
-              <div key={level} className="flex items-center gap-2">
-                <ProficiencyDots level={level} />
-                <span className="font-mono text-[9px] text-text-tertiary uppercase tracking-wider">
-                  {level}
-                </span>
-              </div>
-            ))}
+      <div className="max-w-[1400px] mx-auto pt-16 md:pt-24">
+        <div className="flex items-end justify-between gap-6 mb-10">
+          <div>
+            <span className="cinema-kicker">03 — TOOLBOX</span>
+            <h2 className="cinema-display text-6xl md:text-8xl mt-4 text-white">MY STACK</h2>
           </div>
-        </motion.div>
+          <span className="cinema-kicker hidden md:block">{SKILLS.reduce((a,c)=>a+c.items.length,0)} TOOLS / SYSTEMS</span>
+        </div>
+        <div>
+          {SKILLS.map((category,index)=><SkillRow key={category.category} category={category} index={index}/>)}
+        </div>
       </div>
-
-      {/* Category Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 relative z-10">
-        {SKILLS.map((category, i) => (
-          <CategoryCard key={category.category} category={category} index={i} />
-        ))}
-      </div>
-
-
     </SectionWrapper>
   );
 }
-
