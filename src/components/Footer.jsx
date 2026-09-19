@@ -1,4 +1,4 @@
-﻿import { Code, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { NAV_LINKS, CONTACT } from '../data/portfolio';
 import { Github, Linkedin, Mail } from './Icons';
 import { scrollToElement } from '../utils';
@@ -18,31 +18,31 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-bg-primary border-t border-border-subtle py-12 md:py-16 transition-colors duration-300">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-24">
+    <footer className="relative bg-[#050505] border-t border-white/10 py-16 transition-colors duration-300">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-10 md:px-16 lg:px-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           {/* Logo */}
           <div className="flex flex-col items-center md:items-start gap-2">
             <a
               href="#"
               onClick={(e) => handleNav(e, '#')}
-              className="font-serif text-3xl font-normal tracking-wide text-text-primary transition-colors hover:text-accent-lime"
+              className="cinema-display text-4xl font-display tracking-wider text-white transition-colors hover:text-accent focus-visible:outline-none"
             >
-              Bhuvanesh.
+              BHUVANESH.
             </a>
-            <span className="text-text-secondary font-mono text-[10px] tracking-widest uppercase">
-              MERN & Frontend Developer
+            <span className="text-white/50 font-mono text-[10px] tracking-widest uppercase">
+              Full-Stack Engineer · MERN &amp; AI
             </span>
           </div>
 
           {/* Navigation Links */}
-          <ul className="flex flex-wrap items-center gap-6 justify-center">
+          <ul className="flex flex-wrap items-center gap-8 justify-center">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={(e) => handleNav(e, link.href)}
-                  className="font-mono text-xs tracking-widest uppercase text-text-secondary hover:text-text-primary transition-colors duration-300"
+                  className="font-mono text-xs tracking-widest uppercase text-white/65 hover:text-accent transition-colors duration-200"
                 >
                   {link.label}
                 </a>
@@ -51,7 +51,7 @@ export default function Footer() {
           </ul>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             {SOCIALS.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
@@ -59,22 +59,22 @@ export default function Footer() {
                 aria-label={label}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors duration-300"
+                className="group flex items-center justify-center text-white/60 hover:text-accent transition-colors duration-200 focus-visible:outline-none"
               >
-                <Icon size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                <Icon size={18} className="transition-transform duration-200 group-hover:scale-110" />
               </a>
             ))}
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 pt-8 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-text-tertiary font-mono text-[10px] uppercase tracking-widest">
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/60 font-mono text-[11px] uppercase tracking-widest">
             © {year} BHUVANESH. ALL RIGHTS RESERVED.
           </p>
-          <p className="text-text-tertiary font-mono text-[10px] uppercase tracking-widest flex items-center gap-2">
-            BUILT WITH REACT, VITE & TAILWIND
-            <Heart size={10} className="text-text-primary fill-text-primary animate-pulse" />
+          <p className="text-white/60 font-mono text-[11px] uppercase tracking-widest flex items-center gap-2">
+            BUILT WITH REACT, VITE &amp; TAILWIND
+            <Heart size={11} className="text-accent fill-accent animate-pulse" />
           </p>
         </div>
       </div>

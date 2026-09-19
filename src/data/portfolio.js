@@ -32,20 +32,19 @@ export const HERO = {
   },
 };
 
-// ABOUT
-
 export const ABOUT = {
   intro:
-    "I'm a Full Stack Engineer dedicated to crafting authentic digital experiences that connect. From eye-catching frontend interfaces to robust backend architectures, I bring technical visions to life with code that inspires and scales.",
+    "I'm a Full-Stack Engineer specializing in high-concurrency MERN applications, AI API integrations, and real-time WebSocket systems. From engineering platforms like Farmaura and AI Service to deploying 5+ production web systems, I turn complex technical visions into fast, scalable code.",
   paragraphs: [
-    "Specializing in the MERN stack, I weave intricate databases and seamless React interfaces into cohesive applications. I thrive in evolving environments, quickly adapting to new trends and frameworks to stay at the cutting edge of web development.",
-    "Let's create something unforgettable together.",
+    "Specializing in React, Node.js, MongoDB, and Tailwind CSS, I architect seamless interfaces and resilient microservices. I focus on clean state management, modular component design, and optimized database queries for production-grade reliability.",
+    "Engineered for performance. Built for scale.",
   ],
   stats: [
     { value: "8+", label: "Projects Built" },
     { value: "5+", label: "Live Deployments" },
   ],
 };
+
 
 // PROJECTS
 

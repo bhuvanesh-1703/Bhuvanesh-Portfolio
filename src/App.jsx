@@ -16,7 +16,8 @@ export default function App() {
     <div className="cinema-page min-h-screen text-text-primary antialiased">
       <a
         href="#projects"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-[#e34b32] focus:text-white focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent focus:text-black focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:font-bold"
+
       >
         Skip to content
       </a>

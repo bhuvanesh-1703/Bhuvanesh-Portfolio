@@ -12,11 +12,9 @@ const playNotificationSound = () => {
     const gainNode = audioCtx.createGain();
     
     oscillator.type = 'sine';
-    // High pitch dropping quickly for a "pop"
     oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
     oscillator.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
     
-    // Volume envelope
     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
     gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
     gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
@@ -26,7 +24,7 @@ const playNotificationSound = () => {
     
     oscillator.start(audioCtx.currentTime);
     oscillator.stop(audioCtx.currentTime + 0.2);
-  } catch (e) {
+  } catch {
     // Ignore audio context or autoplay restriction errors
   }
 };
@@ -42,21 +40,38 @@ export default function AIChatButton() {
     let popupTimer;
     let hideTimer;
 
+    const triggerPopup = () => {
+      const stillNotInteracted = sessionStorage.getItem("chat_interacted");
+      if (!stillNotInteracted && !isOpen && !showPopup) {
+        setShowPopup(true);
+        setIsAnimating(true);
+        playNotificationSound();
+        
+        hideTimer = setTimeout(() => {
+          setShowPopup(false);
+          setIsAnimating(false);
+        }, 8000);
+      }
+    };
+
     if (!hasInteracted) {
-      popupTimer = setTimeout(() => {
-        // Double check in case it changed
-        const stillNotInteracted = sessionStorage.getItem("chat_interacted");
-        if (!stillNotInteracted && !isOpen) {
-          setShowPopup(true);
-          setIsAnimating(true);
-          playNotificationSound();
-          
-          hideTimer = setTimeout(() => {
-            setShowPopup(false);
-            setIsAnimating(false);
-          }, 8000); // auto-hide after 8 seconds
+      // 10 second idle delay so it doesn't compete with Hero scroll animation
+      popupTimer = setTimeout(triggerPopup, 10000);
+
+      // Or trigger after scrolling past Hero section (800px)
+      const onScroll = () => {
+        if (window.scrollY > 800) {
+          triggerPopup();
+          window.removeEventListener("scroll", onScroll);
         }
-      }, 3000); // 3 seconds delay
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", onScroll);
+        clearTimeout(popupTimer);
+        clearTimeout(hideTimer);
+      };
     }
 
     const handleOpenChat = () => {
@@ -73,7 +88,7 @@ export default function AIChatButton() {
       clearTimeout(popupTimer);
       clearTimeout(hideTimer);
     };
-  }, [isOpen]);
+  }, [isOpen, showPopup]);
 
   const toggleChat = () => {
     const nextState = !isOpen;
@@ -103,24 +118,24 @@ export default function AIChatButton() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="mb-4 relative w-[260px] bg-bg-secondary/80 backdrop-blur-md border border-border-subtle shadow-2xl p-4 rounded-[18px]"
+              className="mb-4 relative w-[260px] bg-[#0b0b0b]/90 backdrop-blur-md border border-white/10 shadow-2xl p-4 rounded-[18px]"
             >
               <div className="flex flex-col gap-2">
-                <p className="font-sans text-sm text-text-primary leading-relaxed">
+                <p className="font-sans text-sm text-white leading-relaxed">
                   👋 Welcome!<br/>
                   Need help exploring my portfolio?<br/>
-                  <span className="text-text-secondary text-[11px] mt-1 block">Ask me anything about my projects, skills, or resume.</span>
+                  <span className="text-white/60 text-[11px] mt-1 block">Ask me anything about my projects, skills, or resume.</span>
                 </p>
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={toggleChat}
-                    className="flex-1 bg-[#C6FF1A] text-black text-[11px] font-semibold py-2 rounded-lg hover:bg-[#C6FF1A]/90 transition-colors"
+                    className="flex-1 bg-accent text-black text-[11px] font-bold py-2 rounded-lg hover:bg-accent/90 transition-colors"
                   >
                     Open Chat
                   </button>
                   <button
                     onClick={dismissPopup}
-                    className="flex-1 bg-transparent border border-border-subtle text-text-secondary text-[11px] font-semibold py-2 rounded-lg hover:text-white hover:bg-border-subtle/50 transition-colors"
+                    className="flex-1 bg-transparent border border-white/10 text-white/70 text-[11px] font-semibold py-2 rounded-lg hover:text-white hover:bg-white/10 transition-colors"
                   >
                     Dismiss
                   </button>
@@ -128,7 +143,7 @@ export default function AIChatButton() {
               </div>
               
               {/* CSS Triangle pointing to the FAB */}
-              <div className="absolute -bottom-2 right-5 w-4 h-4 bg-bg-secondary/80 backdrop-blur-md border-b border-r border-border-subtle rotate-45" />
+              <div className="absolute -bottom-2 right-5 w-4 h-4 bg-[#0b0b0b] border-b border-r border-white/10 rotate-45" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -147,17 +162,17 @@ export default function AIChatButton() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={toggleChat}
-          className={`relative w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-colors duration-300 ${
+          className={`relative w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${
             isOpen
-              ? "bg-bg-secondary border border-[#C6FF1A] text-[#C6FF1A]"
-              : "bg-[#C6FF1A] text-black hover:bg-[#C6FF1A]/90"
+              ? "bg-[#0b0b0b] border border-accent text-accent"
+              : "bg-accent text-black hover:scale-105"
           }`}
           aria-label="Toggle AI Assistant"
         >
           {/* Pulse Glow Effect */}
           {isAnimating && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-[#C6FF1A]"
+              className="absolute inset-0 rounded-full border-2 border-accent"
               animate={{ scale: [1, 1.5], opacity: [0.8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
             />

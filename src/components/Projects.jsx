@@ -87,13 +87,14 @@ function ProjectGithubLinks({ project, accent, compact = false }) {
           title="Open live demo"
           className={
             compact
-              ? "inline-flex items-center gap-1.5 px-2 py-1 border border-border-subtle font-mono text-[9px] uppercase tracking-wider text-text-secondary hover:text-text-primary hover:border-text-tertiary transition-colors"
-              : "inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-mono text-[10px] uppercase tracking-widest hover:bg-accent-lime hover:text-white transition-colors duration-300"
+              ? "inline-flex items-center gap-1.5 px-2 py-1 border border-border-subtle font-mono text-[9px] uppercase tracking-wider text-text-secondary hover:text-accent hover:border-accent transition-colors"
+              : "inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-black font-mono text-[10px] font-semibold uppercase tracking-widest hover:scale-[1.02] transition-transform duration-200"
           }
         >
           <ExternalLink size={compact ? 11 : 15} />
           {compact ? "Live" : "Live Demo"}
         </a>
+
       )}
     </div>
   );
@@ -131,7 +132,7 @@ function BrowserMockup({ image, url, title, accent }) {
 function ProjectCard({ project, index, onSelect, isSelected }) {
   const cardRef = useRef(null);
   const { hoveredSkill } = useHoveredSkill();
-  const accent = project.color || "var(--color-accent-lime)";
+  const accent = "#91ff00";
   const isDimmed = hoveredSkill && !projectUsesSkill(project, hoveredSkill);
   const isEven = index % 2 === 0;
 
@@ -155,30 +156,30 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
               {padIndex(index + 1)}
             </span>
             <div className="w-8 h-[1px] bg-border-subtle" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent-lime">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent font-semibold">
               {project.year}
             </span>
             {project.featured && (
               <>
                 <div className="w-8 h-[1px] bg-border-subtle" />
-                <span className="px-2 py-0.5 border border-accent-lime/30 font-mono text-[9px] uppercase tracking-wider text-accent-lime bg-accent-lime/5">
+                <span className="px-2 py-0.5 border border-accent/40 font-mono text-[9px] uppercase tracking-wider text-accent bg-accent/10">
                   Featured
                 </span>
               </>
             )}
           </div>
 
-          <h3 className="font-serif text-5xl md:text-6xl text-white leading-tight tracking-wide mb-6 font-normal">
+          <h3 className="cinema-display text-4xl sm:text-5xl md:text-6xl text-white leading-none tracking-wide mb-6 font-display font-normal">
             {project.title}
           </h3>
           
-          <p className="font-sans text-lg md:text-xl text-text-secondary font-light leading-relaxed mb-6">
+          <p className="font-sans text-base md:text-lg text-white/70 font-light leading-relaxed mb-6">
             {project.summary}
           </p>
 
           {project.impact && (
-            <div className="flex items-start gap-3 mb-8 p-4 bg-bg-secondary/50 border-l-2 border-accent-lime">
-              <span className="font-mono text-xs text-text-tertiary uppercase tracking-widest mt-1 shrink-0">Impact</span>
+            <div className="flex items-start gap-3 mb-8 p-4 bg-bg-secondary/60 border-l-2 border-accent">
+              <span className="font-mono text-xs text-accent uppercase tracking-widest mt-1 shrink-0 font-bold">Impact</span>
               <p className="font-sans text-sm md:text-base text-text-primary leading-relaxed">
                 {project.impact}
               </p>
@@ -189,7 +190,7 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="px-3 py-1.5 border border-border-subtle font-mono text-[10px] uppercase tracking-widest text-text-tertiary"
+                className="px-3 py-1.5 border border-white/10 bg-white/[0.02] font-mono text-[10px] uppercase tracking-widest text-white/70 hover:border-accent hover:text-accent transition-colors"
               >
                 {t}
               </span>
@@ -201,13 +202,14 @@ function ProjectCard({ project, index, onSelect, isSelected }) {
               type="button"
               onClick={() => onSelect(project, cardRef)}
               aria-expanded={isSelected}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-mono text-[10px] uppercase tracking-widest hover:bg-accent-lime hover:text-white transition-colors duration-300"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-accent text-black font-mono text-[10px] font-bold uppercase tracking-widest hover:scale-[1.03] transition-transform duration-200 shadow-md shadow-accent/10"
             >
-              View Case Study <ArrowUpRight size={16} />
+              View Case Study <ArrowUpRight size={15} />
             </button>
             <ProjectGithubLinks project={project} accent={accent} compact={false} />
           </div>
         </div>
+
 
         {/* Image Side */}
         <div className="w-full lg:w-1/2 relative">
@@ -479,18 +481,16 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-col gap-5 max-w-2xl"
+          className="flex flex-col gap-4 max-w-2xl"
         >
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-text-secondary border-b border-border-subtle pb-2 w-fit">
-            — Selected Work
+          <span className="cinema-kicker text-accent border-b border-white/10 pb-2 w-fit">
+            03 — SELECTED WORK
           </span>
-          <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl text-white tracking-wide leading-[1.05] font-normal">
-            Things I&apos;ve built
-            <span className="italic text-text-secondary"> &amp; shipped.</span>
+          <h2 className="cinema-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-wide leading-none font-display font-normal">
+            THINGS I&apos;VE BUILT <span className="text-white/40">&amp; SHIPPED</span>
           </h2>
-          <p className="font-sans text-sm md:text-base text-text-secondary font-light leading-relaxed max-w-lg">
-            Full-stack MERN projects with live deployments — from AI-powered
-            platforms to real-time apps. Click a card to explore the build.
+          <p className="font-sans text-base md:text-lg text-white/70 font-light leading-relaxed max-w-lg">
+            Full-stack MERN applications with live deployments — from AI platforms to high-throughput platforms.
           </p>
         </motion.div>
 
@@ -499,13 +499,13 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-col items-start lg:items-end gap-3 lg:pb-2"
+          className="flex flex-col items-start lg:items-end gap-2 lg:pb-2"
         >
-          <span className="font-mono text-[10px] md:text-xs text-text-tertiary uppercase tracking-widest">
-            {filteredProjects.length} of {PROJECTS.length} projects
+          <span className="cinema-kicker text-white/65">
+            {filteredProjects.length} OF {PROJECTS.length} PROJECTS
           </span>
-          <span className="font-mono text-[10px] text-text-tertiary uppercase tracking-wider">
-            {PROJECTS.filter((p) => p.liveUrl || p.demo).length} live demos
+          <span className="cinema-kicker text-accent">
+            {PROJECTS.filter((p) => p.liveUrl || p.demo).length} LIVE DEMOS
           </span>
         </motion.div>
       </div>
@@ -516,9 +516,9 @@ export default function Projects() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="relative z-10 mb-10 md:mb-12"
+        className="relative z-10 mb-12 md:mb-16"
       >
-        <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin">
+        <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin" role="tablist" aria-label="Filter projects by technology">
           {FILTERS.map((tech) => {
             const count =
               tech === "ALL"
@@ -532,17 +532,22 @@ export default function Projects() {
               <button
                 key={tech}
                 type="button"
+                role="tab"
+                aria-pressed={isActive}
+                aria-selected={isActive}
                 onClick={() => setFilter(tech)}
                 disabled={count === 0}
-                className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 border font-mono text-[10px] uppercase tracking-widest transition-colors disabled:opacity-30 disabled:pointer-events-none ${
+                className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 border font-mono text-[10px] uppercase tracking-widest transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none ${
                   isActive
-                    ? "border-accent-lime bg-accent-lime text-white"
-                    : "border-border-subtle text-text-tertiary hover:border-accent-lime hover:text-white bg-bg-secondary"
+                    ? "border-accent bg-accent text-black font-bold shadow-md shadow-accent/20"
+                    : "border-white/15 text-white/70 hover:border-accent hover:text-accent bg-white/[0.02]"
                 }`}
               >
                 {tech}
                 <span
-                  className={`text-[9px] ${isActive ? "text-white/70" : "text-text-tertiary"}`}
+                  className={`text-[9px] px-1.5 py-0.5 rounded ${
+                    isActive ? "bg-black/20 text-black" : "bg-white/10 text-white/50"
+                  }`}
                 >
                   {count}
                 </span>
@@ -551,6 +556,7 @@ export default function Projects() {
           })}
         </div>
       </motion.div>
+
 
       {/* Project grid */}
       <motion.div layout className="relative z-10">
