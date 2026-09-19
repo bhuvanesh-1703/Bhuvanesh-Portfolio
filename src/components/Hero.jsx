@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, FileText, Mail, ChevronDown } from "lucide-react";
 import { HERO } from "../data/portfolio";
 import { scrollToElement } from "../utils";
+import { animationConfig } from "./DesignSystem";
 
 // Detect and numerically sort all 192 frame images inside hero image/video_frames_24fps/
 const frameModules = import.meta.glob("../hero image/video_frames_24fps/*.png", {
@@ -27,8 +28,17 @@ export default function Hero() {
   const [scrollStarted, setScrollStarted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [currentFrameNum, setCurrentFrameNum] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
   const { scrollY } = useScroll();
+
+  const handleMouseMove = (e) => {
+    if (isMobile) return;
+    const x = Math.round((e.clientX / window.innerWidth) * 100);
+    const y = Math.round((e.clientY / window.innerHeight) * 100);
+    setMousePos({ x, y });
+  };
 
   // Check screen width & reduced motion preference
   useEffect(() => {
@@ -160,40 +170,6 @@ export default function Hero() {
       if (scrollableHeight <= 0) return;
 
       const scrolled = -rect.top;
-      const progress = Math.min(1, Math.max(0, scrolled / scrollableHeight));
-
-      if (progress > 0.02 && !scrollStarted) {
-        setScrollStarted(true);
-      } else if (progress <= 0.02 && scrollStarted) {
-        setScrollStarted(false);
-      }
-
-      const totalFrames = framePaths.length;
-      const targetFrame = Math.min(
-        totalFrames - 1,
-        Math.floor(progress * totalFrames)
-      );
-
-      if (targetFrame !== currentFrameRef.current) {
-        currentFrameRef.current = targetFrame;
-        drawFrame(targetFrame);
-      }
-    };
-
-    const handleScroll = () => {
-      if (!rafIdRef.current) {
-        rafIdRef.current = requestAnimationFrame(() => {
-          updateFrameOnScroll();
-          rafIdRef.current = null;
-        });
-      }
-    };
-
-    const handleResize = () => {
-      drawFrame(currentFrameRef.current);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize);
 
     updateFrameOnScroll();
