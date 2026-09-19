@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, FileText, Mail, ChevronDown } from "lucide-react";
-=======
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
->>>>>>> a728d769d5549e8ef59d12ff33b6ff404518fa4a
 import { HERO } from "../data/portfolio";
 import { scrollToElement } from "../utils";
 
-<<<<<<< HEAD
 // Detect and numerically sort all 192 frame images inside hero image/video_frames_24fps/
 const frameModules = import.meta.glob("../hero image/video_frames_24fps/*.png", {
   eager: true,
